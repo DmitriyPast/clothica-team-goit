@@ -153,7 +153,7 @@ button {
   /* min-width: 320px; */
   max-width: 375px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
 section {
@@ -178,14 +178,15 @@ section {
 }
 
 /* buttons */
-button {
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100px;
+  color: var(--color-neutral-darkest);
 }
 
-button:disabled {
+.btn:disabled {
   opacity: 0.4;
 }
 
@@ -200,6 +201,7 @@ button:disabled {
 }
 .btn-green:active {
   background: var(--color-deco-darkest);
+  color: var(--color-white);
 }
 
 .btn-gray {
@@ -216,31 +218,23 @@ button:disabled {
 }
 
 /* links */
-a {
+.link {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100px;
   height: 24px;
 }
-a:disabled {
+.link:disabled {
   opacity: 0.3;
 }
 
-a.link:hover,
-a.link:focus {
+.link:hover,
+.link:focus {
   border-bottom: 1px solid var(--color-neutral-darkest);
 }
-a.link:active {
+.link:active {
   border-bottom: 1px solid var(--color-deco-darker);
-}
-
-a.icon:hover,
-a.icon:focus {
-  border: 1px solid var(--color-neutral-darkest);
-}
-a.icon:active {
-  border: 1px solid var(--color-deco-darker);
 }
 
 /* inputs */
@@ -258,6 +252,10 @@ textarea {
 input:focus,
 textarea:focus {
   border: 1px solid var(--color-scheme-1-accent);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--opacity-neutral-darkest-60);
 }
 input.error {
   border: 1px solid var(--color-red);

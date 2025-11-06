@@ -7,18 +7,20 @@ import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
 const nunito = Nunito_Sans({
   variable: '--font-nunito',
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '600'],
+  weight: ['400'],
   display: 'swap',
 });
 
@@ -51,7 +53,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <body className={`${inter.variable}`}>
         <TanStackProvider>
           <AuthProvider>
@@ -62,7 +64,9 @@ export default function RootLayout({
             </main>
             <Footer />
           </AuthProvider>
+          <ReactQueryDevtools />
         </TanStackProvider>
+        <Toaster />
       </body>
     </html>
   );

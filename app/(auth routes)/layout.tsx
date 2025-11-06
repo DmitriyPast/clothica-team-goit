@@ -17,5 +17,5 @@ export default function PublicLayout({ children }: Props) {
     setLoading(false);
   }, [router]);
 
-  return <>{loading ? <div>Loading...</div> : children}</>;
+  return <>{loading ? <div>Завантаження...</div> : children}</>;
 }

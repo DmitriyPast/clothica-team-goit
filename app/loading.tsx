@@ -1,4 +1,3 @@
-
 export default function Loading() {
-  return <p>Loading...</p>;
+  return <p>Завантаження...</p>;
 }
