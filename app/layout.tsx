@@ -1,0 +1,69 @@
+import type { Metadata } from 'next';
+import { Inter, Nunito_Sans } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import 'modern-normalize/modern-normalize.css';
+import './globals.css';
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+});
+
+const nunito = Nunito_Sans({
+  variable: '--font-nunito',
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '600'],
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  title: 'Clothica',
+  description: 'Online clothing store',
+  keywords: ['clothing', 'fashion', 'store'],
+  openGraph: {
+    type: 'website',
+    title: 'Clothica',
+    description: 'Online clothing store',
+    // url: 'https://[].vercel.app',
+    siteName: 'Clothica',
+    images: [
+      {
+        url: '',
+        width: 1200,
+        height: 630,
+        alt: 'Clothica - Online clothing store',
+      },
+    ],
+  },
+};
+
+export default function RootLayout({
+  children,
+  modal,
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable}`}>
+        <TanStackProvider>
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              {modal}
+            </main>
+            <Footer />
+          </AuthProvider>
+        </TanStackProvider>
+      </body>
+    </html>
+  );
+}
