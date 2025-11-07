@@ -4,7 +4,7 @@ export type Order = {
   userId: string;
   items: [
     {
-      goodId: string;
+      priductId: string;
       quantity: number;
       size: (typeof SIZES)[number];
     },
