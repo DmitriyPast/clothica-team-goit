@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body className={`${inter.variable}`}>
+      <body className={`${inter.variable} ${nunito.variable}`}>
         <TanStackProvider>
           <AuthProvider>
             <Header />
@@ -65,6 +65,7 @@ export default function RootLayout({
             <Footer />
           </AuthProvider>
           <ReactQueryDevtools />
+          {/*^^DELETE THIS ON PRODUCTION*/}
         </TanStackProvider>
         <Toaster />
       </body>
