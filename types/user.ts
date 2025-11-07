@@ -1,11 +1,18 @@
 export type User = {
-  username: string;
-  email: string;
-  avatar: string;
+  name: string;
+  surName?: string;
+  phone: string;
+  email?: string;
+  avatar?: string;
 };
 
 export type RegisterUser = {
-  email: string;
+  name: string;
+  phone: string;
   password: string;
-  name?: string;
+};
+
+export type LoginUser = {
+  phone: string;
+  password: string;
 };
