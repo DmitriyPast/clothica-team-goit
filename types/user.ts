@@ -4,6 +4,7 @@ export type User = {
   phone: string;
   email?: string;
   avatar?: string;
+  status: 'User' | 'Admin';
 };
 
 export type RegisterUser = {
