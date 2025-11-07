@@ -127,15 +127,6 @@ img {
   --second-family: 'Nunito Sans', sans-serif;
 }
 
-/* set box-sizing etc. for all elements */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 /* global element styles */
 
 /* container */
