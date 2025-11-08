@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import CategoryCard from './CategoryCard';
+import css from './PopularCategories.module.css';
 
 export type Category = {
   id: string | number;
@@ -11,75 +12,65 @@ export type Category = {
   imageUrl: string;
 };
 
-interface CategoriesListProps {
-  categories?: Category[];
-}
+// Статичні категорії
+const categoriesData: Category[] = [
+  { id: 1, title: "Футболки", imageUrl: "/fut.jpg" },
+  { id: 2, title: "Худі та світшоти", imageUrl: "/hudi.jpg" },
+  { id: 3, title: "Джинси та штани", imageUrl: "/trousers.jpg" },
+  { id: 4, title: "Сукні та спідниці", imageUrl: "/dress.jpg" },
+  { id: 5, title: "Куртки та верхній одяг", imageUrl: "/jackets.jpg" },
+  { id: 6, title: "Домашній та спортивний одяг", imageUrl: "/sport.jpg" },
+];
 
-export default function CategoriesList({ categories = [] }: CategoriesListProps) {
-  const [visibleCount, setVisibleCount] = useState(3);
+export default function CategoriesList() {
   const swiperRef = useRef<any>(null);
 
-  const loadMore = (count = 3) => {
-    setVisibleCount(prev => Math.min(prev + count, categories.length));
-  };
-
   const handleNext = () => {
-    if (swiperRef.current) swiperRef.current.slideNext();
-    loadMore(3);
+    swiperRef.current?.slideNext();
   };
 
   const handlePrev = () => {
-    if (swiperRef.current) swiperRef.current.slidePrev();
+    swiperRef.current?.slidePrev();
   };
 
-  const visibleCategories = categories.slice(0, visibleCount);
-  const atStart = swiperRef.current ? swiperRef.current.isBeginning : true;
-  const atEnd = visibleCount >= categories.length;
-
-  if (!categories.length) return <p>Категорії не знайдені</p>;
-
   return (
-    <div className="categories-list-wrapper">
+    <div className={css.categoriesListWrapper}>
+      {/* Стрілки */}
       <button
         type="button"
-        className={`nav-btn prev-btn ${atStart ? 'disabled' : ''}`}
+        className={`${css.navBtn} ${css.prevBtn}`}
         onClick={handlePrev}
-        disabled={atStart}
         aria-label="Попередні категорії"
       >
         ◀
       </button>
       <button
         type="button"
-        className={`nav-btn next-btn ${atEnd ? 'disabled' : ''}`}
+        className={`${css.navBtn} ${css.nextBtn}`}
         onClick={handleNext}
-        disabled={atEnd}
         aria-label="Наступні категорії"
       >
         ▶
       </button>
 
-      <ul className="categories-ul">
-        <Swiper
-          onSwiper={swiper => (swiperRef.current = swiper)}
-          slidesPerView={3}
-          spaceBetween={16}
-          keyboard={{ enabled: true }} // без імпорту Keyboard
-          breakpoints={{
-            375: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1440: { slidesPerView: 3 },
-          }}
-        >
-          {visibleCategories.map(cat => (
-            <SwiperSlide key={cat.id}>
-              <li>
-                <CategoryCard category={cat} />
-              </li>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </ul>
+      {/* Swiper */}
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        slidesPerView={3}
+        spaceBetween={16}
+        keyboard={{ enabled: true }}
+        breakpoints={{
+          375: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1440: { slidesPerView: 3 },
+        }}
+      >
+        {categoriesData.map((cat) => (
+          <SwiperSlide key={cat.id}>
+            <CategoryCard category={cat} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }

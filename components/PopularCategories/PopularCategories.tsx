@@ -1,25 +1,24 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import CategoriesList from '@/components/PopularCategories/CategoriesList';
-import './popular-categories.module.css';
+import css from '@/components/PopularCategories/PopularCategories.module.css';
 import { Category } from '@/components/PopularCategories/CategoriesList'; 
 
 interface PopularCategoriesProps {
-  categories: Category[];
+  categories?: Category[];
 }
 
-export default function PopularCategories({ categories }: PopularCategoriesProps) {
+export default function PopularCategories({ categories= [] }: PopularCategoriesProps) {
   return (
-    <section className="popular-categories">
-      <div className="popular-categories-header">
-        <h2>Популярні категорії</h2>
-        <Link to="/categories" className="all-categories-btn">
-          Всі категорії
-        </Link>
+    <section className={css.popularCategories}>
+      <div className={css.popularCategoriesHeader}>
+        <h2 >Популярні категорії</h2>
+        <Link href="/categories" className={css.allCategoriesBtn}>
+  Всі категорії
+</Link>
       </div>
 
       <CategoriesList
-        categories={categories}
+        
       />
     </section>
   );
