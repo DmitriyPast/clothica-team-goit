@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import CategoryCard from './CategoryCard';
@@ -12,7 +12,6 @@ export type Category = {
   imageUrl: string;
 };
 
-// Статичні категорії
 const categoriesData: Category[] = [
   { id: 1, title: "Футболки", imageUrl: "/fut.jpg" },
   { id: 2, title: "Худі та світшоти", imageUrl: "/hudi.jpg" },
@@ -24,13 +23,30 @@ const categoriesData: Category[] = [
 
 export default function CategoriesList() {
   const swiperRef = useRef<any>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   const handleNext = () => {
-    swiperRef.current?.slideNext();
+    const swiper = swiperRef.current;
+    if (!swiper) return;
+
+    // Прокручуємо на 3 слайди вперед або до кінця
+    const nextIndex = Math.min(swiper.activeIndex + 3, categoriesData.length - 1);
+    swiper.slideTo(nextIndex);
   };
 
   const handlePrev = () => {
-    swiperRef.current?.slidePrev();
+    const swiper = swiperRef.current;
+    if (!swiper) return;
+
+    // Прокручуємо на 3 слайди назад або до початку
+    const prevIndex = Math.max(swiper.activeIndex - 3, 0);
+    swiper.slideTo(prevIndex);
+  };
+
+  const updateNavButtons = (swiper: any) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
   };
 
   return (
@@ -38,24 +54,28 @@ export default function CategoriesList() {
       {/* Стрілки */}
       <button
         type="button"
-        className={`${css.navBtn} ${css.prevBtn}`}
+        className={`${css.navBtn} ${css.prevBtn} ${isBeginning ? css.disabled : ''}`}
         onClick={handlePrev}
-        aria-label="Попередні категорії"
+        disabled={isBeginning}
       >
         ◀
       </button>
+
       <button
         type="button"
-        className={`${css.navBtn} ${css.nextBtn}`}
+        className={`${css.navBtn} ${css.nextBtn} ${isEnd ? css.disabled : ''}`}
         onClick={handleNext}
-        aria-label="Наступні категорії"
+        disabled={isEnd}
       >
         ▶
       </button>
 
-      {/* Swiper */}
       <Swiper
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          updateNavButtons(swiper);
+        }}
+        onSlideChange={(swiper) => updateNavButtons(swiper)}
         slidesPerView={3}
         spaceBetween={16}
         keyboard={{ enabled: true }}

@@ -1,13 +1,8 @@
 import Link from "next/link";
 import CategoriesList from '@/components/PopularCategories/CategoriesList';
 import css from '@/components/PopularCategories/PopularCategories.module.css';
-import { Category } from '@/components/PopularCategories/CategoriesList'; 
 
-interface PopularCategoriesProps {
-  categories?: Category[];
-}
-
-export default function PopularCategories({ categories= [] }: PopularCategoriesProps) {
+export default function PopularCategories() {
   return (
     <section className={css.popularCategories}>
       <div className={css.popularCategoriesHeader}>
@@ -16,10 +11,7 @@ export default function PopularCategories({ categories= [] }: PopularCategoriesP
   Всі категорії
 </Link>
       </div>
-
-      <CategoriesList
-        
-      />
+      <CategoriesList/>
     </section>
   );
 }

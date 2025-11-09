@@ -1,1 +1,1 @@
-export const SIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'];
+export const SIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'] as const;

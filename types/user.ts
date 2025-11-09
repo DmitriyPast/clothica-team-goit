@@ -1,10 +1,14 @@
+import { ROLE } from '@/constants/user_role';
+
 export type User = {
-  name: string;
-  surName?: string;
+  username: string;
+  userSurname?: string;
   phone: string;
   email?: string;
   avatar?: string;
-  status: 'User' | 'Admin';
+  role: typeof ROLE;
+  city?: string;
+  postNumber?: number;
 };
 
 export type RegisterUser = {
