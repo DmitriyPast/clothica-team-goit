@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Categories from '@/components/Categories';
 
 export default function HomePage() {
@@ -7,3 +8,6 @@ export default function HomePage() {
     </main>
   );
 }
+=======
+export default function HomePage() {}
+>>>>>>> 678312613a2e4f11c01c6513e183883ce025434d
