@@ -1,0 +1,226 @@
+/* === Базові стилі === */
+.footer {
+    background-color: #c5e1a5;
+    padding: 48px 20px;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+}
+
+/* === Контейнер === */
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* === Логотип === */
+.logo {
+    width: 84px;
+    height: 36px;
+    margin: 0 auto;
+}
+
+.brand {
+    padding-bottom: 40px;
+}
+
+/* === Меню === */
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.menuTitle {
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 24px;
+}
+
+.footerList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 32px;
+}
+
+.footerItem a {
+    font-size: 12px;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+/* === Підписка === */
+.subscribe {
+    padding-bottom: 44px;
+}
+
+.subTitle {
+    font-size: 14px;
+    font-weight: 600;
+    
+    margin-bottom: 16px;
+}
+
+.text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.form {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    max-width: 560px;
+    padding-top: 24px;
+    flex-direction: row;
+}
+
+.input {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    padding: 8px;
+    width: 100%;
+    height: 40px;
+    background: rgba(255, 255, 255, 0);
+    transition: border 0.3s ease;
+}
+
+.input:focus {
+    border: 1px solid #c5e1a5;
+    outline: none;
+}
+
+.input:valid {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.button {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #c5e1a5;
+    border-radius: 100px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background 0.3s ease, border 0.3s ease;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.button:hover,
+.button:focus {
+    background: #9db484;
+    border: 1px solid #4e5a42;
+}
+
+/* === Низ футера === */
+.footerBottom {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.socialIcons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+    transition: fill 0.3s ease;
+    display: inline-block;
+}
+
+.icon:hover,
+.icon:focus {
+    fill: #3b4331
+    
+}
+
+/* === Tablet: з 768px === */
+@media (min-width: 768px) {
+    .footerContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+        gap: 40px 77px;
+    }
+
+    .brand {
+       
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .subscribe {
+        align-items: flex-start;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 400;
+        padding-bottom: 16px;
+    }
+
+    .form {
+        flex-direction: row;
+        align-items: center;
+        padding-top: 24px;
+    }
+    .footerBottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+  }
+
+  .footerBottom p {
+    margin: 0;
+  }
+
+  .icon {
+      width: 24px;
+      height: 24px;
+  }
+
+  .socialIcons {
+    justify-content: flex-end;
+  }
+}
+@media (min-width: 1440px) {
+.footer {
+        padding: 64px 80px;
+}
+.footerItem a {
+    font-size: 14px;
+}
+
+.text {
+    font-size: 16px;
+}
+}
