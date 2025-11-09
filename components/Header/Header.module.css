@@ -2,7 +2,6 @@
    Header.module.css
    ========================= */
 
-/* --- Основні кольори та типографіка з ТЗ --- */
 :root {
   --header-bg: #d6eac0;
   --header-border: rgba(0, 0, 0, 0.15);
@@ -78,15 +77,12 @@ body {
   text-decoration: underline;
 }
 
-/* Правий блок (кнопки / кошик) */
 .right {
   display: none;
   align-items: center;
   gap: 16px;
-  /* margin-left: auto; */
 }
 
-/* Кнопки */
 .btnLogin,
 .btnRegister,
 .btnCabinet {
@@ -132,6 +128,7 @@ body {
 }
 
 .btnRegister:active {
+  border: 1px solid #c5e1a5;
   background: #3b4331;
   color: #fff;
 }
@@ -152,7 +149,6 @@ body {
   color: #fff;
 }
 
-/* Кошик */
 .cartLink {
   text-decoration: none;
   display: inline-flex;
@@ -197,7 +193,6 @@ body {
   color: #fff;
 }
 
-/* Бургер — лише мобайл */
 .burgerBtn {
   display: inline-flex;
   align-items: center;
@@ -208,7 +203,6 @@ body {
   cursor: pointer;
 }
 
-/* Mobile overlay */
 .mobileOverlay {
   position: fixed;
   inset: 0;
@@ -230,7 +224,6 @@ body {
 }
 
 .mobileClose {
-  /* position: absolute; */
   top: 30px;
   right: 84px;
   background: transparent;
@@ -261,21 +254,13 @@ body {
   box-sizing: border-box;
 }
 
-/* .mobileNav {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  align-items: center;
-  padding: 24px;
-} */
-
 .mobileNav {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 32px;
-  padding-top: 40px; /* від хедера */
-  padding-bottom: 64px; /* до кнопок */
+  padding-top: 40px;
+  padding-bottom: 64px;
 }
 
 .mobileNavLink {
@@ -286,14 +271,6 @@ body {
   color: #000;
 }
 
-/* .mobileAction {
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 100px;
-  background: var(--btn-login-bg);
-  color: var(--text-color);
-} */
-
 .mobileActions {
   display: flex;
   flex-direction: column;
@@ -301,14 +278,6 @@ body {
   gap: 16px;
   padding: 0 20px 64px 20px;
 }
-
-/* .mobileActionPrimary {
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 100px;
-  background: var(--btn-register-bg);
-  color: var(--text-color);
-} */
 
 .mobileActionLogin {
   display: flex;
@@ -336,7 +305,28 @@ body {
   text-decoration: none;
 }
 
-/* Анімація */
+.mobileActionLogin:hover,
+.mobileActionLogin:focus {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.mobileActionLogin:active {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.mobileActionRegister:hover,
+.mobileActionRegister:focus {
+  background: #9db484;
+  border: 1px solid #4e5a42;
+}
+
+.mobileActionRegister:active {
+  background: #3b4331;
+  color: #fff;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -360,7 +350,7 @@ body {
   .btnLogin,
   .btnRegister,
   .btnCabinet {
-    display: none; /* кнопки ховаємо */
+    display: none;
   }
 }
 

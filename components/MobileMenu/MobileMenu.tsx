@@ -1,4 +1,3 @@
-// src/components/Header/MobileMenu.tsx
 import React from 'react';
 import Link from 'next/link';
 import styles from '../Header/Header.module.css';
@@ -23,7 +22,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
-      {/* Header частина в overlay */}
       <div className={styles.mobileHeader}>
         <Link href="/" className={styles.logo}>
           <Icon
@@ -65,7 +63,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         </div>
       </div>
 
-      {/* Навігація */}
       <nav className={styles.mobileNav}>
         {links.map(l => (
           <Link
@@ -79,7 +76,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         ))}
       </nav>
 
-      {/* Кнопки */}
       <div className={styles.mobileActions}>
         {!isAuthenticated ? (
           <>
@@ -100,7 +96,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           </>
         ) : (
           <Link
-            href="/profile"
+            href="/profile" // cabinet
             onClick={onClose}
             className={styles.mobileActionRegister}
           >

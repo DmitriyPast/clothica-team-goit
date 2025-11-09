@@ -14,7 +14,6 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  // Блокуємо скрол коли відкрито мобільне меню
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'auto';
     return () => {
@@ -22,20 +21,15 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
-  // Desktop links (shared)
   const links = [
     { href: '/', label: 'Головна' },
     { href: '/goods', label: 'Товари' },
     { href: '/categories', label: 'Категорії' },
   ];
 
-  // Кнопки праворуч залежать від статусу авторизації
-  // Якщо не авторизований — показуємо Вхід та Реєстрація
-  // Якщо авторизований — показуємо "Кабінет" (button -> веде на /profile)
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        {/* Ліва частина: лого */}
         <Link href="/" className={styles.logo}>
           <Icon
             name="icon-logoc"
@@ -46,7 +40,6 @@ const Header: React.FC = () => {
           />
         </Link>
 
-        {/* Проміжок до навігації (точна відстань реалізована через margin в CSS) */}
         <nav className={styles.nav}>
           {links.map(link => (
             <Link key={link.href} href={link.href} className={styles.navLink}>
@@ -55,9 +48,7 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        {/* Права панель: кнопки та кошик */}
         <div className={styles.right}>
-          {/* Для десктоп/планшет: відображаємо кнопки */}
           {!isAuthenticated ? (
             <>
               <button
@@ -76,13 +67,11 @@ const Header: React.FC = () => {
           ) : (
             <button
               className={styles.btnCabinet}
-              onClick={() => router.push('/profile')}
+              onClick={() => router.push('/profile')} // cabinet
             >
               Кабінет
             </button>
           )}
-
-          {/* Бургер-кнопка для мобільних (відображається через CSS @media) */}
           <div className={styles.mobileMenuBtnCircle}>
             <button
               className={styles.burgerBtn}
@@ -97,8 +86,6 @@ const Header: React.FC = () => {
               />
             </button>
           </div>
-
-          {/* Cart link (SVG всередині кола) */}
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
               <Icon
@@ -112,14 +99,12 @@ const Header: React.FC = () => {
           </Link>
         </div>
       </div>
-
-      {/* Мобільне меню (оверлей). Воно закриває скрол на body через useEffect вище */}
       <MobileMenu
         open={isMobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
         isAuthenticated={isAuthenticated}
         onLogout={() => {
-          // Якщо треба — викликаємо logout з store
+          // якщо авторизований — викликаємо logout з store
           if (isAuthenticated) logout();
           setMobileMenuOpen(false);
         }}
