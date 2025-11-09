@@ -23,7 +23,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   return (
     <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
       <div className={styles.mobileHeader}>
-        <Link href="/" className={styles.logo}>
+        <Link href="/" className={styles.logoLink}>
           <Icon
             name="icon-logoc"
             className={styles.logoIcon}

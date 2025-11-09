@@ -30,7 +30,7 @@ const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
+        <Link href="/" className={styles.logoLink}>
           <Icon
             name="icon-logoc"
             className={styles.logoIcon}
