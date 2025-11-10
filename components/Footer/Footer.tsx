@@ -12,7 +12,7 @@ export default function Footer() {
                 <use href="/logo.svg"></use>
               </svg>
             </a>
-            <div className={css.menuContainer}>
+            <div className={css.footerMenu}>
               <h2 className={css.menu}>Меню</h2>
               <ul className={css.footerList}>
                 <li className={css.footerItem}>
@@ -41,11 +41,10 @@ export default function Footer() {
             <div className={css.inputSubscribe}>
               <form action="" className={css.inputSubscribe}>
                 <input
-                  type="email"
+                  type="mail"
                   placeholder="Введіть ваш email"
                   className={css.input}
                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                  required
                 />
                 <button type="submit" className={css.button}>
                   Підписатися
@@ -65,12 +64,7 @@ export default function Footer() {
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg
-                  className={css.svgIcons}
-                  width="32"
-                  height="32"
-                  aria-hidden="true"
-                >
+                <svg className={css.svgIcons} aria-hidden="true">
                   <use href="/sprite.svg#Facebook"></use>
                 </svg>
               </Link>
@@ -82,12 +76,7 @@ export default function Footer() {
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg
-                  className={css.svgIcons}
-                  width="32"
-                  height="32"
-                  aria-hidden="true"
-                >
+                <svg className={css.svgIcons} aria-hidden="true">
                   <use href="/sprite.svg#Instagram"></use>
                 </svg>
               </Link>
@@ -99,12 +88,7 @@ export default function Footer() {
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg
-                  className={css.svgIcons}
-                  width="32"
-                  height="32"
-                  aria-hidden="true"
-                >
+                <svg className={css.svgIcons} aria-hidden="true">
                   <use href="/sprite.svg#X"></use>
                 </svg>
               </Link>
@@ -116,12 +100,7 @@ export default function Footer() {
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg
-                  className={css.svgIcons}
-                  width="32"
-                  height="32"
-                  aria-hidden="true"
-                >
+                <svg className={css.svgIcons} aria-hidden="true">
                   <use href="/sprite.svg#Youtube"></use>
                 </svg>
               </Link>

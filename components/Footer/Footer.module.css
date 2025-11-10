@@ -18,6 +18,14 @@
   margin-bottom: 40px;
 }
 
+.footerMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 16px; */
+  /* margin-bottom: 32px; */
+}
+
 .menu {
   margin-bottom: 16px;
   font-size: 16px;
@@ -30,7 +38,6 @@
   flex-direction: column;
   align-items: center;
   /* gap: 16px; */
-  margin-bottom: 32px;
 }
 
 .footerLink {
@@ -74,6 +81,11 @@
   outline: none;
   background: rgba(255, 255, 255, 0);
   color: #000;
+}
+
+.input:focus,
+.input:hover {
+  border: 1px solid #3b4331;
 }
 
 .input::placeholder {
@@ -144,10 +156,19 @@
   /* width: 44px; */
   padding: 6px;
 }
-
+.svgIcons {
+  width: 32px;
+  height: 32px;
+}
 @media screen and (max-width: 767px) {
-  .menuContainer {
+  /* .menuContainer {
     text-align: center;
+  } */
+
+  .footerMenu {
+    align-items: center;
+    /* gap: 16px; */
+    margin-bottom: 32px;
   }
 }
 
@@ -168,14 +189,18 @@
     gap: 40px;
   }
 
-  .menu {
-    font-size: 14px;
+  .footerMenu {
+    align-items: flex-start;
+  }
+
+  .footerList {
+    align-items: flex-start;
   }
 
   .footerItem {
-    font-size: 12px;
+    /* font-size: 12px; */
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    height: 34px;
+    /* height: 34px; */
   }
 
   .footerItem:hover,
@@ -183,8 +208,63 @@
     color: #3b4331;
   }
 
-  .footerList {
-    align-items: flex-start;
+  .input {
+    max-width: 273px;
+    /* height: 37px; */
+    transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    /* font-size: 14px; */
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background 250ms cubic-bezier(0.4, 0, 0.2, 1),
+      color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .rights {
+    margin: 0;
+  }
+
+  .footerSocials {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .socialItem {
+    display: flex;
+    align-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  .socialLinks {
+    /* width: 44px; */
+    padding: 0;
+  }
+
+  .svgIcons {
+    width: 24px;
+    height: 24px;
+  }
+
+  .svgIcons:hover,
+  .svgIcons:focus {
+    border: 1px solid #000;
+    border-radius: 100px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .menu {
+    font-size: 14px;
+  }
+
+  .footerItem {
+    font-size: 12px;
+    height: 34px;
   }
 
   .subscribe {
@@ -198,7 +278,6 @@
   .input {
     max-width: 273px;
     height: 37px;
-    transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 14px;
   }
 
@@ -206,37 +285,15 @@
     font-size: 14px;
   }
 
-  .input:focus,
-  .input:hover {
-    /* border: 1px solid #3b4331; */
-  }
-
   .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     max-width: 111px;
     height: 33px;
-    transition:
-      background 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      color 250ms cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 14px;
   }
 
   .rights {
     font-size: 12px;
     margin: 0;
-  }
-
-  .footerSocials {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .svgIcons:hover,
-  .svgIcons:focus {
-    border: 1px solid #000;
-    border-radius: 100px;
   }
 }
 
@@ -250,35 +307,11 @@
   }
 
   .linksContainer {
-    gap: 322px;
-  }
-
-  .menu {
-    font-size: 16px;
-  }
-
-  .footerItem {
-    font-size: 14px;
-  }
-
-  .footerList {
-    align-items: flex-start;
-  }
-
-  .subscribe {
-    font-size: 16px;
-  }
-
-  .text {
-    font-size: 16px;
+    gap: 328px;
   }
 
   .input {
     width: 260px;
-  }
-
-  .input::placeholder {
-    font-size: 16px;
   }
 
   .button {
