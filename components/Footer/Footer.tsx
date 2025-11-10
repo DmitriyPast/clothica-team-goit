@@ -1,70 +1,124 @@
-import styles from './Footer.module.css';
+import Link from "next/link";
+import css from './Footer.module.css';
 
-const Footer = () => {
-  return (
-    <footer className={styles.footer}>
-      <div className={styles.footerContainer}>
-        <div className={`${styles.footerColumn} ${styles.brand}`}>
-          <a href="#" aria-label="Clothica">
-            <svg>
-              <use href="/logo.svg" />
-            </svg>
-          </a>
-        </div>
-
-        <div className={`${styles.footerColumn} ${styles.menu}`}>
-          <h3 className={`${styles.menuTitle}`}>Меню</h3>
-          <ul className={`${styles.footerList}`}>
-            <li className={`${styles.footerItem}`}><a href="#">Головна</a></li>
-            <li className={`${styles.footerItem}`}><a href="#">Товари</a></li>
-            <li className={`${styles.footerItem}`}><a href="#">Категорії</a></li>
+export default function Footer() {
+  return <footer className={css.footer}>
+  <div className="container">
+    <div className={css.containerWrap}>
+      <div className={css.linksContainer}>
+        <a href="" aria-label="На головну" className={css.logo}>
+          <svg width="84" height="36" aria-hidden="true">
+            <use href="/logo.svg"></use>
+          </svg>
+        </a>
+        <div className={css.footerList}>
+          <h2 className={css.menu}>Меню</h2>
+          <ul className={css.footerList}>
+            <li className={css.footerItem}>
+              <a href="">Головна</a>
+            </li>
+            <li className={css.footerItem}>
+              <a href="">Товари</a>
+            </li>
+            <li className={css.footerItem}>
+              <a href="">Категорії</a>
+            </li>
           </ul>
         </div>
-
-        <div className={`${styles.footerColumn} ${styles.subscribe}`}>
-          <h3 className={`${styles.subTitle}`}>Підписатися</h3>
-          <p>Приєднуйтесь до нашої розсилки, щоб бути в курсі новин та акцій.</p>
-          <form className={styles.form}>
+      </div>
+      <div className={css.subscribeWrap}>
+        <h3 className={css.subscribe}>Підписатися</h3>
+        <p className={css.text}>
+          Приєднуйтесь до нашої розсилки, щоб бути в курсі новин та акцій.
+        </p>
+        <div className={css.inputSubscribe}>
+          <form action="" className={css.inputSubscribe}>
             <input
-              type="email"
+              type="mail"
               placeholder="Введіть ваш email"
-              required
+              className={css.input}
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-              className={styles.input}
             />
-            <button type="submit" className={styles.button}>Підписатися</button>
+            <button type="submit" className={css.button}>
+              Підписатися
+            </button>
           </form>
         </div>
       </div>
+    </div>
 
-      <div className={styles.footerBottom}>
-        <p>© 2025 Clothica. Всі права захищені.</p>
-        <div className={styles.socialIcons}>
-          <a href="https://facebook.com" aria-label="Facebook">
-            <svg className={styles.icon}>
-              <use href="/sprite.svg#Facebook" />
+    <div className={css.footerSocials}>
+      <p className={css.rights}>
+        © 2025 Clothica. Всі права захищені.
+      </p>
+      <ul className={css.socialList}>
+        <li>
+          <Link
+            href="https://www.facebook.com"
+            aria-label="facebook"
+            target="_blank"
+            className={css.socialLinks}
+          >
+              <svg
+                className={css.svgIcons}
+                width="32"
+                height="32"
+                aria-hidden="true">
+              <use href="/sprite.svg#Facebook"></use>
             </svg>
-          </a>
-          <a href="https://instagram.com" aria-label="Instagram">
-            <svg className={styles.icon}>
-              <use href="/sprite.svg#Instagram" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="https://www.instagram.com"
+            aria-label="Instagram"
+            target="_blank"
+            className={css.socialLinks}
+          >
+            <svg
+              className={css.svgIcons}
+              width="32"
+              height="32"
+              aria-hidden="true"
+            >
+              <use href="/sprite.svg#Instagram"></use>
             </svg>
-          </a>
-          <a href="https://twitter.com" aria-label="Twitter">
-            <svg className={styles.icon}>
-              <use href="/sprite.svg#X" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="https://x.com"
+            aria-label="x"
+            target="_blank"
+            className={css.socialLinks}
+          >
+              <svg
+                className={css.svgIcons}
+                width="32"
+                height="32"
+                aria-hidden="true">
+              <use href="/sprite.svg#X"></use>
             </svg>
-          </a>
-          
-          <a href="https://youtube.com" aria-label="YouTube">
-            <svg className={styles.icon}>
-              <use href="/sprite.svg#Youtube" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="https://www.youtube.com"
+            aria-label="youtube"
+            target="_blank"
+            className={css.socialLinks}
+          >
+              <svg
+                className={css.svgIcons}
+                width="32"
+                height="32"
+                aria-hidden="true">
+              <use href="/sprite.svg#Youtube"></use>
             </svg>
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;
+          </Link>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>;
+}
