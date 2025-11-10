@@ -8,6 +8,9 @@ const authRoutes = ['/auth']; //ми не хочемо авторизовани�
 const publicRoutes = ['/categories', '/goods', '/basket', '/order']; //але нам треба щоб будь хто мав сюди доступ
 
 export async function proxy(request: NextRequest) {
+    if (process.env.NODE_ENV === 'development') {
+      return NextResponse.next();
+    }
   const { pathname } = request.nextUrl;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
