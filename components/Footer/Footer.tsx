@@ -12,17 +12,23 @@ export default function Footer() {
                 <use href="/logo.svg"></use>
               </svg>
             </a>
-            <div className={css.footerList}>
+            <div className={css.menuContainer}>
               <h2 className={css.menu}>Меню</h2>
               <ul className={css.footerList}>
                 <li className={css.footerItem}>
-                  <a href="">Головна</a>
+                  <a href="" className={css.footerLink}>
+                    Головна
+                  </a>
                 </li>
                 <li className={css.footerItem}>
-                  <a href="">Товари</a>
+                  <a href="" className={css.footerLink}>
+                    Товари
+                  </a>
                 </li>
                 <li className={css.footerItem}>
-                  <a href="">Категорії</a>
+                  <a href="" className={css.footerLink}>
+                    Категорії
+                  </a>
                 </li>
               </ul>
             </div>
@@ -35,10 +41,11 @@ export default function Footer() {
             <div className={css.inputSubscribe}>
               <form action="" className={css.inputSubscribe}>
                 <input
-                  type="mail"
+                  type="email"
                   placeholder="Введіть ваш email"
                   className={css.input}
                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  required
                 />
                 <button type="submit" className={css.button}>
                   Підписатися
@@ -51,50 +58,70 @@ export default function Footer() {
         <div className={css.footerSocials}>
           <p className={css.rights}>© 2025 Clothica. Всі права захищені.</p>
           <ul className={css.socialList}>
-            <li>
+            <li className={css.socialItem}>
               <Link
                 href="https://www.facebook.com"
                 aria-label="facebook"
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg className={css.svgIcons} aria-hidden="true">
+                <svg
+                  className={css.svgIcons}
+                  width="32"
+                  height="32"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#Facebook"></use>
                 </svg>
               </Link>
             </li>
-            <li>
+            <li className={css.socialItem}>
               <Link
                 href="https://www.instagram.com"
                 aria-label="Instagram"
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg className={css.svgIcons} aria-hidden="true">
+                <svg
+                  className={css.svgIcons}
+                  width="32"
+                  height="32"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#Instagram"></use>
                 </svg>
               </Link>
             </li>
-            <li>
+            <li className={css.socialItem}>
               <Link
                 href="https://x.com"
                 aria-label="x"
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg className={css.svgIcons} aria-hidden="true">
+                <svg
+                  className={css.svgIcons}
+                  width="32"
+                  height="32"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#X"></use>
                 </svg>
               </Link>
             </li>
-            <li>
+            <li className={css.socialItem}>
               <Link
                 href="https://www.youtube.com"
                 aria-label="youtube"
                 target="_blank"
                 className={css.socialLinks}
               >
-                <svg className={css.svgIcons} aria-hidden="true">
+                <svg
+                  className={css.svgIcons}
+                  width="32"
+                  height="32"
+                  aria-hidden="true"
+                >
                   <use href="/sprite.svg#Youtube"></use>
                 </svg>
               </Link>
