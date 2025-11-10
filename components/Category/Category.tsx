@@ -1,157 +1,95 @@
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import css from './Category.module.css';
 
-interface Category {
+type CategoryItem = {
   _id: string;
   name: string;
-  createdAt: string;
-  updatedAt: string;
-}
+};
 
-interface CategoryResponse {
-  page: number;
-  perPage: number;
-  totalCategories: number;
-  totalPages: number;
-  categories: Category[];
-}
+type CategoryProps = {
+  categories: CategoryItem[];
+};
 
-export default function Category() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('/api/categories?page=1&perPage=6');
-        if (!response.ok) {
-          throw new Error('Failed to fetch categories');
-        }
-        const data: CategoryResponse = await response.json();
-        setCategories(data.categories);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Something went wrong');
-      } finally {
-        setLoading(false);
-      }
+export default function Category({ categories }: CategoryProps) {
+  // Мапінг назв категорій до файлів зображень
+  const getCategoryImage = (name: string) => {
+    const imageMap: { [key: string]: string } = {
+      'Dresses': 'dresses',
+      'Hoodies': 'hoodies',
+      'Jackets': 'jackets',
+      'Jeans': 'jeans',
+      'Other': 'other',
+      'Outerwear': 'outerwear',
+      'Sportswear': 'sportswear',
+      'Tops': 'tops',
+      'T-shirts': 'tshirts',
     };
+    return imageMap[name] || 'other';
+  };
 
-    fetchCategories();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className={css.categorySection}>
-        <div className="container">
-          <p>Завантаження...</p>
-        </div>
-      </section>
-    );
+  const rows: CategoryItem[][] = [];
+  for (let i = 0; i < categories.length; i += 3) {
+    rows.push(categories.slice(i, i + 3));
   }
-
-  if (error) {
-    return (
-      <section className={css.categorySection}>
-        <div className="container">
-          <p>Помилка: {error}</p>
-        </div>
-      </section>
-    );
-  }
-
-  // Mapped category data with placeholder images
-  const categoryData = [
-    {
-      id: categories[0]?._id || '1',
-      name: 'Футболки та сорочки',
-      image: '/images/categories/tshirts.jpg',
-    },
-    {
-      id: categories[1]?._id || '2',
-      name: 'Худі та світшоти',
-      image: '/images/categories/hoodies.jpg',
-    },
-    {
-      id: categories[2]?._id || '3',
-      name: 'Джинси та штани',
-      image: '/images/categories/jeans.jpg',
-    },
-    {
-      id: categories[3]?._id || '4',
-      name: 'Сукні та спідниці',
-      image: '/images/categories/dresses.jpg',
-    },
-    {
-      id: categories[4]?._id || '5',
-      name: 'Куртки та верхній одяг',
-      image: '/images/categories/jackets.jpg',
-    },
-    {
-      id: categories[5]?._id || '6',
-      name: 'Домашній та спортивний одяг',
-      image: '/images/categories/sportswear.jpg',
-    },
-  ];
 
   return (
-    <section className={css.categorySection}>
-      <div className={`container ${css.categoryContainer}`}>
-        <div className={css.categoryHeader}>
-          <h2 className={css.categoryTitle}>Популярні категорії</h2>
-          <Link href="/categories" className={css.categoryLink}>
-            Всі категорії
-          </Link>
+    <section className={css.section}>
+      <div className={css.container}>
+        <div className={css.sectionTitle}>
+          <h2 className={css.title}>Категорії</h2>
+          <p className={css.subtitle}>Оберіть категорію для перегляду товарів</p>
         </div>
 
-        <div className={css.categoryGrid}>
-          <div className={css.categoryRow}>
-            {categoryData.slice(0, 3).map((category) => (
-              <Link
-                key={category.id}
-                href={`/categories/${category.id}`}
-                className={css.categoryCard}
-              >
-                <div className={css.categoryImageWrapper}>
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1440px) 33vw, 416px"
-                    className={css.categoryImage}
-                  />
-                </div>
-                <div className={css.categoryInfo}>
-                  <h3 className={css.categoryName}>{category.name}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+        <div className={css.content}>
+          {rows.map((row, rowIndex) => (
+            <div key={rowIndex} className={css.row}>
+              {row.map(category => {
+                const imageName = getCategoryImage(category.name);
+                return (
+                  <Link
+                    href={`/categories/${category._id}`}
+                    key={category._id}
+                    className={css.card}
+                  >
+                    <div className={css.imageWrapper}>
+                      <picture>
+                        <source
+                          media="(min-width: 1440px)"
+                          srcSet={`/${imageName}-pc.webp 1x, /${imageName}-pc@2x.webp 2x`}
+                        />
+                        <source
+                          media="(min-width: 768px)"
+                          srcSet={`/${imageName}-tab.webp 1x, /${imageName}-tab@2x.webp 2x`}
+                        />
+                        <source
+                          media="(min-width: 320px)"
+                          srcSet={`/${imageName}-mob.webp 1x, /${imageName}-mob@2x.webp 2x`}
+                        />
+                        <Image
+                          src={`/${imageName}-pc.webp`}
+                          alt={category.name}
+                          width={416}
+                          height={277}
+                          className={css.image}
+                          priority={rowIndex === 0}
+                        />
+                      </picture>
+                    </div>
+                    <div className={css.cardContent}>
+                      <h3 className={css.cardTitle}>{category.name}</h3>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </div>
 
-          <div className={css.categoryRow}>
-            {categoryData.slice(3, 6).map((category) => (
-              <Link
-                key={category.id}
-                href={`/categories/${category.id}`}
-                className={css.categoryCard}
-              >
-                <div className={css.categoryImageWrapper}>
-                  <Image
-                    src={category.image}
-                    alt={category.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1440px) 33vw, 416px"
-                    className={css.categoryImage}
-                  />
-                </div>
-                <div className={css.categoryInfo}>
-                  <h3 className={css.categoryName}>{category.name}</h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+        <div className={css.buttonWrapper}>
+          <Link href="/categories" className={css.button}>
+            Переглянути всі категорії
+          </Link>
         </div>
       </div>
     </section>
