@@ -108,6 +108,10 @@
     justify-content: center;
     gap: 18px;
 }
+.svgIcons{
+    width: 32px;
+    height: 32px;
+}
 
 @media screen and (min-width: 768px) {
     .footer {
@@ -201,6 +205,10 @@
         transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    .svgIcons{
+    width: 24px;
+    height: 24px;
+    }
     .svgIcons:hover,
     .svgIcons:focus {
         border: 1px solid #000;
