@@ -119,9 +119,9 @@
 }
 
 .error {
-  color: #dc3545;
+  color: var(--color-red);
   font-size: 12px;
-  margin-top: 4px;
+  margin-top: 2px;
   text-align: left;
 }
 
