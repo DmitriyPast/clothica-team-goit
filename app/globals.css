@@ -168,13 +168,13 @@ input::placeholder {
   max-width: 100%; */
 }
 .container {
-  /* max-width: 375px; */
+  max-width: 375px;
   margin: 0 auto;
   padding: 0 20px;
 }
-/* section {
+section {
   padding: 64px 0;
-} */
+}
 /* Styles for Tablet */
 @media only screen and (min-width: 768px) {
   .container {
@@ -184,9 +184,9 @@ input::placeholder {
 }
 /* Styles for PC */
 @media only screen and (min-width: 1440px) {
-  /* section {
+  section {
     padding: 112px 0;
-  } */
+  }
   .container {
     max-width: 1440px;
     padding: 0 64px;
@@ -339,8 +339,12 @@ input::placeholder,
 textarea::placeholder {
   color: var(--opacity-neutral-darkest-60);
 }
-.error {
+.input-error {
   border: 1px solid var(--color-red);
+  color: var(--color-red);
+}
+
+.error-text {
   color: var(--color-red);
 }
 
