@@ -75,7 +75,7 @@ const LoginForm = () => {
                   <ErrorMessage
                     name="phone"
                     component="div"
-                    className="error"
+                    className={css.error}
                   />
                 </div>
                 <div className={css.loginSepData}>
@@ -89,7 +89,7 @@ const LoginForm = () => {
                   <ErrorMessage
                     name="password"
                     component="div"
-                    className="error"
+                    className={css.error}
                   />
                 </div>
                 <div className={css.loginSepData}>
