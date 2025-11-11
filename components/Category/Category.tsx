@@ -134,6 +134,7 @@ export default function Category() {
                         height={223}
                         className={css.image}
                         priority={page === 1}
+                        sizes="(max-width: 767px) 335px, (max-width: 1439px) 336px, 416px"
                       />
                     </picture>
                   </div>
@@ -152,6 +153,7 @@ export default function Category() {
                 onClick={handleLoadMore}
                 className={css.button}
                 type="button"
+                aria-label="Завантажити більше категорій"
               >
                 Показати більше
               </button>
