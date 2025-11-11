@@ -3,6 +3,7 @@ import { Feedback } from './feedback';
 import { GENDERS } from '@/constants/gender';
 
 export type Good = {
+   
   name: string;
   category: string;
   image: string;

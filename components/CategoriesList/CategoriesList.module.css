@@ -1,0 +1,25 @@
+.categoriesList {
+  position: relative;
+  width: 100%;
+  padding: 20px 20px;
+}
+
+.itemCategoriesList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.titleCategoriesList {
+  font:
+    600 20px / 1.5 'Inter',
+    sans-serif;
+  color: #000;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+}

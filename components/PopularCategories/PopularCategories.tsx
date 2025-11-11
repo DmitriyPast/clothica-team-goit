@@ -1,17 +1,99 @@
-import Link from "next/link";
-import CategoriesList from '@/components/PopularCategories/CategoriesList';
-import css from '@/components/PopularCategories/PopularCategories.module.css';
+// PopularCategories.tsx
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Keyboard } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import css from './PopularCategories.module.css';
+import CategoriesList, { Category } from '../CategoriesList/CategoriesList';
+
+// Дані для прикладу
+const allCategories: Category[] = [
+  { id: 1, name: "Футболки", image: "/fut.jpg" },
+  { id: 2, name: "Худі та світшоти", image: "/hudi.jpg" },
+  { id: 3, name: "Джинси та штани", image: "/trousers.jpg" },
+  { id: 4, name: "Сукні та спідниці", image: "/dress.jpg" },
+  { id: 5, name: "Куртки та верхній одяг", image: "/jackets.jpg" },
+  { id: 6, name: "Домашній та спортивний одяг", image: "/sport.jpg" },
+];
 
 export default function PopularCategories() {
+  const swiperRef = useRef<any>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const handleNext = () => {
+    const swiper = swiperRef.current;
+    if (!swiper) return;
+
+    // Прокручуємо на 3 слайди вперед або до кінця
+    const nextIndex = Math.min(swiper.activeIndex + 3, allCategories.length - 1);
+    swiper.slideTo(nextIndex);
+  };
+
+  const handlePrev = () => {
+    const swiper = swiperRef.current;
+    if (!swiper) return;
+
+    // Прокручуємо на 3 слайди назад або до початку
+    const prevIndex = Math.max(swiper.activeIndex - 3, 0);
+    swiper.slideTo(prevIndex);
+  };
+
+  const updateNavButtons = (swiper: any) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
+
   return (
     <section className={css.popularCategories}>
       <div className={css.popularCategoriesHeader}>
-        <h2 >Популярні категорії</h2>
-        <Link href="/categories" className={css.allCategoriesBtn}>
-  Всі категорії
-</Link>
+        <h2 className={css.popularCategoriesH}>Популярні категорії</h2>
+        <Link href="/categories" className={css.allCategoriesBtn}>Всі категорії</Link>
       </div>
-      <CategoriesList/>
+
+      <div className={css.sliderWrapper}>
+          <button
+        type="button"
+        className={`${css.navBtn} ${css.prevBtn} ${isBeginning ? css.disabled : ''}`}
+        onClick={handlePrev}
+        disabled={isBeginning}
+      >
+        ◀
+      </button>
+
+        <Swiper
+          modules={[Navigation, Keyboard]}
+          slidesPerView={1}
+          spaceBetween={16}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={(swiper) => updateNavButtons(swiper)}
+          keyboard={{ enabled: true }}
+          breakpoints={{
+            // 375: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1440: { slidesPerView: 3 },
+          }}
+        >
+          {allCategories.map((category) => (
+            <SwiperSlide key={category.id}>
+              <CategoriesList categories={[category]} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <button
+        type="button"
+        className={`${css.navBtn} ${css.nextBtn} ${isEnd ? css.disabled : ''}`}
+        onClick={handleNext}
+        disabled={isEnd}
+      >
+        ▶
+      </button>
+      </div>
     </section>
   );
 }

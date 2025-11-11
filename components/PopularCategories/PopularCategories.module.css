@@ -1,9 +1,6 @@
 .popularCategories {
-  padding: 40px 0;
+  padding: 80px 64px;
   background-color: #f3f9ed;
-
-  margin-left: 32px;
-  margin-right: 32px;
 }
 
 .popularCategoriesHeader {
@@ -13,7 +10,7 @@
   padding: 20px 20px;
 }
 
-.popularCategoriesHeader h2 {
+.popularCategoriesH {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -28,19 +25,12 @@
 
 .allCategoriesBtn {
   background: rgba(0, 0, 0, 0.05);
-  /* border: 1px solid #cfd8cc; */
-  /* border-radius: 8px; */
-  /* padding: 8px 16px; */
   font-size: 14px;
   font-weight: 500;
   color: #222;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 100px;
-  font:
-    500 16px / 1.5 'Inter',
-    sans-serif;
-  color: #000;
   padding: 6px 12px;
 }
 
@@ -49,59 +39,31 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.categoryCard {
-  list-style: none;
-}
-
-.categoryCardFigure {
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-}
-
-.categoryCardFigure:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.categoryCardFigure img {
-  width: 100%;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 24px;
-}
-
-.categoryCardFigure figcaption {
+/* Кнопки навігації слайдера */
+.sliderWrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  font:
-    600 20px / 1.5 'Inter',
-    sans-serif;
-  color: #000;
 }
 
-/* Кнопки навігації слайдера */
 .navBtn {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
-  background-color: white;
-  border: none;
-  border-radius: 50%;
+  z-index: 5;
   width: 32px;
   height: 32px;
-  font-size: 18px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
   color: #222;
+  font-size: 18px;
   cursor: pointer;
-  z-index: 5;
-  transition: 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navBtn:hover {
@@ -109,30 +71,21 @@
 }
 
 .prevBtn {
-  left: -16px;
+  left: 10px;
 }
 
 .nextBtn {
-  right: -16px;
+  right: 10px;
 }
 
 .navBtn.disabled {
-  opacity: 0.3;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-.categoriesListWrapper {
-  position: relative;
-  width: 100%;
-  padding: 20px 20px;
-}
 @media (max-width: 768px) {
   .popularCategoriesHeader h2 {
     font-size: 20px;
-  }
-
-  .categoryCardFigure img {
-    height: 180px;
   }
 
   .prevBtn {
@@ -162,5 +115,17 @@
 
   .categoryCardFigure img {
     height: 160px;
+  }
+}
+
+@media (max-width: 374px) {
+  .image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .sliderWrapper {
+    padding: 0 8px;
   }
 }
