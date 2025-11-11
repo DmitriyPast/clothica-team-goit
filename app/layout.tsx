@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter, Nunito_Sans } from 'next/font/google';
-import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: Readonly<{
@@ -56,14 +55,7 @@ export default function RootLayout({
     <html lang="uk">
       <body className={`${inter.variable} ${nunito.variable}`}>
         <TanStackProvider>
-          <AuthProvider>
-            <Header />
-            <main>
-              {children}
-              {modal}
-            </main>
-            <Footer />
-          </AuthProvider>
+          <AuthProvider>{children}</AuthProvider>
           <ReactQueryDevtools />
           {/*^^DELETE THIS ON PRODUCTION*/}
         </TanStackProvider>

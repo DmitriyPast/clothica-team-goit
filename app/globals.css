@@ -198,7 +198,7 @@ section {
   /* display: flex;
   align-items: center;
   justify-content: center; */
-  max-width: 124px;
+  min-width: 124px;
   min-height: 36px;
   /* padding: 8px; */
   border-radius: 100px;
@@ -346,6 +346,7 @@ textarea::placeholder {
 
 .error-text {
   color: var(--color-red);
+  font-size: 12px;
 }
 
 /* arrows */
