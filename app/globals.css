@@ -1,3 +1,4 @@
+@import url('modern-normalize/modern-normalize.css');
 /* Reset */
 *,
 h1,
@@ -12,10 +13,16 @@ ol,
 li,
 a,
 img,
-button {
+button,
+input,
+select,
+textarea {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  line-height: 1.5;
+  font-weight: 400;
+  font-style: normal;
 }
 ul,
 ol {
@@ -127,19 +134,47 @@ img {
   --second-family: 'Nunito Sans', sans-serif;
 }
 
+/* main settings */
+html {
+  scroll-behavior: smooth;
+  min-width: fit-content; /*so site doesn't break below 375px*/
+}
+
+html,
+body {
+  font-family: var(--font-family);
+  color: var(--color-scheme-4-text);
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--color-scheme-4-background);
+}
+
+a,
+button,
+svg,
+input,
+input::placeholder {
+  transition-duration: 250ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* global element styles */
 
 /* container */
 /* Styles for Mobile */
 .container {
-  max-width: 375px;
+  /* width: 100%;
+  max-width: 100%; */
+}
+.container {
+  /* max-width: 375px; */
   margin: 0 auto;
   padding: 0 20px;
 }
-
-section {
-  padding: 64px 0px;
-}
+/* section {
+  padding: 64px 0;
+} */
 /* Styles for Tablet */
 @media only screen and (min-width: 768px) {
   .container {
@@ -149,9 +184,9 @@ section {
 }
 /* Styles for PC */
 @media only screen and (min-width: 1440px) {
-  section {
+  /* section {
     padding: 112px 0;
-  }
+  } */
   .container {
     max-width: 1440px;
     padding: 0 64px;
@@ -160,11 +195,73 @@ section {
 
 /* buttons */
 .btn {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  max-width: 124px;
+  min-height: 36px;
+  /* padding: 8px; */
   border-radius: 100px;
   color: var(--color-neutral-darkest);
+  /* font-size: 16px; */
+  font-weight: 500;
+}
+
+/* ==================================================================== */
+Footer.mychanges.null {
+  .inputSubscribe {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 1;
+  }
+
+  .input {
+    flex-grow: 1;
+    width: 195px; /* can't do min/max cuz flex-grow */
+    /* min-width: 195px; */
+    /* max-width: 100%; */
+    max-height: 40px;
+    /* padding: 8px; */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0);
+    color: #000;
+  }
+
+  .input:focus,
+  .input:hover {
+    border: 1px solid #3b4331;
+  }
+
+  .input::placeholder {
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .button {
+    min-width: 124px;
+    /* padding: 8px; */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    line-height: 150%;
+    font-weight: 500;
+    color: #000;
+  }
+}
+/* ==================================================================== */
+
+.button {
+  min-height: 36px;
+  font-size: 16px;
+  /* line-height: 150%; */
 }
 
 .btn:disabled {
@@ -204,12 +301,8 @@ section {
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  height: 24px;
+  /* height: 24px; */
 }
-.link:disabled {
-  opacity: 0.3;
-}
-
 .link:hover,
 .link:focus {
   border-bottom: 1px solid var(--color-neutral-darkest);
@@ -217,8 +310,15 @@ section {
 .link:active {
   border-bottom: 1px solid var(--color-deco-darker);
 }
+.link:disabled {
+  opacity: 0.3;
+}
 
 /* inputs */
+select,
+input {
+  max-height: 40px;
+}
 select,
 input,
 textarea {
@@ -232,7 +332,8 @@ textarea {
 }
 input:focus,
 textarea:focus {
-  border: 1px solid var(--color-scheme-1-accent);
+  /* border: 1px solid var(--color-scheme-1-accent); */
+  border: 1px solid var(--color-deco-darkest);
 }
 input::placeholder,
 textarea::placeholder {
@@ -251,6 +352,9 @@ textarea::placeholder {
   justify-content: center;
   border: 1px solid var(--color-scheme-1-background);
   border-radius: 100px;
+  padding: 12px;
+  width: 48px;
+  height: 48px;
   background: var(--color-scheme-5-foreground);
 }
 .arrow:hover,
@@ -263,26 +367,4 @@ textarea::placeholder {
 }
 .arrow:disabled {
   opacity: 0.3;
-}
-
-/* main settings */
-html {
-  scroll-behavior: smooth;
-}
-body {
-  color: var(--color-scheme-4-text);
-  font-size: 16px;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 1.5;
-  background: var(--color-scheme-4-background);
-}
-a,
-button,
-svg,
-input,
-input::placeholder {
-  transition-duration: 250ms;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
