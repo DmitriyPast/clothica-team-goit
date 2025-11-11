@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../Header/Header.module.css';
 import { Icon } from '../Header/Icons';
+import Image from 'next/image';
 
 interface MobileMenuProps {
   open: boolean;
@@ -23,28 +24,29 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   return (
     <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
       <div className={styles.mobileHeader}>
-        <Link href="/" className={styles.logoLink}>
-          <Icon
-            name="icon-logoc"
+        <Link href="/" className={styles.logo}>
+          <Image
+            src="/logo.svg"
+            alt="Clothica Logo"
+            width={81}
+            height={17}
+            priority
             className={styles.logoIcon}
-            sizeH={17}
-            sizeW={81}
-            color="black"
           />
         </Link>
 
         <div className={styles.mobileRight}>
-          <div className={styles.mobileMenuBtnCircle}>
+          <div className={styles.mobileCloseBtnCircle}>
             <button
               className={styles.mobileClose}
               onClick={onClose}
               aria-label="Закрити меню"
             >
               <Icon
-                name="icon-close"
-                className={styles.closeIcon}
-                sizeH={13}
-                sizeW={13}
+                name="closeH"
+                className={styles.mobileCloseIcon}
+                sizeH={14}
+                sizeW={14}
               />
             </button>
           </div>
@@ -52,7 +54,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
               <Icon
-                name="icon-cart"
+                name="shopping_cart"
                 className={styles.cartIcon}
                 sizeH={21}
                 sizeW={21}

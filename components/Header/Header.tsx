@@ -8,6 +8,7 @@ import MobileMenu from '../MobileMenu/MobileMenu';
 import { useAuthStore } from '@/lib/store/authStore';
 import { Icon } from './Icons';
 import { link } from 'fs';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const { isAuthenticated, logout } = useAuthStore();
@@ -27,16 +28,29 @@ const Header: React.FC = () => {
     { href: '/categories', label: 'Категорії' },
   ];
 
+  {
+    /* <Link href="/" className={styles.logo}>
+  <Icon
+    name="icon-logoc"
+    className={styles.logoIcon}
+    sizeH={17}
+    sizeW={81}
+    color="black"
+  />
+</Link>; */
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logoLink}>
-          <Icon
-            name="icon-logoc"
+        <Link href="/" className={styles.logo}>
+          <Image
+            src="/logo.svg"
+            alt="Clothica Logo"
+            width={81}
+            height={17}
+            priority
             className={styles.logoIcon}
-            sizeH={17}
-            sizeW={81}
-            color="black"
           />
         </Link>
 
@@ -51,26 +65,17 @@ const Header: React.FC = () => {
         <div className={styles.right}>
           {!isAuthenticated ? (
             <>
-              <button
-                className={styles.btnLogin}
-                onClick={() => router.push('/auth/login')}
-              >
+              <Link href="/auth/login" className={styles.btnLogin}>
                 Вхід
-              </button>
-              <button
-                className={styles.btnRegister}
-                onClick={() => router.push('/auth/register')}
-              >
+              </Link>
+              <Link href="/auth/register" className={styles.btnRegister}>
                 Реєстрація
-              </button>
+              </Link>
             </>
           ) : (
-            <button
-              className={styles.btnCabinet}
-              onClick={() => router.push('/profile')} // cabinet
-            >
+            <Link href="/profile" className={styles.btnCabinet}>
               Кабінет
-            </button>
+            </Link>
           )}
           <div className={styles.mobileMenuBtnCircle}>
             <button
@@ -79,17 +84,17 @@ const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(true)}
             >
               <Icon
-                name="icon-burger"
+                name="menu" // icon-burger
                 className={styles.burgerIcon}
-                sizeH={13}
-                sizeW={19}
+                sizeH={24}
+                sizeW={24}
               />
             </button>
           </div>
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
               <Icon
-                name="icon-cart"
+                name="shopping_cart" // icon-cart
                 className={styles.cartIcon}
                 sizeH={21}
                 sizeW={21}

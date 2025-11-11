@@ -45,8 +45,9 @@ body {
   height: 17px;
 }
 .logoIcon {
-  color: #000;
-  fill: currentColor;
+  /* color: #000;
+  fill: currentColor; */
+  fill: #000;
 }
 
 /* Навігація — схована на мобільному */
@@ -206,6 +207,11 @@ body {
   cursor: pointer;
 }
 
+.burgerIcon {
+  fill: #000;
+  color: #000;
+}
+
 .mobileOverlay {
   position: fixed;
   inset: 0;
@@ -227,11 +233,20 @@ body {
 }
 
 .mobileClose {
-  top: 30px;
+  top: 20px;
   right: 84px;
   background: transparent;
   border: none;
   cursor: pointer;
+  fill: #000;
+}
+
+.mobileCloseIcon {
+  display: inline-block;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
 }
 
 .mobileCloseCircle {
@@ -247,7 +262,22 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 100px;
-  padding: 6px;
+  padding: 5px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.mobileCloseBtnCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  padding: 5px;
+  padding-bottom: 0px;
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.05);
   display: inline-flex;

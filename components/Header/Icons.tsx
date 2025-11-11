@@ -22,9 +22,10 @@ export const Icon: React.FC<IconProps> = ({
     aria-hidden="true"
     fill={color}
   >
-    <use
+    <use href={`/sprite.svg#${name}`} xlinkHref={`/sprite.svg#${name}`} />
+    {/* <use
       href={`/icons/icons-header.svg#${name}`}
       xlinkHref={`/icons/icons-header.svg#${name}`}
-    />
+    /> */}
   </svg>
 );
