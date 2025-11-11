@@ -5,7 +5,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 // import AuthProvider from '@/components/AuthProvider/AuthProvider';
-import 'modern-normalize/modern-normalize.css';
+// import 'modern-normalize/modern-normalize.css'; <--doesn't work(creates style override issues)
 import './globals.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
