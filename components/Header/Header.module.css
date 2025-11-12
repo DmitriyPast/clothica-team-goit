@@ -1,15 +1,6 @@
 /* =========================
    Header.module.css
-   ========================= */
-
-:root {
-  --header-bg: #d6eac0;
-  --header-border: rgba(0, 0, 0, 0.15);
-  --btn-login-bg: rgba(0, 0, 0, 0.05);
-  --btn-register-bg: #c5e1a5;
-  --font-family: 'Inter', sans-serif;
-  --text-color: #000;
-}
+   ========================= *
 
 body {
   margin: 0;
@@ -22,9 +13,10 @@ body {
 
 .header {
   width: 100%;
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
-  color: var(--text-color);
+  background: var(--color-deco-light);
+  border-bottom: 1px solid var(--opacity-neutral-darkest-15);
+  color: var(--color-neutral-darkest);
+  font-family: var(--font-family);
 }
 
 .container {
@@ -40,14 +32,11 @@ body {
   box-sizing: border-box;
 }
 
-/* Лого */
 .logoLink {
   height: 17px;
 }
 .logoIcon {
-  /* color: #000;
-  fill: currentColor; */
-  fill: #000;
+  fill: var(--color-neutral-darkest);
 }
 
 /* Навігація — схована на мобільному */
@@ -60,7 +49,7 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--text-color);
+  color: var(--color-neutral-darkest);
   transition:
     color 0.3s ease,
     opacity 0.3s ease;
@@ -70,14 +59,14 @@ body {
 .navLink:hover,
 .navLink:focus {
   font-weight: 500;
-  color: #000;
+  color: var(--color-neutral-darkest);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 8px;
 }
 
 .navLink:active {
-  color: #9db484;
+  color: var(--color-deco-dark);
   text-decoration: underline;
 }
 
@@ -93,7 +82,6 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* padding: 8px 18px; */
   font-size: 16px;
   line-height: 1.5;
   border-radius: 100px;
@@ -101,58 +89,59 @@ body {
   cursor: pointer;
   border: 1px solid transparent;
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--color-neutral-darkest);
 }
 
 .btnLogin {
-  background: var(--btn-login-bg);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: var(--opacity-neutral-darkest-5);
+  border: 1px solid var(--opacity-neutral-darkest-5);
 }
 
 .btnLogin:hover,
 .btnLogin:focus {
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: var(--opacity-neutral-darkest-15);
+  border: 1px solid var(--opacity-neutral-darkest-50);
 }
 
 .btnLogin:active {
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  background: var(--opacity-neutral-darkest-50);
+  color: var(--color-white);
 }
 
 .btnRegister {
-  background: var(--btn-register-bg);
-  border: 1px solid #c5e1a5;
+  background: var(--color-deco);
+  border: 1px solid var(--color-deco);
 }
 
 .btnRegister:hover,
 .btnRegister:focus {
-  background: #9db484;
-  border: 1px solid #4e5a42;
+  background: var(--color-deco-dark);
+  border: 1px solid var(--color-deco-darker);
 }
 
 .btnRegister:active {
-  border: 1px solid #c5e1a5;
-  background: #3b4331;
-  color: #fff;
+  border: 1px solid var(--color-deco);
+  background: var(--color-deco-darkest);
+  color: var(--color-white);
 }
 
 .btnCabinet {
-  background: var(--btn-register-bg);
-  border: 1px solid #c5e1a5;
+  background: var(--color-deco);
+  border: 1px solid var(--color-deco);
 }
 
 .btnCabinet:hover,
 .btnCabinet:focus {
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: var(--opacity-neutral-darkest-15);
+  border: 1px solid var(--opacity-neutral-darkest-50);
 }
 
 .btnCabinet:active {
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  background: var(--opacity-neutral-darkest-50);
+  color: var(--color-white);
 }
 
+/* lasam */
 .cartLink {
   text-decoration: none;
   display: inline-flex;
@@ -165,8 +154,8 @@ body {
   height: 36px;
   border-radius: 100px;
   padding: 6px;
-  background: #000;
-  border: 1px solid #000;
+  background: var(--color-neutral-darkest);
+  border: 1px solid var(--color-neutral-darkest);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -189,12 +178,12 @@ body {
   font-weight: 300;
   font-size: 9px;
   line-height: 1;
-  color: #fff;
+  color: var(--color-white);
 }
 
 .cartIcon {
-  fill: #fff;
-  color: #fff;
+  fill: var(--color-white);
+  color: var(--color-white);
 }
 
 .burgerBtn {
@@ -208,54 +197,8 @@ body {
 }
 
 .burgerIcon {
-  fill: #000;
-  color: #000;
-}
-
-.mobileOverlay {
-  position: fixed;
-  inset: 0;
-  background: var(--header-bg);
-  z-index: 60;
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn 220ms ease;
-}
-
-.mobileHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px;
-  width: 100%;
-  height: 72px;
-  margin-top: 0;
-}
-
-.mobileClose {
-  top: 20px;
-  right: 84px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  fill: #000;
-}
-
-.mobileCloseIcon {
-  display: inline-block;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
-
-.mobileCloseCircle {
-}
-
-.mobileRight {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  fill: var(--color-black);
+  color: var(--color-black);
 }
 
 .mobileMenuBtnCircle {
@@ -263,101 +206,13 @@ body {
   height: 36px;
   border-radius: 100px;
   padding: 5px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: var(--opacity-neutral-darkest-5);
+  border: 1px solid var(--opacity-neutral-darkest-5);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
   box-sizing: border-box;
-}
-
-.mobileCloseBtnCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 100px;
-  padding: 5px;
-  padding-bottom: 0px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.mobileNav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  padding-top: 40px;
-  padding-bottom: 64px;
-}
-
-.mobileNavLink {
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #000;
-}
-
-.mobileActions {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 16px;
-  padding: 0 20px;
-}
-
-.mobileActionLogin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0);
-  border-radius: 100px;
-  height: 36px;
-  padding: 6px 12px;
-  background: rgba(0, 0, 0, 0.05);
-  color: #000;
-  text-decoration: none;
-}
-
-.mobileActionRegister {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #c5e1a5;
-  border-radius: 100px;
-  height: 36px;
-  padding: 6px 12px;
-  background: #c5e1a5;
-  color: #000;
-  text-decoration: none;
-}
-
-.mobileActionLogin:hover,
-.mobileActionLogin:focus {
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.5);
-}
-
-.mobileActionLogin:active {
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-}
-
-.mobileActionRegister:hover,
-.mobileActionRegister:focus {
-  background: #9db484;
-  border: 1px solid #4e5a42;
-}
-
-.mobileActionRegister:active {
-  background: #3b4331;
-  color: #fff;
 }
 
 @keyframes fadeIn {

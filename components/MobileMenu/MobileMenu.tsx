@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from '../Header/Header.module.css';
+import styles from './MobileMenu.module.css';
+// import styles from '../Header/Header.module.css';
+import stylesCart from '../Header/Header.module.css';
 import { Icon } from '../Header/Icons';
 import Image from 'next/image';
 

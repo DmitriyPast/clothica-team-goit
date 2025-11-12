@@ -9,6 +9,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { Icon } from './Icons';
 import { link } from 'fs';
 import Image from 'next/image';
+import '@/app/globals.css';
 
 const Header: React.FC = () => {
   const { isAuthenticated, logout } = useAuthStore();
