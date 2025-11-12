@@ -12,7 +12,7 @@ export type User = {
 };
 
 export type RegisterUser = {
-  name: string;
+  username: string;
   phone: string;
   password: string;
 };
