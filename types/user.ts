@@ -6,7 +6,7 @@ export type User = {
   phone: string;
   email?: string;
   avatar?: string;
-  role: typeof ROLE;
+  role: typeof ROLE[number];
   city?: string;
   postNumber?: number;
 };
