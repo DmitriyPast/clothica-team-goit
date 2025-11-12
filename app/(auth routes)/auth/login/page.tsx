@@ -54,52 +54,58 @@ const LoginForm = () => {
           validationSchema={schema}
           onSubmit={handleSubmit}
         >
-          <Form className={css.formContainer}>
-            <div className={css.form}>
-              <div className={css.tabs}>
-                <h3 className={css.title}>
-                  <Link href="/auth/register">Реєстрація</Link>
-                </h3>
-                <h3 className={`${css.title} ${css.active}`}>Вхід</h3>
+          {({ isSubmitting }) => (
+            <Form className={css.formContainer}>
+              <div className={css.form}>
+                <div className={css.tabs}>
+                  <h3 className={css.title}>
+                    <Link href="/auth/register">Реєстрація</Link>
+                  </h3>
+                  <h3 className={`${css.title} ${css.active}`}>Вхід</h3>
+                </div>
+                <h1 className={css.loginTitle}>Вхід</h1>
+                <div className={css.loginData}>
+                  <div className={css.loginSepData}>
+                    <label className={css.phone}>Номер телефону*</label>
+                    <Field
+                      name="phone"
+                      type="tel"
+                      className="input"
+                      placeholder="+38 (0__) ___-__-__"
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="error-text"
+                    />
+                  </div>
+                  <div className={css.loginSepData}>
+                    <label>Пароль*</label>
+                    <Field
+                      name="password"
+                      type="password"
+                      className="input"
+                      placeholder="********"
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="error-text"
+                    />
+                  </div>
+                  <div className={css.loginSepData}>
+                    <button
+                      disabled={isSubmitting}
+                      type="submit"
+                      className={`button btn-primary ${css.button}`}
+                    >
+                      Увійти
+                    </button>
+                  </div>
+                </div>
               </div>
-              <h1 className={css.loginTitle}>Вхід</h1>
-              <div className={css.loginData}>
-                <div className={css.loginSepData}>
-                  <label className={css.phone}>Номер телефону*</label>
-                  <Field
-                    name="phone"
-                    type="tel"
-                    className={css.input}
-                    placeholder="+38 (0__) ___-__-__"
-                  />
-                  <ErrorMessage
-                    name="phone"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
-                <div className={css.loginSepData}>
-                  <label>Пароль*</label>
-                  <Field
-                    name="password"
-                    type="password"
-                    className={css.input}
-                    placeholder="********"
-                  />
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
-                <div className={css.loginSepData}>
-                  <button type="submit" className={css.loginButton}>
-                    Увійти
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Form>
+            </Form>
+          )}
         </Formik>
         <footer className={css.footer}>
           © 2025 Clothica. Всі права захищені.

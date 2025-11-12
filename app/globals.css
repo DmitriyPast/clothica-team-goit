@@ -339,8 +339,12 @@ input::placeholder,
 textarea::placeholder {
   color: var(--opacity-neutral-darkest-60);
 }
-.error {
+.input-error {
   border: 1px solid var(--color-red);
+  color: var(--color-red);
+}
+
+.error-text {
   color: var(--color-red);
 }
 

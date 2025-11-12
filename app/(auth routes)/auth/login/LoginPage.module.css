@@ -76,26 +76,13 @@
   gap: 8px;
 }
 
-.loginButton {
-  background-color: var(--color-deco);
+.button {
   padding: 6px 0;
   border-radius: 100px;
-  line-height: 150%;
   color: var(--color-scheme-1-text);
 }
-
-.input::placeholder {
-  font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  color: var(--opacity-neutral-darkest-60);
-}
-
-.input {
-  border: 1px solid var(--opacity-neutral-darkest-15);
-  border-radius: 16px;
-  padding: 12px 8px;
+button:disabled {
+  opacity: 0.4;
 }
 
 .pageWrapper {
@@ -116,13 +103,6 @@
   font-size: 14px;
   line-height: 150%;
   color: var(--color-scheme-6-text);
-}
-
-.error {
-  color: var(--color-red);
-  font-size: 12px;
-  margin-top: 2px;
-  text-align: left;
 }
 
 @media screen and (min-width: 768px) {
