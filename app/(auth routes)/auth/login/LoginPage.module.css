@@ -78,11 +78,6 @@
 
 .button {
   padding: 6px 0;
-  border-radius: 100px;
-  color: var(--color-scheme-1-text);
-}
-button:disabled {
-  opacity: 0.4;
 }
 
 .pageWrapper {

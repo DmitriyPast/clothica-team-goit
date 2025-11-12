@@ -67,12 +67,20 @@ const LoginForm = () => {
                 <div className={css.loginData}>
                   <div className={css.loginSepData}>
                     <label className={css.phone}>Номер телефону*</label>
-                    <Field
-                      name="phone"
-                      type="tel"
-                      className="input"
-                      placeholder="+38 (0__) ___-__-__"
-                    />
+                    <Field name="phone">
+                      {({ field, form }: any) => (
+                        <input
+                          {...field}
+                          type="tel"
+                          placeholder="+38 (0__) ___-__-__"
+                          className={
+                            form.touched.phone && form.errors.phone
+                              ? 'input input-error'
+                              : 'input'
+                          }
+                        />
+                      )}
+                    </Field>
                     <ErrorMessage
                       name="phone"
                       component="div"
@@ -81,12 +89,20 @@ const LoginForm = () => {
                   </div>
                   <div className={css.loginSepData}>
                     <label>Пароль*</label>
-                    <Field
-                      name="password"
-                      type="password"
-                      className="input"
-                      placeholder="********"
-                    />
+                    <Field name="password">
+                      {({ field, form }: any) => (
+                        <input
+                          {...field}
+                          type="password"
+                          placeholder="********"
+                          className={
+                            form.touched.password && form.errors.password
+                              ? 'input input-error'
+                              : 'input'
+                          }
+                        />
+                      )}
+                    </Field>
                     <ErrorMessage
                       name="password"
                       component="div"
@@ -97,7 +113,7 @@ const LoginForm = () => {
                     <button
                       disabled={isSubmitting}
                       type="submit"
-                      className={`button btn-primary ${css.button}`}
+                      className={`button btn-primary btn ${css.button}`}
                     >
                       Увійти
                     </button>
