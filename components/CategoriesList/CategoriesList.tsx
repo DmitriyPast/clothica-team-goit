@@ -15,7 +15,7 @@ type CategoriesListProps = {
 
 export default function CategoriesList({ categories = [] }: CategoriesListProps) {
   return (
-   <ul className={css.categoriesList}>
+   <ul className={`container ${css.categoriesList}`}>
       {categories.map((category) => (
         <li key={category.id} className={css.itemCategoriesList}>
           <Image

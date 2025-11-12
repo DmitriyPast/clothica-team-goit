@@ -1,42 +1,39 @@
 .popularCategories {
-  padding: 80px 64px;
-  background-color: #f3f9ed;
+  padding: 64px 0;
+  background-color: var(--color-scheme-4-background);
 }
 
 .popularCategoriesHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 20px 20px;
+  margin-bottom: 32px;
 }
 
 .popularCategoriesH {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 16px;
-  font:
-    400 48px / 1.2 'Nunito Sans',
-    sans-serif;
+  font-family: var(--second-family);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.2;
+  color: var(--color-scheme-1-text);
   letter-spacing: -0.01em;
-  color: #000;
 }
 
 .allCategoriesBtn {
-  background: rgba(0, 0, 0, 0.05);
-  font-size: 14px;
-  font-weight: 500;
-  color: #222;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0);
+  background: var(--opacity-neutral-darkest-5);
   border-radius: 100px;
   padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-neutral-darkest);
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
-.allCategoriesBtn:hover {
-  background: rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.5);
+.allCategoriesBtn:hover,
+.allCategoriesBtn:focus {
+  background: var(--opacity-neutral-darkest-15);
+  border: 1px solid var(--opacity-neutral-darkest-50);
 }
 
 /* Кнопки навігації слайдера */
@@ -48,26 +45,12 @@
 
 .navBtn {
   position: absolute;
-  top: 40%;
+  top: 50%;
   transform: translateY(-50%);
-  z-index: 5;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background-color: #fff;
-  color: #222;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: var(--color-white);
+  color: var(--color-neutral-darkest);
   transition: all 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.navBtn:hover {
-  background: #d3e5cb;
+  z-index: 5;
 }
 
 .prevBtn {
@@ -85,7 +68,13 @@
 
 @media (max-width: 768px) {
   .popularCategoriesHeader h2 {
-    font-size: 20px;
+    font-size: 28px;
+  }
+
+  .popularCategoriesHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .prevBtn {
@@ -102,30 +91,7 @@
     padding: 24px 0;
   }
 
-  .popularCategoriesHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
   .allCategoriesBtn {
-    padding: 6px 12px;
     font-size: 13px;
-  }
-
-  .categoryCardFigure img {
-    height: 160px;
-  }
-}
-
-@media (max-width: 374px) {
-  .image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .sliderWrapper {
-    padding: 0 8px;
   }
 }

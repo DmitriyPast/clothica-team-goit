@@ -50,15 +50,16 @@ export default function PopularCategories() {
 
   return (
     <section className={css.popularCategories}>
+      <div className="container">
       <div className={css.popularCategoriesHeader}>
         <h2 className={css.popularCategoriesH}>Популярні категорії</h2>
-        <Link href="/categories" className={css.allCategoriesBtn}>Всі категорії</Link>
+        <Link href="/categories" className={`${css.allCategoriesBtn} link`}>Всі категорії</Link>
       </div>
 
       <div className={css.sliderWrapper}>
           <button
         type="button"
-        className={`${css.navBtn} ${css.prevBtn} ${isBeginning ? css.disabled : ''}`}
+        className={`${css.navBtn} ${css.prevBtn}  arrow ${isBeginning ? css.disabled : ''}`}
         onClick={handlePrev}
         disabled={isBeginning}
       >
@@ -92,7 +93,8 @@ export default function PopularCategories() {
         disabled={isEnd}
       >
         ▶
-      </button>
+          </button>
+          </div>
       </div>
     </section>
   );
