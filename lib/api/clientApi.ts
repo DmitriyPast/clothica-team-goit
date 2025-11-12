@@ -77,7 +77,7 @@ export interface FetchCategoriesResponse {
   perPage: number;
   totalCategories: number;
   totalPages: number;
-  catedories: Category[];
+  categories: Category[];
 }
 
 //GET categories
