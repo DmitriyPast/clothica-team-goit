@@ -25,10 +25,12 @@ export default function PublicLayout({ children }: Props) {
       {loading ? (
         <div>Завантаження...</div>
       ) : (
-        <div className={`${css.pageWrapper} container altBg`}>
-          <AuthHeader />
-          <section className={css.formContainer}>{children}</section>
-          <AuthFooter />
+        <div className="altBg">
+          <div className={`${css.pageWrapper} container `}>
+            <AuthHeader />
+            <section className={css.formContainer}>{children}</section>
+            <AuthFooter />
+          </div>
         </div>
       )}
     </>
