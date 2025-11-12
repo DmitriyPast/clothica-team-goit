@@ -49,111 +49,101 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="container">
-      <div className={css.pageWrapper}>
-        <img src="/logo.svg" alt="logo" className={css.logo} />
-        <Formik
-          initialValues={{ username: '', phone: '', password: '' }}
-          validationSchema={schema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className={css.formContainer}>
-              <div className={css.form}>
-                <div className={css.tabs}>
-                  <h3 className={`${css.title} ${css.active}`}>Реєстрація</h3>
-                  <h3 className={css.title}>
-                    <Link href="/auth/login">Вхід</Link>
-                  </h3>
-                </div>
-                <h1 className={css.loginTitle}>Реєстрація</h1>
-                <div className={css.loginData}>
-                  <div className={css.loginSepData}>
-                    <label>Імʼя*</label>
-                    <Field name="username">
-                      {({ field, form }: any) => (
-                        <input
-                          {...field}
-                          type="text"
-                          placeholder="Ваше ім’я"
-                          className={
-                            form.touched.username && form.errors.username
-                              ? 'input input-error'
-                              : 'input'
-                          }
-                        />
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="username"
-                      component="div"
-                      className="error-text"
+    <Formik
+      initialValues={{ username: '', phone: '', password: '' }}
+      validationSchema={schema}
+      onSubmit={handleSubmit}>
+      {({ isSubmitting }) => (
+        <Form>
+          <div className={css.form}>
+            <div className={css.tabs}>
+              <h3 className={`${css.title} ${css.active}`}>Реєстрація</h3>
+              <h3 className={css.title}>
+                <Link href="/auth/login">Вхід</Link>
+              </h3>
+            </div>
+            <h1 className={css.loginTitle}>Реєстрація</h1>
+            <div className={css.loginData}>
+              <div className={css.loginSepData}>
+                <label>Імʼя*</label>
+                <Field name="username">
+                  {({ field, form }: any) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Ваше ім’я"
+                      className={`input ${css.authInput} ${
+                        form.touched.username && form.errors.username
+                          ? 'input-error'
+                          : ''
+                      }`}
                     />
-                  </div>
-                  <div className={css.loginSepData}>
-                    <label>Номер телефону*</label>
-
-                    <Field name="phone">
-                      {({ field, form }: any) => (
-                        <input
-                          {...field}
-                          type="tel"
-                          placeholder="+38 (0__) ___-__-__"
-                          className={
-                            form.touched.phone && form.errors.phone
-                              ? 'input input-error'
-                              : 'input'
-                          }
-                        />
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="phone"
-                      component="div"
-                      className="error-text"
-                    />
-                  </div>
-                  <div className={css.loginSepData}>
-                    <label>Пароль*</label>
-                    <Field name="password">
-                      {({ field, form }: any) => (
-                        <input
-                          {...field}
-                          type="password"
-                          placeholder="********"
-                          className={
-                            form.touched.password && form.errors.password
-                              ? 'input input-error'
-                              : 'input'
-                          }
-                        />
-                      )}
-                    </Field>
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="error-text"
-                    />
-                  </div>
-                  <div className={css.loginSepData}>
-                    <button
-                      disabled={isSubmitting}
-                      type="submit"
-                      className={`button btn-primary btn ${css.button}`}
-                    >
-                      Зареєструватися
-                    </button>
-                  </div>
-                </div>
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="error-text"
+                />
               </div>
-            </Form>
-          )}
-        </Formik>
-        <footer className={css.footer}>
-          © 2025 Clothica. Всі права захищені.
-        </footer>
-      </div>
-    </div>
+              <div className={css.loginSepData}>
+                <label>Номер телефону*</label>
+
+                <Field name="phone">
+                  {({ field, form }: any) => (
+                    <input
+                      {...field}
+                      type="tel"
+                      placeholder="+38 (0__) ___-__-__"
+                      className={`input ${css.authInput} ${
+                        form.touched.username && form.errors.username
+                          ? 'input-error'
+                          : ''
+                      }`}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="phone"
+                  component="div"
+                  className="error-text"
+                />
+              </div>
+              <div className={css.loginSepData}>
+                <label>Пароль*</label>
+                <Field name="password">
+                  {({ field, form }: any) => (
+                    <input
+                      {...field}
+                      type="password"
+                      placeholder="********"
+                      className={`input ${css.authInput} ${
+                        form.touched.username && form.errors.username
+                          ? 'input-error'
+                          : ''
+                      }`}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-text"
+                />
+              </div>
+              <div className={css.loginSepData}>
+                <button
+                  disabled={isSubmitting}
+                  type="submit"
+                  className={`button btn-primary btn ${css.button}`}>
+                  Зареєструватися
+                </button>
+              </div>
+            </div>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

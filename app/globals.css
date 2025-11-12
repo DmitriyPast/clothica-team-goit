@@ -149,6 +149,10 @@ body {
   background: var(--color-scheme-4-background);
 }
 
+.altBg {
+  background: var(--color-scheme-1-background);
+}
+
 a,
 button,
 svg,
