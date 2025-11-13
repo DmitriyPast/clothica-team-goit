@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function Category({ category }: Props) {
-  // Функція для отримання slug з назви категорії
+  // Функція для отримання назви зображення з назви категорії
   const getImageName = (name: string) => {
     const nameMap: { [key: string]: string } = {
       'Футболки та сорочки': 'tshirts',
