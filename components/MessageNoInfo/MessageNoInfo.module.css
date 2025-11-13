@@ -2,7 +2,7 @@
   width: 100%;
   background-color: var(--color-deco-light);
   border-radius: 16px;
-  padding: 24px 0;
+  padding: 24px 16px;
 }
 
 .text {
@@ -19,6 +19,9 @@
 }
 
 @media screen and (min-width: 768px) {
+  .wrapInfo {
+    padding: 24px 0;
+  }
   .button {
     width: auto;
   }
