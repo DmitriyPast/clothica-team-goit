@@ -1,1 +1,5 @@
-import css from './BasketModal.module.css';
+import BasketModal from '@/components/BasketModal/BasketModal';
+
+export default function BasketModalPage() {
+  return <BasketModal />;
+}

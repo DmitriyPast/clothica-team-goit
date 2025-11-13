@@ -1,0 +1,14 @@
+/* FOOTER STYLES */
+.authFooter {
+  padding: 25.5px 0;
+  /* position: absolute;
+  bottom: 25.5px;
+  left: 0;
+  right: 0; */
+  text-align: center;
+  /* font-family: var(--font-family); */
+  /* font-weight: 400; */
+  font-size: 14px;
+  /* line-height: 150%; */
+  /* color: var(--color-scheme-6-text); */
+}
