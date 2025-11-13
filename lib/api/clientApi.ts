@@ -104,18 +104,18 @@ export interface FetchFeedbacksResponse {
   totalPages: number;
 }
 
-//GET feedbacks
+/// --- GET feedbacks ---
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
-): Promise<FetchFeedbacksParams> {
-  return (
-    await internalApi.get<FetchFeedbacksResponse>('feedbacks', { params })
-  ).data;
+): Promise<FetchFeedbacksResponse> {
+  const { data } = await internalApi.get<FetchFeedbacksResponse>("feedbacks", { params });
+  return data;
 }
 
-//POST feedback
+// --- POST feedback ---
 export async function createFeedback(feedback: Feedback): Promise<Feedback> {
-  return (await internalApi.post<Feedback>('feedbacks', feedback)).data;
+  const { data } = await internalApi.post<Feedback>("feedbacks", feedback);
+  return data;
 }
 
 interface AddSubscriptionParams {
