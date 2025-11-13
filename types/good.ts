@@ -12,7 +12,7 @@ export type Good = {
   feedbacks?: [Feedback];
   prevDescription?: string;
   gender: Gender;
-  characteristics: string;
+  characteristics: string[];
 };
 
 export type Size = (typeof SIZES)[number];

@@ -1,36 +1,47 @@
 'use client';
 
 import css from './GoodPage.module.css';
-import Image from 'next/image';
 
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { fetchGoodById } from '@/lib/api/clientApi';
 
+import GoodForPurchase from '@/components/GoodForPurchase/GoodForPurchase';
+
 import Loading from '@/app/loading';
 
 export default function GoodPageClient() {
-  const { id } = useParams<{ id: string }>();
+  const { goodId } = useParams<{ goodId: string }>();
 
-  const {
-    data: note,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['note', id],
-    queryFn: () => fetchGoodById(id),
+  const { data: good } = useQuery({
+    queryKey: ['good', goodId],
+    queryFn: () => fetchGoodById(goodId),
     refetchOnMount: false,
   });
+
+  if (!good) return null;
+
+  const {
+    image,
+    prevDescription,
+    name,
+    price,
+    description,
+    size,
+    characteristics,
+  } = good;
 
   return (
     <section>
       <div className="container">
-        test
-        <Image
-          src="https://ichef.bbci.co.uk/images/ic/1920xn/p0hpljtw.jpg"
-          alt="space"
-          width="335"
-          height="370"
+        <GoodForPurchase
+          image={image}
+          prevDescription={prevDescription}
+          name={name}
+          price={price}
+          description={description}
+          size={size}
+          characteristics={characteristics}
         />
       </div>
     </section>

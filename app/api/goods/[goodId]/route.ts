@@ -10,7 +10,7 @@ type Props = {
 export async function GET(request: Request, { params }: Props) {
   try {
     const { goodId } = await params;
-    const res = await api(`/goodes/${goodId}`);
+    const res = await api(`/goods/${goodId}`);
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
