@@ -1,52 +1,10 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Hero.module.css';
-import { useEffect, useState } from 'react';
+import '@/app/globals.css';
 
 const Hero: React.FC = () => {
-  const [windowWidth, setWindowWidth] = useState(0);
-  const [isRetina, setIsRetina] = useState(false);
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      setWindowWidth(window.innerWidth);
-      setIsRetina(window.devicePixelRatio > 1);
-    };
-
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
-  const getImage = () => {
-    if (windowWidth >= 1440) {
-      return {
-        src: isRetina
-          ? '/hero-img/hero-desktop@2x.jpg'
-          : '/hero-img/hero-desktop.jpg',
-        width: 640,
-        height: 394,
-      };
-    }
-    if (windowWidth >= 768) {
-      return {
-        src: isRetina ? '/hero-img/hero-tab@2x.jpg' : '/hero-img/hero-tab.jpg',
-        width: 336,
-        height: 425,
-      };
-    }
-    return {
-      src: isRetina ? '/hero-img/hero-mob@2x.jpg' : '/hero-img/hero-mob.jpg',
-      width: 335,
-      height: 335,
-    };
-  };
-
-  const image = getImage();
-
   return (
     <section className={styles.hero} id="hero">
       <div className={styles.container}>
@@ -73,14 +31,30 @@ const Hero: React.FC = () => {
         </div>
 
         <div className={styles.imageWrapper}>
-          <Image
-            src={image.src}
-            alt="Модель у базовому одязі Clothica"
-            width={image.width}
-            height={image.height}
-            priority
-            className={styles.image}
-          />
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet="/hero-img/hero-mob.jpg 1x, /hero-img/hero-mob@2x.jpg 2x"
+            />
+            <source
+              media="(max-width: 1439px)"
+              srcSet="/hero-img/hero-tab.jpg 1x, /hero-img/hero-tab@2x.jpg 2x"
+            />
+            <Image
+              src="/hero-img/hero-desktop@2x.jpg"
+              alt="Моделі у базовому одязі Clothica"
+              loading="eager"
+              width={640}
+              height={394}
+              priority
+              className={styles.image}
+              sizes="
+                (max-width: 767px) 100vw,
+                (max-width: 1439px) 50vw,
+                640px
+              "
+            />
+          </picture>
         </div>
       </div>
     </section>

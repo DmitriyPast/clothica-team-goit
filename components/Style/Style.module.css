@@ -3,7 +3,7 @@
    ========================= */
 .styleSection {
   padding: 32px 20px;
-  background: #f5f8f0;
+  background: var(--color-deco-lighter);
 }
 
 .container {
@@ -12,12 +12,12 @@
 }
 
 .title {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: var(--second-family);
   font-weight: 400;
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: #000;
+  color: var(--color-neutral-darkest);
   width: 335px;
   margin: 0 auto 40px;
 }
@@ -38,11 +38,43 @@
   /* gap: 12px; */
 }
 
+/* .icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 12px;
+} */
+
 .icon {
   flex-shrink: 0;
   width: 56px;
   height: 56px;
   margin-bottom: 12px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.icon1 {
+  background-image: url('/style-img/one.png');
+}
+.icon2 {
+  background-image: url('/style-img/two.png');
+}
+.icon3 {
+  background-image: url('/style-img/three.png');
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .icon1 {
+    background-image: url('/style-img/one@2x.png');
+  }
+  .icon2 {
+    background-image: url('/style-img/two@2x.png');
+  }
+  .icon3 {
+    background-image: url('/style-img/three@2x.png');
+  }
 }
 
 .itemTitle {
@@ -50,7 +82,7 @@
   font-size: 24px;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  color: #000;
+  color: var(--color-neutral-darkest);
   margin-bottom: 12px;
 }
 
@@ -58,7 +90,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: #000;
+  color: var(--color-neutral-darkest);
 }
 
 /* =========================

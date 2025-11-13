@@ -6,7 +6,6 @@ import Link from 'next/link';
 import styles from './Header.module.css';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import { useAuthStore } from '@/lib/store/authStore';
-import { Icon } from './Icons';
 import { link } from 'fs';
 import Image from 'next/image';
 import '@/app/globals.css';
@@ -28,18 +27,6 @@ const Header: React.FC = () => {
     { href: '/goods', label: 'Товари' },
     { href: '/categories', label: 'Категорії' },
   ];
-
-  {
-    /* <Link href="/" className={styles.logo}>
-  <Icon
-    name="icon-logoc"
-    className={styles.logoIcon}
-    sizeH={17}
-    sizeW={81}
-    color="black"
-  />
-</Link>; */
-  }
 
   return (
     <header className={styles.header}>
@@ -82,24 +69,27 @@ const Header: React.FC = () => {
             <button
               className={styles.burgerBtn}
               aria-label="Відкрити меню"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <Icon
-                name="menu" // icon-burger
+              onClick={() => setMobileMenuOpen(true)}>
+              <svg
                 className={styles.burgerIcon}
-                sizeH={24}
-                sizeW={24}
-              />
+                width={24}
+                height={24}
+                aria-hidden="true"
+                fill="currentColor">
+                <use href="/sprite.svg#menu" />
+              </svg>
             </button>
           </div>
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
-              <Icon
-                name="shopping_cart" // icon-cart
+              <svg
                 className={styles.cartIcon}
-                sizeH={21}
-                sizeW={21}
-              />
+                width={21}
+                height={21}
+                aria-hidden="true"
+                fill="currentColor">
+                <use href="/sprite.svg#shopping_cart" />
+              </svg>
               <span className={styles.cartBadge}>1</span>
             </div>
           </Link>
@@ -110,7 +100,6 @@ const Header: React.FC = () => {
         onClose={() => setMobileMenuOpen(false)}
         isAuthenticated={isAuthenticated}
         onLogout={() => {
-          // якщо авторизований — викликаємо logout з store
           if (isAuthenticated) logout();
           setMobileMenuOpen(false);
         }}

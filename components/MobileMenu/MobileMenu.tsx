@@ -1,9 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './MobileMenu.module.css';
-// import styles from '../Header/Header.module.css';
-import stylesCart from '../Header/Header.module.css';
-import { Icon } from '../Header/Icons';
 import Image from 'next/image';
 
 interface MobileMenuProps {
@@ -42,25 +39,28 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             <button
               className={styles.mobileClose}
               onClick={onClose}
-              aria-label="Закрити меню"
-            >
-              <Icon
-                name="closeH"
+              aria-label="Закрити меню">
+              <svg
                 className={styles.mobileCloseIcon}
-                sizeH={14}
-                sizeW={14}
-              />
+                width={14}
+                height={14}
+                aria-hidden="true"
+                fill="currentColor">
+                <use href="/sprite.svg#closeH" />
+              </svg>
             </button>
           </div>
 
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
-              <Icon
-                name="shopping_cart"
+              <svg
                 className={styles.cartIcon}
-                sizeH={21}
-                sizeW={21}
-              />
+                width={21}
+                height={21}
+                aria-hidden="true"
+                fill="currentColor">
+                <use href="/sprite.svg#shopping_cart" />
+              </svg>
               <span className={styles.cartBadge}>1</span>
             </div>
           </Link>
@@ -73,8 +73,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             key={l.href}
             href={l.href}
             onClick={onClose}
-            className={styles.mobileNavLink}
-          >
+            className={styles.mobileNavLink}>
             {l.label}
           </Link>
         ))}
@@ -86,15 +85,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             <Link
               href="/auth/login"
               onClick={onClose}
-              className={styles.mobileActionLogin}
-            >
+              className={styles.mobileActionLogin}>
               Вхід
             </Link>
             <Link
               href="/auth/register"
               onClick={onClose}
-              className={styles.mobileActionRegister}
-            >
+              className={styles.mobileActionRegister}>
               Реєстрація
             </Link>
           </>
@@ -102,8 +99,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
           <Link
             href="/profile" // cabinet
             onClick={onClose}
-            className={styles.mobileActionRegister}
-          >
+            className={styles.mobileActionRegister}>
             Кабінет
           </Link>
         )}

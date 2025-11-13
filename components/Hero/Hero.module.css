@@ -6,7 +6,7 @@
   padding: 64px 20px;
   background: #f3f9ed;
   box-sizing: border-box;
-  color: #000;
+  color: var(--color-neutral-darkest);
 }
 
 .container {
@@ -31,7 +31,7 @@
   font-size: 40px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: #000;
+  color: var(--color-neutral-darkest);
   margin-bottom: 24px;
 }
 
@@ -46,7 +46,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.5;
-  color: #000;
+  color: var(--color-neutral-darkest);
   margin-bottom: 32px;
 }
 
@@ -69,44 +69,44 @@
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
-  color: #000;
+  color: var(--color-neutral-darkest);
   transition: background 0.3s ease;
 }
 
 .btnPrimary {
   width: 100%;
-  border: 1px solid #c5e1a5;
-  background: #c5e1a5;
+  border: 1px solid var(--color-deco);
+  background: var(--color-deco);
 }
 
 .btnPrimary:hover,
 .btnPrimary:focus {
-  background: #9db484;
-  border: 1px solid #4e5a42;
+  background: var(--color-deco-dark);
+  border: 1px solid var(--color-deco-darker);
 }
 
 .btnPrimary:active {
-  border: 1px solid #c5e1a5;
-  background: #3b4331;
-  color: #fff;
+  border: 1px solid var(--color-deco);
+  background: var(--color-deco-darkest);
+  color: var(--color-white);
 }
 
 .btnSecondary {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0);
-  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--opacity-transparent);
+  background: var(--opacity-neutral-darkest-5);
 }
 
 .btnSecondary:hover,
 .btnSecondary:focus {
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--opacity-neutral-darkest-50);
+  background: var(--opacity-neutral-darkest-15);
 }
 
 .btnSecondary:active {
-  border: 1px solid rgba(255, 255, 255, 0);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  border: 1px solid var(--opacity-transparent);
+  background: var(--opacity-neutral-darkest-50);
+  color: var(--color-white);
 }
 
 .imageWrapper {
