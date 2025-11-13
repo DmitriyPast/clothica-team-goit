@@ -2,8 +2,8 @@
    MOBILE FIRST (до 375px)
    ========================= */
 .styleSection {
-  padding: 32px 20px;
-  background: var(--color-deco-lighter);
+  padding: 32px 0;
+  background: #f5f8f0;
 }
 
 .container {
@@ -12,12 +12,12 @@
 }
 
 .title {
-  font-family: var(--second-family);
-  font-weight: 400;
+  font-family: 'Nunito Sans', sans-serif;
+  /* font-weight: 400; */
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--color-neutral-darkest);
+  /* color: #000; */
   width: 335px;
   margin: 0 auto 40px;
 }
@@ -97,9 +97,9 @@
    TABLET ≥768px
    ========================= */
 @media (min-width: 768px) {
-  .styleSection {
-    padding: 32px;
-  }
+  /* .styleSection {
+    padding: 32px 0;
+  } */
 
   .title {
     width: 704px;
@@ -131,7 +131,7 @@
    ========================= */
 @media (min-width: 1440px) {
   .styleSection {
-    padding: 48px 64px;
+    padding: 48px 0;
   }
 
   .title {
@@ -142,7 +142,7 @@
   }
 
   .item {
-    width: 300px;
+    width: 416px;
   }
 
   .itemTitle {

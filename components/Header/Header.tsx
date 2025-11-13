@@ -30,13 +30,13 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className={`container ${styles.container}`}>
         <Link href="/" className={styles.logo}>
           <Image
             src="/logo.svg"
             alt="Clothica Logo"
-            width={81}
-            height={17}
+            width={84}
+            height={36}
             priority
             className={styles.logoIcon}
           />
@@ -53,10 +53,14 @@ const Header: React.FC = () => {
         <div className={styles.right}>
           {!isAuthenticated ? (
             <>
-              <Link href="/auth/login" className={styles.btnLogin}>
+              <Link
+                href="/auth/login"
+                className={`btn btn-secondary ${styles.btnLogin}`}>
                 Вхід
               </Link>
-              <Link href="/auth/register" className={styles.btnRegister}>
+              <Link
+                href="/auth/register"
+                className={`btn btn-primary ${styles.btnRegister}`}>
                 Реєстрація
               </Link>
             </>
@@ -65,30 +69,38 @@ const Header: React.FC = () => {
               Кабінет
             </Link>
           )}
-          <div className={styles.mobileMenuBtnCircle}>
-            <button
-              className={styles.burgerBtn}
-              aria-label="Відкрити меню"
-              onClick={() => setMobileMenuOpen(true)}>
+          <button
+            className={`btn ${styles.burgerBtn}`}
+            aria-label="Відкрити меню"
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+            {/* <div> */}
+            {!isMobileMenuOpen ? (
+              <svg width={24} height={24}>
+                <use
+                  href="/sprite.svg#menu"
+                  className={styles.burgerIcon}></use>
+              </svg>
+            ) : (
               <svg
-                className={styles.burgerIcon}
-                width={24}
-                height={24}
+                className={styles.mobileCloseIcon}
+                width={14}
+                height={14}
                 aria-hidden="true"
                 fill="currentColor">
-                <use href="/sprite.svg#menu" />
+                <use href="/sprite.svg#closeH" />
               </svg>
-            </button>
-          </div>
+            )}
+            {/* <Icon
+              name="menu" // icon-burger
+              sizeH={24}
+              sizeW={24}
+            /> */}
+            {/* </div> */}
+          </button>
           <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
             <div className={styles.cartCircle}>
-              <svg
-                className={styles.cartIcon}
-                width={21}
-                height={21}
-                aria-hidden="true"
-                fill="currentColor">
-                <use href="/sprite.svg#shopping_cart" />
+              <svg className={styles.cartIcon} width={24} height={24}>
+                <use href="/sprite.svg#shopping_cart"></use>
               </svg>
               <span className={styles.cartBadge}>1</span>
             </div>

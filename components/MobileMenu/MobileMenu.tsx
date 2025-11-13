@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './MobileMenu.module.css';
 import Image from 'next/image';
+import Header from '../Header/Header';
 
 interface MobileMenuProps {
   open: boolean;
@@ -22,7 +23,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div className={styles.mobileOverlay} role="dialog" aria-modal="true">
-      <div className={styles.mobileHeader}>
+      {/* <div className={styles.mobileHeader}>
         <Link href="/" className={styles.logo}>
           <Image
             src="/logo.svg"
@@ -65,7 +66,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             </div>
           </Link>
         </div>
-      </div>
+      </div> */}
+      {/* <Header /> */}
 
       <nav className={styles.mobileNav}>
         {links.map(l => (

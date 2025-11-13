@@ -1,102 +1,16 @@
 .mobileOverlay {
+  width: 100%;
+  height: 100%;
   position: fixed;
-  inset: 0;
+  top: 72px;
+  /* inset: 0; */
   background: var(--color-deco-light);
   z-index: 60;
   display: flex;
   flex-direction: column;
   animation: fadeIn 220ms ease;
 }
-.mobileHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px;
-  width: 100%;
-  height: 72px;
-  margin-top: 0;
-}
 
-.logoIcon {
-  fill: var(--color-neutral-darkest);
-}
-
-.mobileRight {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.mobileCloseBtnCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 100px;
-  padding: 5px;
-  padding-bottom: 0px;
-  background: var(--opacity-neutral-darkest-5);
-  border: 1px solid var(--opacity-neutral-darkest-5);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-}
-.mobileClose {
-  top: 20px;
-  right: 84px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  fill: var(--color-neutral-darkest);
-}
-.mobileCloseIcon {
-  display: inline-block;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
-
-.cartLink {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-}
-.cartCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 100px;
-  padding: 6px;
-  background: var(--color-neutral-darkest);
-  border: 1px solid var(--color-neutral-darkest);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-}
-.cartIcon {
-  fill: var(--color-white);
-  color: var(--color-white);
-}
-.cartBadge {
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  border: 1px solid #b70000;
-  border-radius: 100px;
-  width: 13px;
-  height: 13px;
-  background: #b70000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 300;
-  font-size: 9px;
-  line-height: 1;
-  color: var(--color-white);
-}
 .mobileNav {
   display: flex;
   flex-direction: column;
@@ -200,5 +114,11 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .mobileOverlay {
+    display: none;
   }
 }

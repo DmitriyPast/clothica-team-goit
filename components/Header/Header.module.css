@@ -12,24 +12,24 @@ body {
    ========================= */
 
 .header {
-  width: 100%;
+  padding: 18px 0;
+  /* width: 100%; */
   background: var(--color-deco-light);
   border-bottom: 1px solid var(--opacity-neutral-darkest-15);
-  color: var(--color-neutral-darkest);
+  /* color: var(--color-neutral-darkest); */
   font-family: var(--font-family);
 }
 
 .container {
-  width: 100%;
-  max-width: 100%;
+  /* width: 100%; */
+  /* max-width: 100%; */
   /* height: 72px; */
-  margin: 0 auto;
-  padding: 18px 20px;
+  /* margin: 0 auto; */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  box-sizing: border-box;
+  /* position: relative; */
+  /* box-sizing: border-box; */
 }
 
 .logoLink {
@@ -50,9 +50,9 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: var(--color-neutral-darkest);
-  transition:
+  /* transition:
     color 0.3s ease,
-    opacity 0.3s ease;
+    opacity 0.3s ease; */
   cursor: pointer;
 }
 
@@ -76,109 +76,34 @@ body {
   gap: 16px;
 }
 
-.btnLogin,
-.btnRegister,
-.btnCabinet {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 1.5;
-  border-radius: 100px;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid transparent;
-  font-weight: 500;
-  color: var(--color-neutral-darkest);
-}
-
-.btnLogin {
-  background: var(--opacity-neutral-darkest-5);
-  border: 1px solid var(--opacity-neutral-darkest-5);
-}
-
-.btnLogin:hover,
-.btnLogin:focus {
-  background: var(--opacity-neutral-darkest-15);
-  border: 1px solid var(--opacity-neutral-darkest-50);
-}
-
-.btnLogin:active {
-  background: var(--opacity-neutral-darkest-50);
-  color: var(--color-white);
-}
-
-.btnRegister {
-  background: var(--color-deco);
-  border: 1px solid var(--color-deco);
-}
-
-.btnRegister:hover,
-.btnRegister:focus {
-  background: var(--color-deco-dark);
-  border: 1px solid var(--color-deco-darker);
-}
-
-.btnRegister:active {
-  border: 1px solid var(--color-deco);
-  background: var(--color-deco-darkest);
-  color: var(--color-white);
-}
-
-.btnCabinet {
-  background: var(--color-deco);
-  border: 1px solid var(--color-deco);
-}
-
-.btnCabinet:hover,
-.btnCabinet:focus {
-  background: var(--opacity-neutral-darkest-15);
-  border: 1px solid var(--opacity-neutral-darkest-50);
-}
-
-.btnCabinet:active {
-  background: var(--opacity-neutral-darkest-50);
-  color: var(--color-white);
-}
-
-/* lasam */
-.cartLink {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-}
-
 .cartCircle {
   width: 36px;
   height: 36px;
   border-radius: 100px;
-  padding: 6px;
+  /* padding: 6px; */
   background: var(--color-neutral-darkest);
   border: 1px solid var(--color-neutral-darkest);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 .cartBadge {
   position: absolute;
-  top: -3px;
+  top: -2px;
   right: -3px;
   border: 1px solid #b70000;
   border-radius: 100px;
-  width: 13px;
-  height: 13px;
+  width: 11px;
+  height: 12px;
   background: #b70000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: 300;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1;
   color: var(--color-white);
+  text-align: center;
 }
 
 .cartIcon {
@@ -187,32 +112,15 @@ body {
 }
 
 .burgerBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  padding: 8px;
-  cursor: pointer;
+  min-width: 36px;
+  background: var(--opacity-neutral-darkest-5);
+  border: var(--opacity-neutral-darkest-5);
+  /* border: 1px solid rgba(203, 222, 182); // opacity overlaps which makes the border darker, designer error */
 }
 
 .burgerIcon {
   fill: var(--color-black);
   color: var(--color-black);
-}
-
-.mobileMenuBtnCircle {
-  width: 36px;
-  height: 36px;
-  border-radius: 100px;
-  padding: 5px;
-  background: var(--opacity-neutral-darkest-5);
-  border: 1px solid var(--opacity-neutral-darkest-5);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -246,26 +154,28 @@ body {
    TABLET ≥768px
    ========================= */
 @media (min-width: 768px) {
-  .container {
+  /* .container {
     max-width: 768px;
     padding: 18px 32px;
-  }
+  } */
 
   .nav {
     display: flex;
     gap: 32px;
   }
 
-  .btnLogin {
-    width: 50px;
-    height: 29px;
+  .btnLogin,
+  .btnRegister {
+    min-height: 29px;
     font-size: 14px;
   }
 
+  .btnLogin {
+    min-width: 50px;
+  }
+
   .btnRegister {
-    width: 98px;
-    height: 29px;
-    font-size: 14px;
+    min-width: 98px;
   }
 
   .right {
@@ -276,9 +186,11 @@ body {
   .burgerBtn {
     display: none;
   }
-
-  .mobileMenuBtnCircle {
-    display: none;
+}
+@media (min-width: 768px) and (max-width: 1439px) {
+  .btnLogin,
+  .btnRegister {
+    font-size: 14px;
   }
 
   .navLink {
@@ -290,10 +202,10 @@ body {
    DESKTOP ≥1440px
    ========================= */
 @media (min-width: 1440px) {
-  .container {
+  /* .container {
     max-width: 1440px;
     padding: 18px 64px;
-  }
+  } */
 
   .nav {
     gap: 32px;
@@ -302,18 +214,18 @@ body {
   .btnLogin,
   .btnRegister,
   .btnCabinet {
-    padding: 10px 22px;
+    /* padding: 10px 22px; */
   }
 
   .btnLogin {
-    width: 54px;
-    height: 32px;
-    font-size: 16px;
+    min-width: 54px;
+    min-height: 32px;
+    /* font-size: 16px; */
   }
 
   .btnRegister {
-    width: 109px;
-    height: 32px;
+    min-width: 109px;
+    min-height: 32px;
   }
 
   .navLink {
