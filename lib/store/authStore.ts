@@ -6,7 +6,8 @@ interface AuthStore {
   user: User | null;
   setUser: (user: User) => void;
   clearIsAuthenticated: () => void;
-};
+  logout: () => void;
+}
 
 export const useAuthStore = create<AuthStore>()(set => ({
   isAuthenticated: false,
@@ -16,5 +17,10 @@ export const useAuthStore = create<AuthStore>()(set => ({
   },
   clearIsAuthenticated: () => {
     set(() => ({ user: null, isAuthenticated: false }));
+  },
+
+  logout: () => {
+    set(() => ({ user: null, isAuthenticated: false }));
+    localStorage.removeItem('token');
   },
 }));
