@@ -2,14 +2,11 @@
    HERO базова мобільна версія (320–374)
    ========================= */
 
-.hero {
-  padding: 64px 20px;
+#hero {
+  /* padding: 64px 20px;
   background: #f3f9ed;
   box-sizing: border-box;
-  color: var(--color-neutral-darkest);
-}
-
-.container {
+  color: #000; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,14 +21,14 @@
 }
 
 .title {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: var(--second-family);
   text-align: left;
-  width: auto;
-  font-weight: 400;
+  /* width: auto; */
+  /* font-weight: 400; */
   font-size: 40px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--color-neutral-darkest);
+  /* color: #000; */
   margin-bottom: 24px;
 }
 
@@ -58,60 +55,9 @@
   width: 100%;
 }
 
-.btnPrimary,
-.btnSecondary {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100px;
-  line-height: 1.5;
-  height: 36px;
-  font-size: 16px;
-  font-weight: 500;
-  text-decoration: none;
-  color: var(--color-neutral-darkest);
-  transition: background 0.3s ease;
-}
-
-.btnPrimary {
+.btnGoods,
+.btnCategs {
   width: 100%;
-  border: 1px solid var(--color-deco);
-  background: var(--color-deco);
-}
-
-.btnPrimary:hover,
-.btnPrimary:focus {
-  background: var(--color-deco-dark);
-  border: 1px solid var(--color-deco-darker);
-}
-
-.btnPrimary:active {
-  border: 1px solid var(--color-deco);
-  background: var(--color-deco-darkest);
-  color: var(--color-white);
-}
-
-.btnSecondary {
-  width: 100%;
-  border: 1px solid var(--opacity-transparent);
-  background: var(--opacity-neutral-darkest-5);
-}
-
-.btnSecondary:hover,
-.btnSecondary:focus {
-  border: 1px solid var(--opacity-neutral-darkest-50);
-  background: var(--opacity-neutral-darkest-15);
-}
-
-.btnSecondary:active {
-  border: 1px solid var(--opacity-transparent);
-  background: var(--opacity-neutral-darkest-50);
-  color: var(--color-white);
-}
-
-.imageWrapper {
-  /* width: 100%; */
-  /* max-width: 640px; */
 }
 
 .image {
@@ -128,11 +74,8 @@
    TABLET ≥768px
    ========================= */
 @media (min-width: 768px) {
-  .hero {
-    padding: 64px 32px;
-  }
-
-  .container {
+  #hero {
+    /* padding: 64px 32px; */
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -152,12 +95,12 @@
     font-size: 18px;
   }
 
-  .btnPrimary {
-    width: 110px;
+  .btnGoods {
+    max-width: 110px;
   }
 
-  .btnSecondary {
-    width: 181px;
+  .btnCategs {
+    max-width: 181px;
   }
 
   .buttons {
@@ -176,16 +119,13 @@
    DESKTOP ≥1440px
    ========================= */
 @media (min-width: 1440px) {
-  .hero {
-    padding: 112px 64px;
-  }
-
-  .container {
-    gap: 32px;
+  #hero {
+    /* padding: 112px 0; */
+    /* gap: 32px; */
   }
 
   .content {
-    max-width: 600px;
+    max-width: 640px;
   }
 
   .title {
