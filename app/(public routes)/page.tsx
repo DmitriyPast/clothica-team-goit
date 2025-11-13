@@ -3,12 +3,14 @@
 import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 import Hero from '../../components/Hero/Hero';
 import Style from '../../components/Style/Style';
+import TestPage from '@/components/PopularGoods/PopularGoods';
 
 export default function HomePage() {
   return (
     <div className="container">
       <Hero />
       <Style />
+      <TestPage/>
       <MessageNoInfo
         text="Driving in my car right after a beer
          Hey, that bump is shaped like a deer 
@@ -23,7 +25,7 @@ export default function HomePage() {
         buttonText="TRUCK!"
         onClick={handleOpenNewTab}
       />
-    </div>
+           </div>
   );
 }
 const handleOpenNewTab = () => {
