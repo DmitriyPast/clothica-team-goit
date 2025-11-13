@@ -2,9 +2,8 @@
 
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Keyboard } from "swiper/modules";
+import { Keyboard } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
 import css from "./ReviewsList.module.css";
 import { Feedback } from "@/types/feedback";
 
@@ -26,6 +25,7 @@ export default function ReviewsSlider({ feedbacks, productId }: ReviewsSliderPro
 
   const [canSlidePrev, setCanSlidePrev] = useState(false);
   const [canSlideNext, setCanSlideNext] = useState(sortedFeedbacks.length > 3);
+  const [slidesPerView, setSlidesPerView] = useState(1);
 
   const renderStars = (rate: number) => {
     const stars = [];
@@ -41,35 +41,55 @@ export default function ReviewsSlider({ feedbacks, productId }: ReviewsSliderPro
     return <div className={css.starsWrapper}>{stars}</div>;
   };
 
-  // Оновлюємо стан кнопок після свайпу
+  // Обновляємо стан кнопок після свайпу
   const handleSlideChange = () => {
     if (!swiperRef.current) return;
     setCanSlidePrev(!swiperRef.current.isBeginning);
     setCanSlideNext(!swiperRef.current.isEnd);
   };
 
+  // Динамічне визначення slidesPerView при зміні ширини
+  const updateSlidesPerView = () => {
+    const width = window.innerWidth;
+    if (width >= 1440) setSlidesPerView(3);
+    else if (width >= 768) setSlidesPerView(2);
+    else setSlidesPerView(1);
+  };
+
+  useEffect(() => {
+    updateSlidesPerView();
+    window.addEventListener("resize", updateSlidesPerView);
+    return () => window.removeEventListener("resize", updateSlidesPerView);
+  }, []);
+
   useEffect(() => {
     handleSlideChange();
-  }, [sortedFeedbacks]);
+  }, [sortedFeedbacks, slidesPerView]);
+
+  const handleNext = () => {
+    if (!swiperRef.current) return;
+    const nextIndex = Math.min(
+      swiperRef.current.activeIndex + slidesPerView,
+      sortedFeedbacks.length - slidesPerView
+    );
+    swiperRef.current.slideTo(nextIndex);
+  };
+
+  const handlePrev = () => {
+    if (!swiperRef.current) return;
+    const prevIndex = Math.max(swiperRef.current.activeIndex - slidesPerView, 0);
+    swiperRef.current.slideTo(prevIndex);
+  };
 
   return (
     <div className={css.sliderWrapper}>
       <Swiper
-        modules={[Navigation, Keyboard]}
+        modules={[Keyboard]}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={handleSlideChange}
         spaceBetween={32}
-        slidesPerView={1}
-        slidesPerGroup={1}
-        breakpoints={{
-          768: { slidesPerView: 2, slidesPerGroup: 2 },
-          1440: { slidesPerView: 3, slidesPerGroup: 3 },
-        }}
+        slidesPerView={slidesPerView}
         keyboard={{ enabled: true }}
-        navigation={{
-          nextEl: ".next",
-          prevEl: ".prev",
-        }}
       >
         {sortedFeedbacks.map((fb) => (
           <SwiperSlide key={fb._id}>
@@ -88,14 +108,14 @@ export default function ReviewsSlider({ feedbacks, productId }: ReviewsSliderPro
       <div className={css.navButtons}>
         <button
           className={`${css.navButton} prev`}
-          onClick={() => swiperRef.current?.slidePrev()}
+          onClick={handlePrev}
           disabled={!canSlidePrev}
         >
           ←
         </button>
         <button
           className={`${css.navButton} next`}
-          onClick={() => swiperRef.current?.slideNext()}
+          onClick={handleNext}
           disabled={!canSlideNext}
         >
           →
