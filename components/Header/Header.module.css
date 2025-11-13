@@ -1,0 +1,234 @@
+/* =========================
+   Header.module.css
+   ========================= *
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+}
+
+/* =========================
+   Базовий (mobile first)
+   ========================= */
+
+.header {
+  padding: 18px 0;
+  /* width: 100%; */
+  background: var(--color-deco-light);
+  border-bottom: 1px solid var(--opacity-neutral-darkest-15);
+  /* color: var(--color-neutral-darkest); */
+  font-family: var(--font-family);
+}
+
+.container {
+  /* width: 100%; */
+  /* max-width: 100%; */
+  /* height: 72px; */
+  /* margin: 0 auto; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* position: relative; */
+  /* box-sizing: border-box; */
+}
+
+.logoLink {
+  height: 17px;
+}
+.logoIcon {
+  fill: var(--color-neutral-darkest);
+}
+
+/* Навігація — схована на мобільному */
+.nav {
+  display: none;
+}
+
+.navLink {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-neutral-darkest);
+  /* transition:
+    color 0.3s ease,
+    opacity 0.3s ease; */
+  cursor: pointer;
+}
+
+.navLink:hover,
+.navLink:focus {
+  font-weight: 500;
+  color: var(--color-neutral-darkest);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+
+.navLink:active {
+  color: var(--color-deco-dark);
+  text-decoration: underline;
+}
+
+.right {
+  display: none;
+  align-items: center;
+  gap: 16px;
+}
+
+.cartCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  /* padding: 6px; */
+  background: var(--color-neutral-darkest);
+  border: 1px solid var(--color-neutral-darkest);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* box-sizing: border-box; */
+}
+
+.cartBadge {
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  border: 1px solid #b70000;
+  border-radius: 100px;
+  width: 11px;
+  height: 12px;
+  background: #b70000;
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.cartIcon {
+  fill: var(--color-white);
+  color: var(--color-white);
+}
+
+.burgerBtn {
+  min-width: 36px;
+  background: var(--opacity-neutral-darkest-5);
+  border: var(--opacity-neutral-darkest-5);
+  /* border: 1px solid rgba(203, 222, 182); // opacity overlaps which makes the border darker, designer error */
+}
+
+.burgerIcon {
+  fill: var(--color-black);
+  color: var(--color-black);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================
+   MOBILE ≤767px
+   ========================= */
+@media (max-width: 767px) {
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .btnLogin,
+  .btnRegister,
+  .btnCabinet {
+    display: none;
+  }
+}
+
+/* =========================
+   TABLET ≥768px
+   ========================= */
+@media (min-width: 768px) {
+  /* .container {
+    max-width: 768px;
+    padding: 18px 32px;
+  } */
+
+  .nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .btnLogin,
+  .btnRegister {
+    min-height: 29px;
+    font-size: 14px;
+  }
+
+  .btnLogin {
+    min-width: 50px;
+  }
+
+  .btnRegister {
+    min-width: 98px;
+  }
+
+  .right {
+    display: flex;
+    gap: 16px;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 1439px) {
+  .btnLogin,
+  .btnRegister {
+    font-size: 14px;
+  }
+
+  .navLink {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   DESKTOP ≥1440px
+   ========================= */
+@media (min-width: 1440px) {
+  /* .container {
+    max-width: 1440px;
+    padding: 18px 64px;
+  } */
+
+  .nav {
+    gap: 32px;
+  }
+
+  .btnLogin,
+  .btnRegister,
+  .btnCabinet {
+    /* padding: 10px 22px; */
+  }
+
+  .btnLogin {
+    min-width: 54px;
+    min-height: 32px;
+    /* font-size: 16px; */
+  }
+
+  .btnRegister {
+    min-width: 109px;
+    min-height: 32px;
+  }
+
+  .navLink {
+    font-size: 16px;
+  }
+}

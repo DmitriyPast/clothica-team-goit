@@ -1,0 +1,14 @@
+/* HEADER STYLES */
+.authHeader {
+  /* width: 335px; */
+  /* height: 72px; */
+  /* max-width: 1312px; */
+  padding: 18px 0;
+}
+
+.logo {
+  width: 84px;
+  height: 36px;
+  display: block;
+  /* position: absolute; */
+}
