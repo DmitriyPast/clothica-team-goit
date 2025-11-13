@@ -1,5 +1,5 @@
-import css from './BasketPage.module.css';
+import BasketModal from '@/components/BasketModal/BasketModal';
 
 export default function BasketPage() {
-  return 'Basket Page';
+  return <BasketModal />;
 }
