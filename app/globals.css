@@ -218,18 +218,6 @@ section {
   gap: 24px;
 }
 
-/* buttons */
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  color: var(--color-neutral-darkest);
-  font-weight: 500;
-}
-
 /* ==================================================================== */
 Footer.mychanges.null {
   .inputSubscribe {
@@ -280,6 +268,21 @@ Footer.mychanges.null {
   }
 }
 /* ==================================================================== */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  color: var(--color-neutral-darkest);
+  font-weight: 500;
+}
+
+.btn-circle {
+  padding: 6px;
+}
 
 .btn:disabled {
   opacity: 0.4;
