@@ -1,10 +1,12 @@
 import type { User } from '@/types/user';
 import internalApi from './api';
 import { cookies } from 'next/headers';
-import { Gender, Good, Size } from '@/types/good';
+import { Good } from '@/types/good';
 import { Order } from '@/types/order';
 import { Feedback } from '@/types/feedback';
 import { Category } from '@/types/category';
+import { GENDERS } from '@/constants/gender';
+import { SIZES } from '@/constants/size';
 
 export interface FetchGoodsResponse {
   goods: Good[];
@@ -15,8 +17,8 @@ export interface FetchGoodsResponse {
 export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
-  size?: Size;
-  gender?: Gender;
+  size?: (typeof SIZES)[number];
+  gender?: (typeof GENDERS)[number];
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
