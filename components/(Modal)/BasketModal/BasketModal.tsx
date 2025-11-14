@@ -2,16 +2,17 @@
 
 import css from './BasketModal.module.css';
 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
-import GoodsOrderList from '../GoodsOrderList/GoodsOrderList';
-import MessageNoInfo from '../MessageNoInfo/MessageNoInfo';
+import GoodsOrderList from '@/components/GoodsOrderList/GoodsOrderList';
+import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 import { X } from 'lucide-react';
+import '@/components/test.ts';
 
 export default function BasketModal() {
   const router = useRouter();
-  const { items, total } = useCartStore();
+  const { items } = useCartStore();
 
   // Закриття по Escape
   useEffect(() => {
@@ -21,6 +22,13 @@ export default function BasketModal() {
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, [router]);
+  // Блокування скролу фону
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   // Закриття по кліку на бекдроп
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -29,7 +37,7 @@ export default function BasketModal() {
 
   return (
     <div className={`backdrop ${css.backDrop}`} onClick={handleBackdropClick}>
-      <div className={` modal  ${css.modal}`}>
+      <div className={`modal ${css.modal}`}>
         <button className={css.closeBtn} onClick={() => router.back()}>
           <X size={24} />
         </button>
@@ -39,36 +47,16 @@ export default function BasketModal() {
         {items.length > 0 ? (
           <>
             <GoodsOrderList />
-            <ul className={css.totalBlock}>
-              <li className={css.block}>
-                <p className={css.text}>Проміжний підсумок</p>
-                <p className={css.price}>
-                  {total.value} {total.currency}
-                </p>
-              </li>
-              <li className={css.block}>
-                <p className={css.text}>Доставка</p>
-                <p className={css.price}>Безкоштовно</p>
-              </li>
-              <li className={css.block}>
-                <p className={css.strongText}>Всього:</p>
-                <strong className={css.price}>
-                  {total.value} {total.currency}
-                </strong>
-              </li>
-            </ul>
 
             <div className={css.actions}>
               <button
                 className={`btn btn-secondary ${css.basketBtn}`}
-                onClick={() => router.push('/goods')}
-              >
+                onClick={() => router.push('/goods')}>
                 Продовжити покупки
               </button>
               <button
                 className={`btn btn-primary ${css.basketBtn}`}
-                onClick={() => router.push('/order')}
-              >
+                onClick={() => router.push('/order')}>
                 Оформити замовлення
               </button>
             </div>

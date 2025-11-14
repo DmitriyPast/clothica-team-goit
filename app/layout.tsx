@@ -55,7 +55,9 @@ export default async function RootLayout({
     <html lang="uk">
       <body className={`${inter.variable} ${nunito.variable}`}>
         <TanStackProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children} {modal}
+          </AuthProvider>
           <ReactQueryDevtools />
           {/*^^DELETE THIS ON PRODUCTION*/}
         </TanStackProvider>

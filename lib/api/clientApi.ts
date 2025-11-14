@@ -4,7 +4,7 @@ import type { User, RegisterUser, LoginUser } from '@/types/user';
 import { Order, UpdateOrderStatus } from '@/types/order';
 import { Category } from '@/types/category';
 import { Feedback } from '@/types/feedback';
-import { GENDERS } from '@/constants/gender';
+import { GENDER } from '@/constants/gender';
 import { SIZES } from '@/constants/size';
 
 export interface FetchGoodsResponse {
@@ -17,7 +17,7 @@ export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
   size?: (typeof SIZES)[number];
-  gender?: (typeof GENDERS)[number];
+  gender?: (typeof GENDER)[number];
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
@@ -35,8 +35,8 @@ export async function fetchGoods(
 }
 
 //GET good by id
-export async function fetchGoodById(noteId: string): Promise<Good> {
-  const { data } = await internalApi.get<Good>(`goods/${noteId}`);
+export async function fetchGoodById(goodId: string): Promise<Good> {
+  const { data } = await internalApi.get<Good>(`goods/${goodId}`);
   return data;
 }
 

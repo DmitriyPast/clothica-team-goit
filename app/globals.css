@@ -215,7 +215,6 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 24px;
 }
 
@@ -281,26 +280,6 @@ Footer.mychanges.null {
   }
 }
 /* ==================================================================== */
-
-/* buttons */
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 124px;
-  min-height: 36px;
-  /* padding: 8px; */
-  border-radius: 100px;
-  color: var(--color-neutral-darkest);
-  /* font-size: 16px; */
-  font-weight: 500;
-  max-height: 36px;
-  font-size: 16px;
-}
-
-.button {
-  /* line-height: 150%; */
-}
 
 .btn:disabled {
   opacity: 0.4;

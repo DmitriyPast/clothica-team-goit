@@ -11,10 +11,7 @@ export default async function RootLayout({
   return (
     <>
       <Header />
-      <main>
-        {children}
-        {modal}
-      </main>
+      <main>{children}</main>
       <Footer />
     </>
   );
