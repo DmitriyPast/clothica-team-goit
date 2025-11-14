@@ -8,10 +8,11 @@ export type Good = {
   category: string;
   image: string;
   price: { value: number; currency: string };
-  size: (typeof SIZES)[number];
+  size: string[];
+  // розміри підтягуються з беку, якщо їх захардкодити через SIZES, тоді всі значення об'єднуються в одну строчку
   description?: string;
   feedbacks?: [Feedback];
   prevDescription?: string;
   gender: (typeof GENDERS)[number];
-  characteristics: string;
+  characteristics: string[];
 };

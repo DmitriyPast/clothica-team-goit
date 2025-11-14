@@ -5,9 +5,8 @@ import {
   HydrationBoundary,
   dehydrate,
 } from '@tanstack/react-query';
-import { fetchGoodById } from '@/lib/api/serverApi';
+import { fetchGoodById, fetchFeedbacks } from '@/lib/api/serverApi';
 import GoodPageClient from './GoodPage.client';
-import { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,6 +19,11 @@ export default async function GoodPage({ params }: Props) {
   await queryClient.prefetchQuery({
     queryKey: ['note', id],
     queryFn: () => fetchGoodById(id),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['feedbacks', id],
+    queryFn: () => fetchFeedbacks({ productId: id }),
   });
 
   return (

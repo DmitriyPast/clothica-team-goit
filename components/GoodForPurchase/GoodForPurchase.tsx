@@ -2,6 +2,8 @@ import { Formik, Form, Field } from 'formik';
 import { useId, useState } from 'react';
 import Image from 'next/image';
 
+import { SIZES } from '@/constants/size';
+
 import css from './GoodForPurchase.module.css';
 
 interface GoodProps {
@@ -47,8 +49,7 @@ export default function GoodForPurchase(props: GoodProps) {
                   className={css.size_options}
                   as="select"
                   name="size"
-                  id={`${fieldId}-size`}
-                >
+                  id={`${fieldId}-size`}>
                   {props.size.map(s => (
                     <option key={s} value={s}>
                       {s}
@@ -60,8 +61,7 @@ export default function GoodForPurchase(props: GoodProps) {
                 <button
                   className={css.add_to_busket}
                   type="button"
-                  onClick={handleClick}
-                >
+                  onClick={handleClick}>
                   Додати в кошик
                 </button>
                 <Field
@@ -69,8 +69,7 @@ export default function GoodForPurchase(props: GoodProps) {
                   as="input"
                   type="number"
                   value={volume}
-                  placeholder="0"
-                ></Field>
+                  placeholder="0"></Field>
               </div>
               <button className={css.buy_rn} type="submit">
                 Купити зараз

@@ -1,4 +1,5 @@
 export type Feedback = {
+  _id: string;
   author: string;
   date: string;
   description: string;

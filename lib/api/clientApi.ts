@@ -107,7 +107,7 @@ export interface FetchFeedbacksResponse {
 //GET feedbacks
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
-): Promise<FetchFeedbacksParams> {
+): Promise<FetchFeedbacksResponse> {
   return (
     await internalApi.get<FetchFeedbacksResponse>('feedbacks', { params })
   ).data;
