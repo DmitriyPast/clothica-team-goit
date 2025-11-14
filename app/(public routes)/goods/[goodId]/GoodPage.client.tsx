@@ -6,9 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { fetchGoodById, fetchFeedbacks } from '@/lib/api/clientApi';
 import { FetchFeedbacksResponse } from '@/lib/api/serverApi';
-
+import { Feedback } from '@/types/feedback';
 import GoodForPurchase from '@/components/GoodForPurchase/GoodForPurchase';
 import Feedbacks from '@/components/Feedbacks/Feedbacks';
+import { useMemo } from 'react';
 
 import Loading from '@/app/loading';
 
@@ -21,14 +22,25 @@ export default function GoodPageClient() {
     refetchOnMount: false,
   });
 
-  const { data: feedbacks } = useQuery<FetchFeedbacksResponse>({
+  const { data: feedbacksData } = useQuery<FetchFeedbacksResponse>({
     queryKey: ['good', goodId],
     queryFn: () => fetchFeedbacks({ productId: goodId }),
     refetchOnMount: false,
   });
 
+  function averageRate(feedbacks: Feedback[] | undefined): number {
+    if (!feedbacks || feedbacks.length === 0) return 0;
+    const sum = feedbacks.reduce((acc, f) => acc + (f.rate ?? 0), 0);
+    return sum / feedbacks.length;
+  }
+
+  const avg = useMemo(
+    () => averageRate(feedbacksData?.feedbacks),
+    [feedbacksData?.feedbacks]
+  );
+
   if (!good) return <p>Завантаження товару...</p>;
-  if (!feedbacks) return <p>Завантаження відгуків...</p>;
+  if (!feedbacksData) return <p>Завантаження відгуків...</p>;
 
   const {
     image,
@@ -38,6 +50,7 @@ export default function GoodPageClient() {
     description,
     size,
     characteristics,
+    feedbacks,
   } = good;
 
   return (
@@ -51,8 +64,10 @@ export default function GoodPageClient() {
           description={description}
           size={size}
           characteristics={characteristics}
+          rate={avg}
+          feedbacksAmount={feedbacks?.length || 0}
         />
-        <Feedbacks feedbacks={feedbacks.feedbacks} />
+        <Feedbacks feedbacks={feedbacksData.feedbacks} />
         {/* {feedbacks.feedbacks.map(f => (
           <div key={f._id}>
             <h3>{f.rate}</h3>

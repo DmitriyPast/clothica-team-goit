@@ -23,7 +23,33 @@
   font-size: 20px;
   line-height: 1.4;
   letter-spacing: -0.01;
+  padding-right: 16px;
+  border-right: 1px solid #00000033;
+  margin-right: 16px;
 }
+
+.price_and_rate_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.stars_wrapper {
+  display: flex;
+  height: 16px;
+  gap: 4px;
+  margin-right: 8px;
+}
+
+.rating_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.feedbacks_amount {
+  font-size: 14px;
+  text-align: center;
+}
+
 .good_prev_descr {
   font-size: 16px;
   line-height: 1.5;
@@ -35,7 +61,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 .size_wrapper {
   display: flex;
@@ -86,6 +112,13 @@
   border: 1px solid #00000080;
 }
 
+.free_shipment {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .full_descr {
   display: flex;
   flex-direction: column;
@@ -118,13 +151,32 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .full_wrapper {
+    display: flex;
+    gap: 32px;
+  }
+
   .image_wrapper {
     width: 336px;
+    max-width: 100%;
+    margin-bottom: 0;
   }
+
+  .all_info {
+    width: 336px;
+  }
+
+  /* .short_descr_wrapper {
+    width: 336px;
+  } */
 }
 
 @media only screen and (min-width: 1440px) {
   .image_wrapper {
+    width: 640px;
+  }
+
+  .all_info {
     width: 640px;
   }
 }
