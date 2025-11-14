@@ -219,18 +219,6 @@ section {
   gap: 24px;
 }
 
-/* buttons */
-.btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-  padding: 6px 12px;
-  border-radius: 100px;
-  color: var(--color-neutral-darkest);
-  font-weight: 500;
-}
-
 /* ==================================================================== */
 Footer.mychanges.null {
   .inputSubscribe {
@@ -287,19 +275,16 @@ Footer.mychanges.null {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 124px;
-  min-height: 36px;
-  /* padding: 8px; */
   border-radius: 100px;
   color: var(--color-neutral-darkest);
-  /* font-size: 16px; */
   font-weight: 500;
-  max-height: 36px;
+  /* max-height: 36px; */
+  padding: 6px 12px;
   font-size: 16px;
 }
 
-.button {
-  /* line-height: 150%; */
+.btn-circle {
+  padding: 6px;
 }
 
 .btn:disabled {
