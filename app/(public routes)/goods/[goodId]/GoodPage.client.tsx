@@ -63,11 +63,10 @@ export default function GoodPageClient() {
           price={price}
           description={description}
           size={size}
-          characteristics={characteristics}
+          characteristics={characteristics || []}
           rate={avg}
           feedbacksAmount={feedbacks?.length || 0}
         />
-        <Feedbacks feedbacks={feedbacksData.feedbacks} />
         {/* {feedbacks.feedbacks.map(f => (
           <div key={f._id}>
             <h3>{f.rate}</h3>
