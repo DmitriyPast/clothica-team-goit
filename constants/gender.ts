@@ -1,1 +1,1 @@
-export const GENDERS = ['Всі', 'Жіночий', 'Чоловічий', 'Унісекс'] as const;
+export const GENDERS = ['all', 'women', 'men', 'unisex'] as const;
