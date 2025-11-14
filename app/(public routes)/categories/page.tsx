@@ -9,24 +9,65 @@ import css from './CategoriesPage.module.css';
 export default function CategoriesPage() {
   const [allCategories, setAllCategories] = useState<any[]>([]);
   const [page, setPage] = useState(1);
-  const perPage = 3;
+
+  // Перший запит - 6 категорій, наступні - по 3
+  const perPage = page === 1 ? 6 : 3;
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['categories', page],
     queryFn: () => fetchCategories({ page, perPage }),
   });
 
+  // ✅ Функція для сортування категорій згідно макету
+  const sortCategories = (categories: any[]) => {
+    const order = [
+      'футболки та сорочки',
+      'худі та світшоти',
+      'худі та кофти', // альтернативна назва
+      'джинси та штани',
+      'штани та джинси', // альтернативна назва
+      'сукні та спідниці',
+      'куртки та верхній одяг',
+      'верхній одяг', // альтернативна назва
+      'домашній та спортивний одяг',
+      'топи',
+      'топи та майки', // альтернативна назва
+      'інше',
+    ];
+
+    return [...categories].sort((a, b) => {
+      const aName = a.name.trim().toLowerCase();
+      const bName = b.name.trim().toLowerCase();
+
+      let aIndex = order.indexOf(aName);
+      let bIndex = order.indexOf(bName);
+
+      // Якщо не знайдено в списку - ставимо в кінець
+      if (aIndex === -1) aIndex = 999;
+      if (bIndex === -1) bIndex = 999;
+
+      return aIndex - bIndex;
+    });
+  };
+
   useEffect(() => {
     if (data?.categories) {
-      setAllCategories(prev => {
-        // Додаємо нові категорії, уникаючи дублікатів
-        const newCategories = data.categories.filter(
-          newCat => !prev.some(cat => cat._id === newCat._id)
-        );
-        return [...prev, ...newCategories];
-      });
+      if (page === 1) {
+        // Перший запит - замінюємо і сортуємо
+        const sorted = sortCategories(data.categories);
+        setAllCategories(sorted);
+      } else {
+        // Наступні запити - додаємо і сортуємо все разом
+        setAllCategories(prev => {
+          const newCategories = data.categories.filter(
+            newCat => !prev.some(cat => cat._id === newCat._id)
+          );
+          const combined = [...prev, ...newCategories];
+          return sortCategories(combined);
+        });
+      }
     }
-  }, [data]);
+  }, [data, page]);
 
   const loadMore = () => {
     setPage(prev => prev + 1);
@@ -58,8 +99,12 @@ export default function CategoriesPage() {
             ) : (
               <>
                 <div className={css.grid}>
-                  {allCategories.map(category => (
-                    <Category key={category._id} category={category} />
+                  {allCategories.map((category, index) => (
+                    <Category
+                      key={category._id}
+                      category={category}
+                      priority={index === 0}
+                    />
                   ))}
                 </div>
 

@@ -5,61 +5,75 @@ import { Category as CategoryType } from '@/types/category';
 
 type Props = {
   category: CategoryType;
+  priority?: boolean;
 };
 
-export default function Category({ category }: Props) {
-  // Функція для отримання назви зображення з назви категорії
+export default function Category({ category, priority = false }: Props) {
+  // Мапінг назв з бекенду → зображення
   const getImageName = (name: string) => {
+    const normalizedName = name.trim().toLowerCase();
+
     const nameMap: { [key: string]: string } = {
-      'Футболки та сорочки': 'tshirts',
-      'Худі та світшоти': 'hoodies',
-      'Джинси та штани': 'jeans',
-      'Сукні та спідниці': 'dresses',
-      'Куртки та верхній одяг': 'jackets',
-      'Домашній та спортивний одяг': 'sportswear',
-      Топи: 'tops',
-      'Верхній одяг': 'outerwear',
-      Інше: 'other',
+      'футболки та сорочки': 'tshirts',
+      'худі та кофти': 'hoodies',
+      'худі та світшоти': 'hoodies',
+      'штани та джинси': 'jeans',
+      'джинси та штани': 'jeans',
+      'сукні та спідниці': 'dresses',
+      'верхній одяг': 'outerwear',
+      'куртки та верхній одяг': 'outerwear',
+      'домашній та спортивний одяг': 'sportswear',
+      'топи': 'tops',
+      'топи та майки': 'tops',
+      'інше': 'other',
     };
-    return nameMap[name] || 'other';
+
+    const result = nameMap[normalizedName] || 'other';
+
+    return result;
+  };
+
+  // Мапінг назв з бекенду → правильні назви для відображення
+  const getDisplayName = (name: string) => {
+    const normalizedName = name.trim().toLowerCase();
+
+    const displayMap: { [key: string]: string } = {
+      'футболки та сорочки': 'Футболки та сорочки',
+      'худі та кофти': 'Худі та світшоти',
+      'штани та джинси': 'Джинси та штани',
+      'сукні та спідниці': 'Сукні та спідниці',
+      'верхній одяг': 'Куртки та верхній одяг',
+      'домашній та спортивний одяг': 'Домашній та спортивний одяг',
+      'топи та майки': 'Топи та майки',
+      'худі та світшоти': 'Худі та світшоти',
+      'джинси та штани': 'Джинси та штани',
+      'куртки та верхній одяг': 'Куртки та верхній одяг',
+      топи: 'Топи',
+      інше: 'Інше',
+    };
+
+    return displayMap[normalizedName] || name;
   };
 
   const imageName = getImageName(category.name);
+  const displayName = getDisplayName(category.name);
 
   return (
     <Link href={`/categories/${category._id}`} className={css.card}>
       <div className={css.imageWrapper}>
-        <picture>
-          <source
-            media="(min-width: 1440px)"
-            srcSet={`/${imageName}-pc.webp 1x, /${imageName}-pc@2x.webp 2x`}
-            width={416}
-            height={277}
-          />
-          <source
-            media="(min-width: 768px)"
-            srcSet={`/${imageName}-tab.webp 1x, /${imageName}-tab@2x.webp 2x`}
-            width={336}
-            height={223}
-          />
-          <source
-            media="(min-width: 320px)"
-            srcSet={`/${imageName}-mob.webp 1x, /${imageName}-mob@2x.webp 2x`}
-            width={335}
-            height={223}
-          />
-          <Image
-            src={`/${imageName}-mob.webp`}
-            alt={category.name}
-            width={335}
-            height={223}
-            className={css.image}
-          />
-        </picture>
+        <Image
+          src={`/${imageName}-mob.webp`}
+          alt={displayName}
+          fill
+          sizes="(max-width: 767px) 335px, (max-width: 1439px) 336px, 416px"
+          className={css.image}
+          priority={priority}
+        />
       </div>
       <div className={css.content}>
-        <h3 className={css.title}>{category.name}</h3>
+        <h3 className={css.title}>{displayName}</h3>
       </div>
     </Link>
   );
 }
+
