@@ -70,7 +70,7 @@ const Header: React.FC = () => {
             </Link>
           )}
           <button
-            className={`btn ${styles.burgerBtn}`}
+            className={`btn btn-circle ${styles.burgerBtn}`}
             aria-label="Відкрити меню"
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
             {/* <div> */}
@@ -81,13 +81,8 @@ const Header: React.FC = () => {
                   className={styles.burgerIcon}></use>
               </svg>
             ) : (
-              <svg
-                className={styles.mobileCloseIcon}
-                width={14}
-                height={14}
-                aria-hidden="true"
-                fill="currentColor">
-                <use href="/sprite.svg#closeH" />
+              <svg width={24} height={24}>
+                <use href="/sprite.svg#close" />
               </svg>
             )}
             {/* <Icon
@@ -97,14 +92,19 @@ const Header: React.FC = () => {
             /> */}
             {/* </div> */}
           </button>
-          <Link href="/basket" className={styles.cartLink} aria-label="Кошик">
-            <div className={styles.cartCircle}>
+          <button className={`btn btn-circle ${styles.cartCircle}`}>
+            <Link
+              href="/basket"
+              className={`btn-round ${styles.cartLink}`}
+              aria-label="Кошик">
+              {/* <div> */}
               <svg className={styles.cartIcon} width={24} height={24}>
                 <use href="/sprite.svg#shopping_cart"></use>
               </svg>
-              <span className={styles.cartBadge}>1</span>
-            </div>
-          </Link>
+              {/* </div> */}
+            </Link>
+            <span className={styles.cartBadge}>1</span>
+          </button>
         </div>
       </div>
       <MobileMenu
