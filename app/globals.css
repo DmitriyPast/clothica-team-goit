@@ -215,7 +215,6 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 24px;
 }
 
@@ -270,17 +269,15 @@ Footer.mychanges.null {
 }
 /* ==================================================================== */
 
-/* buttons */
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 36px;
+  padding: 6px 12px;
   border-radius: 100px;
   color: var(--color-neutral-darkest);
   font-weight: 500;
-  /* max-height: 36px; */
-  padding: 6px 12px;
-  font-size: 16px;
 }
 
 .btn-circle {

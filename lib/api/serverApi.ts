@@ -5,7 +5,7 @@ import { Good } from '@/types/good';
 import { Order } from '@/types/order';
 import { Feedback } from '@/types/feedback';
 import { Category } from '@/types/category';
-import { GENDERS } from '@/constants/gender';
+import { GENDER } from '@/constants/gender';
 import { SIZES } from '@/constants/size';
 
 export interface FetchGoodsResponse {
@@ -18,7 +18,7 @@ export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
   size?: (typeof SIZES)[number];
-  gender?: (typeof GENDERS)[number];
+  gender?: (typeof GENDER)[number];
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;

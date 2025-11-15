@@ -1,21 +1,8 @@
-import { SIZES } from '@/constants/size';
 import { Feedback } from './feedback';
-import { GENDERS } from '@/constants/gender';
+import { GENDER } from '@/constants/gender';
 import { CURRENCIES } from '@/constants/currency';
 
-// export type Good = {
-//   goodId: string;
-//   name: string;
-//   category: string;
-//   image: string;
-//   price: { value: number; currency: string };
-//   size: typeof SIZES[number];
-//   description?: string;
-//   feedbacks?: [Feedback];
-//   prevDescription?: string;
-//   gender: typeof GENDERS[number];
-//   characteristics: string;
-//   };
+
 
 export type Good = {
   _id: string;
@@ -27,16 +14,12 @@ export type Good = {
   };
   price: {
     value: number;
-    currency: Currency;
+    currency: (typeof CURRENCIES)[number];
   };
-  size: Size[]; // масив
-  gender: Gender;
+  size: string[];
+  gender: (typeof GENDER)[number];
   description?: string;
   prevDescription?: string;
   feedbacks?: Feedback[];
-  characteristics?: string[]; // масив
+  characteristics?: string[];
 };
-
-export type Currency = (typeof CURRENCIES)[number];
-export type Size = (typeof SIZES)[number];
-export type Gender = (typeof GENDERS)[number];

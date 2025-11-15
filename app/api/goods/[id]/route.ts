@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
-import { api } from '../api';
-import { logErrorResponse } from '../_utils/utils';
+import { api } from '../../api';
+import { logErrorResponse } from '../../_utils/utils';
 import { isAxiosError } from 'axios';
 
-export async function GET(request: Request) {
+
+
+export async function GET(request: Request, { params }: { params:Promise<{ id: string }> }) {
   try {
-    const res = await api(`/goods`, {
-      params: { page:1, perPage: 5 },
-    });
+    const { id } = await params;
+    const res = await api(`/goods/${id}`, );
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -18,9 +19,6 @@ export async function GET(request: Request) {
       );
     }
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

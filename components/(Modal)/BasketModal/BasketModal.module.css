@@ -1,6 +1,13 @@
+.backDrop {
+  justify-content: end;
+}
+
 .modal {
   height: 100%;
   border-radius: 0;
+  background: #fff;
+ 
+  overflow: auto;
 }
 .closeBtn {
   position: absolute;
@@ -16,39 +23,6 @@
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
-
-.totalBlock {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 12px 0;
-}
-
-.block {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.totalBlock .block:last-child {
-  padding-top: 12px;
-}
-
-.text {
-  font-size: 14px;
-}
-
-.price {
-  font-size: 16px;
-}
-
-.strongText {
-  font-size: 18px;
-  font-weight: 600;
-}
-
 .actions {
   display: flex;
   align-items: center;
@@ -60,14 +34,11 @@
 .basketBtn {
   width: 100%;
 }
+
 @media screen and (min-width: 768px) {
-
-  .backDrop {
-    justify-content: end;
-  }
-
   .modal {
     width: 552px;
+    padding: 96px 32px;
   }
 
   .actions {
@@ -79,10 +50,9 @@
 @media screen and (min-width: 1440px) {
   .modal {
     width: 590px;
+    
   }
   .title {
     font-size: 48px;
   }
-  
-  
 }
