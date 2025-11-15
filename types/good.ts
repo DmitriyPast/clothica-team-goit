@@ -3,16 +3,24 @@ import { Feedback } from './feedback';
 import { GENDERS } from '@/constants/gender';
 
 export type Good = {
-  goodId: string;
+  _id: string;
   name: string;
-  category: string;
   image: string;
-  price: { value: number; currency: string };
-  size: typeof SIZES[number];
-  description?: string;
-  feedbacks?: [Feedback];
-  prevDescription?: string;
-  gender: typeof GENDERS[number];
-  characteristics: string;
+  category: {
+    _id: string;
+    name: string;
   };
+  price: {
+    value: number;
+    currency: string;
+  };
+  size: Size[];
+  gender: Gender;
+  description?: string;
+  prevDescription?: string;
+  feedbacks?: Feedback[];
+  characteristics?: string[];
+};
 
+export type Size = (typeof SIZES)[number];
+export type Gender = (typeof GENDERS)[number];
