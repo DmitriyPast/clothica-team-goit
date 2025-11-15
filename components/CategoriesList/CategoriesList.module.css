@@ -1,14 +1,16 @@
 .categoriesList {
-  position: relative;
-  flex-wrap: wrap;
-  gap: 24px;
+  display: flex;
+  gap: 32px; /* Відстань між категоріями */
+  list-style: none; /* Прибираємо маркери списку */
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
 }
 
 .itemCategoriesList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  flex: 1 1 calc(33.333% - 16px);
+  align-items: flex-start;
 }
 
 .image {
@@ -19,9 +21,7 @@
 }
 
 .titleCategoriesList {
-  font-family: var(--font-family);
   font-weight: 600;
   font-size: 20px;
-  line-height: 1.5;
-  color: var(--color-scheme-1-text);
+  margin-top: 24px;
 }

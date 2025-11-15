@@ -49,53 +49,55 @@ export default function PopularCategories() {
   };
 
   return (
-    <section className={css.popularCategories}>
-      <div className="container">
-      <div className={css.popularCategoriesHeader}>
+    <section className={`section ${css.popularCategories}`}>
+            <div className={css.popularCategoriesHeader}>
         <h2 className={css.popularCategoriesH}>Популярні категорії</h2>
-        <Link href="/categories" className={`${css.allCategoriesBtn} link`}>Всі категорії</Link>
+        <Link href="/categories" className={`btn ${ css.allCategoriesBtn}`}>Всі категорії</Link>
       </div>
-
       <div className={css.sliderWrapper}>
-          <button
-        type="button"
-        className={`${css.navBtn} ${css.prevBtn}  arrow ${isBeginning ? css.disabled : ''}`}
-        onClick={handlePrev}
-        disabled={isBeginning}
-      >
-        ◀
-      </button>
-
         <Swiper
-          modules={[Navigation, Keyboard]}
-          slidesPerView={1}
-          spaceBetween={16}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          onSlideChange={(swiper) => updateNavButtons(swiper)}
-          keyboard={{ enabled: true }}
-          breakpoints={{
-            // 375: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1440: { slidesPerView: 3 },
-          }}
+            modules={[Navigation, Keyboard]}
+            slidesPerView={1}
+              spaceBetween={16}
+              pagination={true}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSlideChange={(swiper) => updateNavButtons(swiper)}
+            keyboard={{ enabled: true }}
+            breakpoints={{
+              375: { slidesPerView: 1 },   // мобільний
+              768: { slidesPerView: 2 },   // планшет
+              1440: { slidesPerView: 3 },  // великий десктоп
+            }}
+          >
+            {allCategories.map((category) => (
+              <SwiperSlide key={category.id}>
+                <CategoriesList categories={[category]} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+<div className={css.mobileArrows}>
+            <button
+          type="button"
+          className={`${css.navBtn} ${css.prevBtn}  arrow ${isBeginning ? css.disabled : ''}`}
+          onClick={handlePrev}
+          disabled={isBeginning}
         >
-          {allCategories.map((category) => (
-            <SwiperSlide key={category.id}>
-              <CategoriesList categories={[category]} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
-        <button
-        type="button"
-        className={`${css.navBtn} ${css.nextBtn} ${isEnd ? css.disabled : ''}`}
-        onClick={handleNext}
-        disabled={isEnd}
-      >
-        ▶
+        <svg width="24" height="24">
+              <use href="/sprite.svg#arrow_back"></use>
+            </svg>
+        </button>
+          <button
+          type="button"
+          className={`${css.navBtn} ${css.nextBtn} arrow ${isEnd ? css.disabled : ''}`}
+          onClick={handleNext}
+              disabled={isEnd}>
+          <svg width="24" height="24">
+              <use href="/sprite.svg#arrow_forward"></use>
+            </svg>
           </button>
-          </div>
-      </div>
-    </section>
+        </div>
+            </div>
+       
+      </section>
   );
 }
