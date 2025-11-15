@@ -3,17 +3,17 @@ import Footer from '@/components/Footer/Footer';
 
 export default async function RootLayout({
   children,
-  modal,
+  // modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
+  // modal: React.ReactNode;
 }>) {
   return (
     <>
       <Header />
       <main>
         {children}
-        {modal}
+        {/* {modal} */}
       </main>
       <Footer />
     </>
