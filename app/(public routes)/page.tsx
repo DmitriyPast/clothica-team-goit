@@ -1,13 +1,14 @@
-import ReviewsList from '@/components/ReviewsList/ReviewsList';
+// import ReviewsList from '@/components/ReviewsList/ReviewsList';
 import Hero from '../../components/Hero/Hero';
 import Style from '../../components/Style/Style';
+import LastReviews from '@/components/LastReviews/LastReviews';
 
 export default function HomePage() {
   return (
     <div className="container">
       <Hero />
       <Style />
-      <ReviewsList />
+      <LastReviews />
     </div>
   );
 }
