@@ -66,7 +66,7 @@ export default function PopularCategories() {
             breakpoints={{
               375: { slidesPerView: 1 },   // мобільний
               768: { slidesPerView: 2 },   // планшет
-              1440: { slidesPerView: 3 },  // великий десктоп
+                1440: { slidesPerView: 3 },  // великий десктоп
             }}
           >
             {allCategories.map((category) => (
