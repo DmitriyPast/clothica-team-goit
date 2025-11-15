@@ -1,16 +1,34 @@
 import css from './GoodPage.module.css';
 
+import {
+  QueryClient,
+  HydrationBoundary,
+  dehydrate,
+} from '@tanstack/react-query';
+import { fetchGoodById, fetchFeedbacks } from '@/lib/api/serverApi';
+import GoodPageClient from './GoodPage.client';
+
 type Props = {
-  params: Promise<{ goodId: string }>;
+  params: Promise<{ id: string }>;
 };
 
 export default async function GoodPage({ params }: Props) {
-  const { goodId } = await params;
+  const { id } = await params;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ['note', id],
+    queryFn: () => fetchGoodById(id),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['feedbacks', id],
+    queryFn: () => fetchFeedbacks({ productId: id }),
+  });
 
   return (
-    <div className={css.container}>
-      <h1>Товар {goodId}</h1>
-      {/* Тут буде детальна інформація про товар */}
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <GoodPageClient />
+    </HydrationBoundary>
   );
 }
