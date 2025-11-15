@@ -36,7 +36,7 @@ export default function Footer() {
           <div className={css.subscribeWrap}>
             <h3 className={css.subscribe}>Підписатися</h3>
             <p className={css.text}>
-              Приєднуйтесь до нашої розсилки, щоб бути в курсі новин та акцій.
+              
             </p>
             <div className={css.inputSubscribe}>
               <form action="" className={css.inputSubscribe}>
