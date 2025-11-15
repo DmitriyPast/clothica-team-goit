@@ -85,7 +85,7 @@ export interface FetchCategoriesResponse {
   perPage: number;
   totalCategories: number;
   totalPages: number;
-  catedories: Category[];
+  categories: Category[];
 }
 
 //GET categories
@@ -101,6 +101,8 @@ export interface FetchFeedbacksParams {
   productId: string;
   page?: number;
   perPage?: number;
+  sortBy?: string; // додано
+  sortOrder?: 'asc' | 'desc'; // додано
 }
 
 export interface FetchFeedbacksResponse {
@@ -117,6 +119,6 @@ export async function fetchFeedbacks(
   params: FetchFeedbacksParams
 ): Promise<FetchFeedbacksResponse> {
   return (
-    await internalApi.get<FetchFeedbacksResponse>('feedbacks', { params })
+    await internalApi.get<FetchFeedbacksResponse>('/feedbacks', { params })
   ).data;
 }

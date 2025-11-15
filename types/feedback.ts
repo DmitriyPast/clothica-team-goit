@@ -4,6 +4,6 @@ export type Feedback = {
   date: string;
   description: string;
   rate: number;
-  category: string;
+  category?: string;
   productId: string;
 };

@@ -70,6 +70,41 @@
   /* object-fit: cover; */
 }
 
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 767px) {
+  .imageWrapper {
+    width: 335px;
+    height: 335px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .imageWrapper {
+    width: 336px;
+    height: 425px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .imageWrapper {
+    width: 640px;
+    height: 394px;
+  }
+
+  .image {
+    object-position: center -14px; /* ← ось це піднімає фото */
+  }
+}
+
 /* =========================
    TABLET ≥768px
    ========================= */
@@ -100,7 +135,7 @@
   }
 
   .btnCategs {
-    max-width: 181px;
+    max-width: 184px;
   }
 
   .buttons {
