@@ -1,10 +1,5 @@
-import css from './BasketPage.module.css';
+import BasketModal from '@/components/BasketModal/BasketModal';
 
 export default function BasketPage() {
-  return (
-    <div className={css.container}>
-      <h1>Кошик</h1>
-      {/*контент кошика */}
-    </div>
-  );
+  return <BasketModal />;
 }

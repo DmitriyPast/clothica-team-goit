@@ -149,6 +149,10 @@ body {
   background: var(--color-scheme-4-background);
 }
 
+.altBg {
+  background: var(--color-scheme-1-background);
+}
+
 a,
 button,
 svg,
@@ -163,11 +167,9 @@ input::placeholder {
 
 /* container */
 /* Styles for Mobile */
+
 .container {
-  /* width: 100%;
-  max-width: 100%; */
-}
-.container {
+  min-width: 320px;
   max-width: 375px;
   margin: 0 auto;
   padding: 0 20px;
@@ -192,19 +194,29 @@ section {
     padding: 0 64px;
   }
 }
-
-/* buttons */
-.btn {
-  /* display: flex;
+/* modal window */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--opacity-neutral-darkest-40);
+  display: flex;
   align-items: center;
-  justify-content: center; */
-  max-width: 124px;
-  min-height: 36px;
-  /* padding: 8px; */
-  border-radius: 100px;
-  color: var(--color-neutral-darkest);
-  /* font-size: 16px; */
-  font-weight: 500;
+  justify-content: center;
+  z-index: 1;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 20px;
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
 }
 
 /* ==================================================================== */
@@ -258,10 +270,21 @@ Footer.mychanges.null {
 }
 /* ==================================================================== */
 
-.button {
-  min-height: 36px;
+/* buttons */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  color: var(--color-neutral-darkest);
+  font-weight: 500;
+  /* max-height: 36px; */
+  padding: 6px 12px;
   font-size: 16px;
-  /* line-height: 150%; */
+}
+
+.btn-circle {
+  padding: 6px;
 }
 
 .btn:disabled {
@@ -346,6 +369,7 @@ textarea::placeholder {
 
 .error-text {
   color: var(--color-red);
+  font-size: 12px;
 }
 
 /* arrows */

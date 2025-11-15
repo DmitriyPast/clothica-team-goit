@@ -1,9 +1,11 @@
-import { Gender, Good, Size } from '@/types/good';
+import { Good } from '@/types/good';
 import internalApi from './api';
 import type { User, RegisterUser, LoginUser } from '@/types/user';
 import { Order, UpdateOrderStatus } from '@/types/order';
 import { Category } from '@/types/category';
 import { Feedback } from '@/types/feedback';
+import { GENDERS } from '@/constants/gender';
+import { SIZES } from '@/constants/size';
 
 export interface FetchGoodsResponse {
   goods: Good[];
@@ -14,8 +16,8 @@ export interface FetchGoodsResponse {
 export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
-  size?: Size;
-  gender?: Gender;
+  size?: (typeof SIZES)[number];
+  gender?: (typeof GENDERS)[number];
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
@@ -104,7 +106,7 @@ export interface FetchFeedbacksResponse {
   totalPages: number;
 }
 
-//GET feedbacks
+/// --- GET feedbacks ---
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
 ): Promise<FetchFeedbacksResponse> {
@@ -113,7 +115,7 @@ export async function fetchFeedbacks(
   ).data;
 }
 
-//POST feedback
+// --- POST feedback ---
 export async function createFeedback(feedback: Feedback): Promise<Feedback> {
   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 }
