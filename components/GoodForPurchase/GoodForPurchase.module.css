@@ -1,0 +1,182 @@
+.image_wrapper {
+  width: 335px;
+  margin-bottom: 48px;
+}
+
+.all_info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.short_descr_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.good_name {
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.01;
+}
+.good_price {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01;
+  padding-right: 16px;
+  border-right: 1px solid #00000033;
+  margin-right: 16px;
+}
+
+.price_and_rate_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.stars_wrapper {
+  display: flex;
+  height: 16px;
+  gap: 4px;
+  margin-right: 8px;
+}
+
+.rating_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.feedbacks_amount {
+  font-size: 14px;
+  text-align: center;
+}
+
+.good_prev_descr {
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01;
+}
+.full_descr {
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.size_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.size {
+  line-height: 1.5;
+}
+
+.size_options {
+  width: 100%;
+  padding: 8px;
+}
+
+.add_to_busket_wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.add_to_busket {
+  width: 100%;
+  height: 40px;
+  font-weight: 500;
+  background-color: #c5e1a5;
+  border-radius: 100px;
+}
+
+.add_to_busket:hover,
+.add_to_busket:focus {
+  background-color: #9db484;
+  border: 1px solid #4e5a42;
+}
+.volume {
+  width: 64px;
+  height: 40px;
+  border-radius: 100px;
+}
+.buy_rn {
+  background-color: #0000000d;
+  height: 36px;
+  border-radius: 100px;
+}
+
+.buy_rn:hover,
+.buy_rn:focus {
+  background-color: #00000026;
+  border: 1px solid #00000080;
+}
+
+.free_shipment {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.full_descr {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.descr_title {
+  font-size: 16px;
+  line-height: 1.5;
+  border-bottom: 1px solid #c5e1a5;
+  width: 40px;
+}
+.descr {
+}
+
+.characteristics_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.characteristics_title {
+}
+
+.characteristics_list {
+  padding-left: 30px;
+  list-style: disc;
+}
+
+.characteristic {
+}
+
+@media only screen and (min-width: 768px) {
+  .full_wrapper {
+    display: flex;
+    gap: 32px;
+  }
+
+  .image_wrapper {
+    width: 336px;
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+
+  .all_info {
+    width: 336px;
+  }
+
+  /* .short_descr_wrapper {
+    width: 336px;
+  } */
+}
+
+@media only screen and (min-width: 1440px) {
+  .image_wrapper {
+    width: 640px;
+  }
+
+  .all_info {
+    width: 640px;
+  }
+}
