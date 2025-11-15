@@ -26,20 +26,12 @@
   object-fit: cover;
 }
 
-.content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
 .title {
   font-family: var(--font-family);
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
   color: var(--color-neutral-darkest);
-  text-align: center;
 }
 
 /* Tablet */
