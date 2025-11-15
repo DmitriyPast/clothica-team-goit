@@ -8,7 +8,7 @@ import { fetchGoodById, fetchFeedbacks } from '@/lib/api/clientApi';
 import { FetchFeedbacksResponse } from '@/lib/api/serverApi';
 import { Feedback } from '@/types/feedback';
 import GoodForPurchase from '@/components/GoodForPurchase/GoodForPurchase';
-import Feedbacks from '@/components/Feedbacks/Feedbacks';
+// import Feedbacks from '@/components/Feedbacks/Feedbacks';
 import { useMemo } from 'react';
 
 import Loading from '@/app/loading';

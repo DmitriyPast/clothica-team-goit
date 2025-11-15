@@ -6,7 +6,7 @@ import { isAxiosError } from 'axios';
 export async function GET(request: Request) {
   try {
     const res = await api(`/goods`, {
-      params: { page:1, perPage: 5 },
+      params: { page: 1, perPage: 5 },
     });
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
