@@ -1,4 +1,4 @@
-import { Good } from '@/types/good';
+import { Good, Size } from '@/types/good';
 import internalApi from './api';
 import type { User, RegisterUser, LoginUser } from '@/types/user';
 import { Order, UpdateOrderStatus } from '@/types/order';
@@ -10,13 +10,21 @@ import { SIZES } from '@/constants/size';
 export interface FetchGoodsResponse {
   goods: Good[];
   totalPages: number;
-  totalItems: number;
+  totalGoods: number;
+  page: number;
+  perPage: number;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
 }
 
 export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
-  size?: (typeof SIZES)[number];
+  category?: string;
+  size?: Size[];
   gender?: (typeof GENDERS)[number];
   minPrice?: number;
   maxPrice?: number;
@@ -79,7 +87,7 @@ export interface FetchCategoriesResponse {
   perPage: number;
   totalCategories: number;
   totalPages: number;
-  categories: Category[]; // ✅ виправлено з catedories
+  categories: Category[];
 }
 
 //GET categories - ✅ ВИПРАВЛЕНО: додано слеш на початку
