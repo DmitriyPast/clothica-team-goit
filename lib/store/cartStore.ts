@@ -19,57 +19,37 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       total: { value: 0, currency: 'грн' },
-
       addItem: (item, quantity = 1) => {
-        if (quantity < 1) return;
-
-        const currentItems = get().items;
-        const existingIndex = currentItems.findIndex(i => i._id === item._id);
-
-        let items: CartItem[];
-        if (existingIndex !== -1) {
-          items = currentItems.map((i, idx) =>
-            idx === existingIndex
-              ? { ...i, quantity: i.quantity + quantity }
-              : i
-          );
-        } else {
-          items = [...currentItems, { ...item, quantity }];
-        }
-
+        const existing = get().items.find(i => i._id === item._id);
+        const items = existing
+          ? get().items.map(i =>
+              i._id === item._id ? { ...i, quantity: i.quantity + quantity } : i
+            )
+          : [...get().items, { ...item, quantity }];
         const totalValue = items.reduce(
           (sum, i) => sum + i.price.value * i.quantity,
           0
         );
-
         set({ items, total: { value: totalValue, currency: 'грн' } });
       },
-
       removeItemFromCart: _id => {
         const items = get().items.filter(i => i._id !== _id);
         const totalValue = items.reduce(
           (sum, i) => sum + i.price.value * i.quantity,
           0
         );
-
         set({ items, total: { value: totalValue, currency: 'грн' } });
       },
-
       setQuantity: (_id, quantity) => {
-        if (quantity < 0) quantity = 0;
-
         const items = get().items.map(i =>
           i._id === _id ? { ...i, quantity } : i
         );
-
         const totalValue = items.reduce(
           (sum, i) => sum + i.price.value * i.quantity,
           0
         );
-
         set({ items, total: { value: totalValue, currency: 'грн' } });
       },
-
       clearCart: () => set({ items: [], total: { value: 0, currency: 'грн' } }),
     }),
     { name: 'clothica-cart-storage' }
