@@ -28,7 +28,7 @@ export interface FetchGoodsParams {
 export async function fetchGoods(
   params: FetchGoodsParams
 ): Promise<FetchGoodsResponse> {
-  const { data } = await internalApi.get<FetchGoodsResponse>('goods', {
+  const { data } = await internalApi.get<FetchGoodsResponse>('/goods', {
     params,
   });
   return data;
@@ -36,7 +36,7 @@ export async function fetchGoods(
 
 //GET good by id
 export async function fetchGoodById(noteId: string): Promise<Good> {
-  const { data } = await internalApi.get<Good>(`goods/${noteId}`);
+  const { data } = await internalApi.get<Good>(`/goods/${noteId}`);
   return data;
 }
 
@@ -46,17 +46,17 @@ export interface FetchOrdersResponse {
 
 //GET fetch all orders
 export async function fetchAllOrders(): Promise<FetchOrdersResponse> {
-  return (await internalApi.get<FetchOrdersResponse>('orders')).data;
+  return (await internalApi.get<FetchOrdersResponse>('/orders')).data;
 }
 
 //GET fetch order by id
 export async function fetchOrderById(orderId: string) {
-  return (await internalApi.get<Order>(`orders/${orderId}`)).data;
+  return (await internalApi.get<Order>(`/orders/${orderId}`)).data;
 }
 
 //POST create order
 export async function createOrder(order: Order): Promise<Order> {
-  const { data } = await internalApi.post<Order>('orders', order);
+  const { data } = await internalApi.post<Order>('/orders', order);
   return data;
 }
 
@@ -65,7 +65,7 @@ export async function updateOrderStatus(
   orderId: string,
   data: UpdateOrderStatus
 ): Promise<Order> {
-  return (await internalApi.patch<Order>(`orders/${orderId}/status`, data))
+  return (await internalApi.patch<Order>(`/orders/${orderId}/status`, data))
     .data;
 }
 
@@ -79,15 +79,15 @@ export interface FetchCategoriesResponse {
   perPage: number;
   totalCategories: number;
   totalPages: number;
-  catedories: Category[];
+  categories: Category[]; // ✅ виправлено з catedories
 }
 
-//GET categories
+//GET categories - ✅ ВИПРАВЛЕНО: додано слеш на початку
 export async function fetchCategories(
   params: FetchCategoriesParams
 ): Promise<FetchCategoriesResponse> {
   return (
-    await internalApi.get<FetchCategoriesResponse>('categories', { params })
+    await internalApi.get<FetchCategoriesResponse>('/categories', { params })
   ).data;
 }
 
@@ -110,14 +110,14 @@ export interface FetchFeedbacksResponse {
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
 ): Promise<FetchFeedbacksResponse> {
-  const { data } = await internalApi.get<FetchFeedbacksResponse>("feedbacks", { params });
-  return data;
+  return (
+    await internalApi.get<FetchFeedbacksResponse>('/feedbacks', { params })
+  ).data;
 }
 
 // --- POST feedback ---
 export async function createFeedback(feedback: Feedback): Promise<Feedback> {
-  const { data } = await internalApi.post<Feedback>("feedbacks", feedback);
-  return data;
+  return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 }
 
 interface AddSubscriptionParams {
@@ -125,19 +125,14 @@ interface AddSubscriptionParams {
 }
 
 //POST subscription
-//я хз тому поки параметри у 2 місцях і без повернення значення бо я хз що повертати тут
 export async function addSubscription(params: AddSubscriptionParams) {
-  await internalApi.post('subscriptions', params, {
-    params,
-  });
+  await internalApi.post('/subscriptions', params);
 }
 
 //register user
 export async function registerUser(data: RegisterUser): Promise<User | null> {
   try {
-    const response = await internalApi.post<User>('/auth/register', data, {
-      withCredentials: true,
-    });
+    const response = await internalApi.post<User>('/auth/register', data);
     return response.data;
   } catch (error) {
     console.error('Registration error:', error);
@@ -147,19 +142,11 @@ export async function registerUser(data: RegisterUser): Promise<User | null> {
 
 // Login user
 export async function loginUser(data: LoginUser): Promise<User> {
-  try {
-    const { data: responseData } = await internalApi.post<User>(
-      '/auth/login',
-      data,
-      {
-        withCredentials: true,
-      }
-    );
-    return responseData;
-  } catch (error) {
-    console.error('Login error:', error);
-    throw error;
-  }
+  const { data: responseData } = await internalApi.post<User>(
+    '/auth/login',
+    data
+  );
+  return responseData;
 }
 
 // Logout user
@@ -198,14 +185,9 @@ export type UpdateUserRequest = {
 
 // update user
 export async function updateMe(data: UpdateUserRequest): Promise<User> {
-  try {
-    const { data: requestData } = await internalApi.patch<User>(
-      '/users/me',
-      data
-    );
-    return requestData;
-  } catch (error) {
-    console.error('Update user error:', error);
-    throw error;
-  }
+  const { data: requestData } = await internalApi.patch<User>(
+    '/users/me',
+    data
+  );
+  return requestData;
 }
