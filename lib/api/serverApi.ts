@@ -101,23 +101,24 @@ export interface FetchFeedbacksParams {
   productId: string;
   page?: number;
   perPage?: number;
-  sortBy?: string;               // додано
-  sortOrder?: 'asc' | 'desc';    // додано
+  sortBy?: string; // додано
+  sortOrder?: 'asc' | 'desc'; // додано
 }
 
 export interface FetchFeedbacksResponse {
   feedbacks: Feedback[];
   productId: string;
   totalFeedbacks: number;
-  page: number; perPage: number;
+  page: number;
+  perPage: number;
   totalPages: number;
 }
 
-//GET feedbacks 
+//GET feedbacks
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
 ): Promise<FetchFeedbacksResponse> {
   return (
-    await internalApi.get<FetchFeedbacksResponse>("feedbacks", { params })
+    await internalApi.get<FetchFeedbacksResponse>('/feedbacks', { params })
   ).data;
 }

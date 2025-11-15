@@ -1,5 +1,5 @@
-import { fetchFeedbacks } from "@/lib/api/serverApi";
-import ReviewsSlider from "./ReviewsSlider";
+import { fetchFeedbacks } from '@/lib/api/serverApi';
+import ReviewsSlider from './ReviewsSlider';
 
 interface ReviewsListProps {
   productId?: string;
@@ -7,12 +7,13 @@ interface ReviewsListProps {
 
 export default async function ReviewsList({ productId }: ReviewsListProps) {
   const data = await fetchFeedbacks({
-    productId: productId || "",
+    productId: productId || '',
     page: 1,
     perPage: 10,
-    sortBy: "date",
-    sortOrder: "desc",
+    sortBy: 'date',
+    sortOrder: 'desc',
   });
+  console.log(data);
 
   const feedbacks = data.feedbacks || [];
 
@@ -22,4 +23,5 @@ export default async function ReviewsList({ productId }: ReviewsListProps) {
 
   // Тут ми передаємо відгуки клієнтському компоненту
   return <ReviewsSlider feedbacks={feedbacks} productId={productId} />;
+  return <p>'this is a dud'</p>;
 }
