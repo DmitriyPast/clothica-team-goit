@@ -29,10 +29,8 @@ export default function Style() {
           {advantages.map(item => (
             <li key={item.id} className={styles.item}>
               <div className={`${styles.icon} ${styles[`icon${item.id}`]}`} />
-              <div>
-                <h3 className={styles.itemTitle}>{item.title}</h3>
-                <p className={styles.itemText}>{item.text}</p>
-              </div>
+              <h3 className={styles.itemTitle}>{item.title}</h3>
+              <p className={styles.itemText}>{item.text}</p>
             </li>
           ))}
         </ul>

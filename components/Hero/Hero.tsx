@@ -7,7 +7,6 @@ import '@/app/globals.css';
 const Hero: React.FC = () => {
   return (
     <section id={styles.hero}>
-      {/* <div> */}
       <div className={styles.content}>
         <h1 className={styles.title}>
           Знайди свій стиль з Clothica вже сьогодні!
@@ -35,32 +34,19 @@ const Hero: React.FC = () => {
       </div>
 
       <div className={styles.imageWrapper}>
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcSet="/hero-img/hero-mob.jpg 1x, /hero-img/hero-mob@2x.jpg 2x"
-          />
-          <source
-            media="(max-width: 1439px)"
-            srcSet="/hero-img/hero-tab.jpg 1x, /hero-img/hero-tab@2x.jpg 2x"
-          />
-          <Image
-            src="/hero-img/hero-desktop@2x.jpg"
-            alt="Моделі у базовому одязі Clothica"
-            loading="eager"
-            width={640}
-            height={394}
-            priority
-            className={styles.image}
-            sizes="
-                (max-width: 767px) 100vw,
-                (max-width: 1439px) 50vw,
-                640px
-              "
-          />
-        </picture>
+        <Image
+          src="/hero-img/hero.jpg"
+          alt="Моделі у базовому одязі Clothica"
+          fill
+          priority
+          className={styles.image}
+          sizes="
+      (max-width: 767px) 335px,
+      (max-width: 1439px) 336px,
+      640px
+    "
+        />
       </div>
-      {/* </div> */}
     </section>
   );
 };
