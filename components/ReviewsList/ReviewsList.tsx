@@ -13,7 +13,7 @@ export default async function ReviewsList({ productId }: ReviewsListProps) {
     sortBy: 'date',
     sortOrder: 'desc',
   });
-  console.log(data);
+  // console.log(data);
 
   const feedbacks = data.feedbacks || [];
 
