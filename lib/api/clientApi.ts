@@ -168,8 +168,15 @@ export type CheckSessionResponse = {
 
 // Check user session
 export async function checkSession(): Promise<boolean> {
-  const { data } = await internalApi.get<CheckSessionResponse>('/auth/session');
-  return data.success;
+  try {
+    const { data } =
+      await internalApi.get<CheckSessionResponse>('/auth/session');
+    return data.success;
+  } catch (error) {
+    // ✅ Не кидаємо помилку - просто повертаємо false
+    console.warn('Session check failed:', error);
+    return false;
+  }
 }
 
 // get current user
