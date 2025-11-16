@@ -1,0 +1,112 @@
+/* ====== Основний контейнер ====== */
+main {
+    padding: 64px 0;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 32px;
+    color: var(--color-neutral-darkest);
+}
+
+/* ====== Таблиця замовлень ====== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+}
+
+thead th {
+    text-align: left;
+    padding: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-scheme-1-text);
+    border-bottom: 1px solid var(--opacity-neutral-darkest-15);
+}
+
+tbody td {
+    padding: 12px;
+    font-size: 16px;
+    border-bottom: 1px solid var(--opacity-neutral-darkest-10);
+    vertical-align: top;
+    color: var(--color-scheme-1-text);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ====== Статусний селект ====== */
+select {
+    width: 100%;
+    max-width: 180px;
+    background: var(--opacity-transparent);
+    color: var(--color-scheme-1-text);
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    border-radius: 16px;
+    padding: 8px;
+    outline: none;
+    font-size: 16px;
+}
+
+select:focus,
+select:hover {
+    border-color: var(--color-deco-darkest);
+}
+
+/* ====== Кнопки ====== */
+button {
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+button:hover,
+button:focus {
+    border-color: var(--color-deco-darker);
+    background: var(--color-deco-dark);
+}
+
+button:active {
+    background: var(--color-deco-darkest);
+    color: var(--color-white);
+}
+
+/* ====== Кнопка "Показати ще" ====== */
+.load-more-btn {
+    border: 1px solid var(--color-deco);
+    background: var(--color-deco);
+    color: var(--color-white);
+    margin-bottom: 16px;
+}
+
+/* ====== Кнопка "Вийти з кабінету" ====== */
+.logout-btn {
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    background: var(--opacity-neutral-darkest-5);
+    color: var(--color-neutral-darkest);
+}
+
+/* ====== Адаптивність ====== */
+@media (min-width: 768px) {
+    main {
+        padding: 80px 32px;
+    }
+}
+
+@media (min-width: 1440px) {
+    main {
+        padding: 112px 64px;
+    }
+}

@@ -1,0 +1,39 @@
+.goodsTitle{
+  font-size: 36px;
+} 
+
+@media only screen and (min-width: 1440px) {
+  .goodsTitle {
+    font-size: 48px;
+  }
+}
+
+.goodsPage{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 24px;   
+}
+
+@media only screen and (min-width: 768px) {
+  .goodsPage {
+    flex-wrap: nowrap;
+    margin-top: 40px;
+  }
+}
+
+.goodsMain{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.loadMoreBtn {
+  transition: opacity 0.2s ease;
+  margin: 0 auto 0;
+}
+
+.loadMoreBtnDisabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

@@ -156,10 +156,12 @@
   /* width: 44px; */
   padding: 6px;
 }
+
 .svgIcons {
   width: 32px;
   height: 32px;
 }
+
 @media screen and (max-width: 767px) {
   /* .menuContainer {
     text-align: center;

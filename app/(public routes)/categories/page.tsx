@@ -103,8 +103,8 @@ export default function CategoriesPage() {
                       type="button"
                       onClick={loadMore}
                       className={css.button}
-                    >
-                      Показати більше
+                      disabled={isLoading}>
+                      {isLoading ? 'Завантаження...' : 'Показати більше'}
                     </button>
                   </div>
                 )}

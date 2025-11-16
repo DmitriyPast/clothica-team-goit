@@ -1,0 +1,174 @@
+/* =========================
+   HERO базова мобільна версія (320–374)
+   ========================= */
+
+#hero {
+  /* padding: 64px 20px;
+  background: #f3f9ed;
+  box-sizing: border-box;
+  color: #000; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.content {
+  max-width: 100%;
+}
+
+.title {
+  font-family: var(--second-family);
+  text-align: left;
+  /* width: auto; */
+  /* font-weight: 400; */
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  /* color: #000; */
+  margin-bottom: 24px;
+}
+
+.brand {
+  font-style: italic;
+}
+
+.text {
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+  width: auto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-neutral-darkest);
+  margin-bottom: 32px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.btnGoods,
+.btnCategs {
+  width: 100%;
+}
+
+.image {
+  /* width: 100%;
+  height: auto; */
+  border-radius: 16px;
+  width: 100%;
+  height: auto;
+  display: block;
+  /* object-fit: cover; */
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 767px) {
+  .imageWrapper {
+    width: 335px;
+    height: 335px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .imageWrapper {
+    width: 336px;
+    height: 425px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .imageWrapper {
+    width: 640px;
+    height: 394px;
+  }
+
+  .image {
+    object-position: center -14px; /* ← ось це піднімає фото */
+  }
+}
+
+/* =========================
+   TABLET ≥768px
+   ========================= */
+@media (min-width: 768px) {
+  #hero {
+    /* padding: 64px 32px; */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    gap: 32px;
+  }
+
+  .content {
+    max-width: 520px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .btnGoods {
+    max-width: 110px;
+  }
+
+  .btnCategs {
+    max-width: 184px;
+  }
+
+  .buttons {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .imageWrapper {
+    flex-shrink: 0;
+    width: 336px;
+  }
+}
+
+/* =========================
+   DESKTOP ≥1440px
+   ========================= */
+@media (min-width: 1440px) {
+  #hero {
+    /* padding: 112px 0; */
+    /* gap: 32px; */
+  }
+
+  .content {
+    max-width: 640px;
+  }
+
+  .title {
+    font-size: 56px;
+  }
+
+  .imageWrapper {
+    width: 640px;
+    height: 394px;
+  }
+}

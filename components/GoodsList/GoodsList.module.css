@@ -1,0 +1,17 @@
+.goodsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media only screen and (min-width: 768px) {
+  .goodsList {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .goodsList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

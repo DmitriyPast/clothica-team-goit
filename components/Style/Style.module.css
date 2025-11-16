@@ -1,0 +1,128 @@
+/* =========================
+   MOBILE FIRST (до 375px)
+   ========================= */
+.styleSection {
+  padding: 32px 0;
+  background: #f5f8f0;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  width: 335px;
+  margin: 0 auto 40px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.icon1 {
+  background-image: url('/style-img/one.png');
+}
+.icon2 {
+  background-image: url('/style-img/two.png');
+}
+.icon3 {
+  background-image: url('/style-img/three.png');
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .icon1 {
+    background-image: url('/style-img/one@2x.png');
+  }
+  .icon2 {
+    background-image: url('/style-img/two@2x.png');
+  }
+  .icon3 {
+    background-image: url('/style-img/three@2x.png');
+  }
+}
+
+.itemTitle {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-neutral-darkest);
+}
+
+.itemText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-neutral-darkest);
+}
+
+/* =========================
+   TABLET ≥768px
+   ========================= */
+@media (min-width: 768px) {
+  .title {
+    width: 704px;
+    font-size: 36px;
+    margin: 0 auto 40px;
+    text-align: left;
+  }
+
+  .list {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 32px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 224px;
+  }
+}
+
+/* =========================
+   DESKTOP ≥1440px
+   ========================= */
+@media (min-width: 1440px) {
+  .styleSection {
+    padding: 48px 0;
+  }
+
+  .title {
+    width: 768px;
+    font-size: 48px;
+    margin-bottom: 40px;
+    margin-left: 0;
+  }
+
+  .item {
+    width: 416px;
+  }
+}
