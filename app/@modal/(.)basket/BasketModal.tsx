@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import GoodsOrderList from '@/components/GoodsOrderList/GoodsOrderList';
 import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
-import { X } from 'lucide-react';
+// import { X } from 'lucide-react';
 import Modal from '@/components/Modal/Modal';
 import { useEffect } from 'react';
 import { on } from 'events';
@@ -54,7 +54,10 @@ export default function BasketModal() {
           className={`modal ${css.modal}`}
           onClick={e => e.stopPropagation()}>
           <button className={css.closeBtn} onClick={() => router.back()}>
-            <X size={24} />
+            {/* <X size={24} /> */}
+            <svg className={css.closeIcon} height={24} width={24}>
+              <use href="/sprite.svg#close"></use>
+            </svg>
           </button>
 
           <h2 className={css.title}>Ваш кошик</h2>

@@ -8,11 +8,16 @@
 }
 .closeBtn {
   position: absolute;
-  top: 20px;
+  top: 40px;
   right: 16px;
   background: transparent;
   border: none;
   cursor: pointer;
+}
+.closeIcon {
+  fill: var(--color-scheme-1-text);
+  stroke-width: 1px;
+  stroke: var(--color-scheme-1-text);
 }
 .title {
   font-family: 'Nunito Sans', sans-serif;
@@ -81,7 +86,6 @@
 }
 
 @media screen and (min-width: 1440px) {
-  
   .title {
     font-size: 48px;
   }
