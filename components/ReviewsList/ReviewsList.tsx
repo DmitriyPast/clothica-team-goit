@@ -1,27 +1,33 @@
-import { fetchFeedbacks } from '@/lib/api/serverApi';
-import ReviewsSlider from './ReviewsSlider';
+'use client';
 
-interface ReviewsListProps {
-  productId?: string;
-}
+import { useQuery } from '@tanstack/react-query';
+import { fetchFeedbacks } from '@/lib/api/clientApi'; // ✅ Змінено на clientApi
+import css from './ReviewsList.module.css';
 
-export default async function ReviewsList({ productId }: ReviewsListProps) {
-  const data = await fetchFeedbacks({
-    productId: productId || '',
-    page: 1,
-    perPage: 10,
-    sortBy: 'date',
-    sortOrder: 'desc',
+type Props = {
+  productId: string;
+};
+
+export default function ReviewsList({ productId }: Props) {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['feedbacks', productId],
+    queryFn: () => fetchFeedbacks({ productId }),
   });
-  // console.log(data);
 
-  const feedbacks = data.feedbacks || [];
+  if (isLoading) return <p>Завантаження відгуків...</p>;
+  if (error) return <p>Помилка завантаження відгуків</p>;
 
-  if (!feedbacks.length) {
-    return <p>Відгуків ще немає</p>;
-  }
-
-  // Тут ми передаємо відгуки клієнтському компоненту
-  return <ReviewsSlider feedbacks={feedbacks} productId={productId} />;
-  return <p>'this is a dud'</p>;
+  return (
+    <div className={css.reviews}>
+      <h3>Відгуки</h3>
+      {data?.feedbacks.map(feedback => (
+        <div key={feedback._id} className={css.review}>
+          <p>
+            <strong>{feedback.author}</strong> - {feedback.rate}/5
+          </p>
+          <p>{feedback.description}</p>
+        </div>
+      ))}
+    </div>
+  );
 }

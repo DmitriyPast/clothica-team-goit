@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter, Nunito_Sans } from 'next/font/google';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 // import AuthProvider from '@/components/AuthProvider/AuthProvider';
 // import 'modern-normalize/modern-normalize.css'; <--doesn't work(creates style override issues)

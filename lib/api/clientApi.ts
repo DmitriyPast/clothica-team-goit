@@ -173,8 +173,7 @@ export async function checkSession(): Promise<boolean> {
       await internalApi.get<CheckSessionResponse>('/auth/session');
     return data.success;
   } catch (error) {
-    // ✅ Не кидаємо помилку - просто повертаємо false
-    console.warn('Session check failed:', error);
+    // Просто повертаємо false без помилки
     return false;
   }
 }

@@ -1,12 +1,17 @@
 import type { User } from '@/types/user';
-import internalApi from './api';
+import axios from 'axios';
 import { cookies } from 'next/headers';
-import { Good } from '@/types/good';
+import { Gender, Good, Size } from '@/types/good';
 import { Order } from '@/types/order';
 import { Feedback } from '@/types/feedback';
 import { Category } from '@/types/category';
-import { GENDERS } from '@/constants/gender';
-import { SIZES } from '@/constants/size';
+
+const serverApi = axios.create({
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL ||
+    'https://clothica-api-team-work.onrender.com/api',
+  withCredentials: true,
+});
 
 export interface FetchGoodsResponse {
   goods: Good[];
@@ -17,8 +22,8 @@ export interface FetchGoodsResponse {
 export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
-  size?: (typeof SIZES)[number];
-  gender?: (typeof GENDERS)[number];
+  size?: Size;
+  gender?: Gender;
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
@@ -27,7 +32,7 @@ export interface FetchGoodsParams {
 
 export const checkSessionServer = async () => {
   const cookieStore = await cookies();
-  const res = await internalApi.get('/auth/session', {
+  const res = await serverApi.get('/auth/session', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -37,7 +42,7 @@ export const checkSessionServer = async () => {
 
 export const getServerMe = async (): Promise<User> => {
   const cookieStore = await cookies();
-  const { data } = await internalApi.get('/users/me', {
+  const { data } = await serverApi.get('/users/me', {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -49,7 +54,7 @@ export const getServerMe = async (): Promise<User> => {
 export async function fetchGoodsServer(
   params: FetchGoodsParams
 ): Promise<FetchGoodsResponse> {
-  const { data } = await internalApi.get<FetchGoodsResponse>('/goods', {
+  const { data } = await serverApi.get<FetchGoodsResponse>('/goods', {
     params,
   });
   return data;
@@ -57,7 +62,7 @@ export async function fetchGoodsServer(
 
 // GET good by id
 export async function fetchGoodById(goodId: string): Promise<Good> {
-  const { data } = await internalApi.get<Good>(`/goods/${goodId}`);
+  const { data } = await serverApi.get<Good>(`/goods/${goodId}`);
   return data;
 }
 
@@ -67,12 +72,12 @@ export interface FetchOrdersResponse {
 
 //GET fetch all orders
 export async function fetchAllOrders(): Promise<FetchOrdersResponse> {
-  return (await internalApi.get<FetchOrdersResponse>('orders')).data;
+  return (await serverApi.get<FetchOrdersResponse>('orders')).data;
 }
 
 //GET fetch order by id
 export async function fetchOrderById(orderId: string) {
-  return (await internalApi.get<Order>(`orders/${orderId}`)).data;
+  return (await serverApi.get<Order>(`orders/${orderId}`)).data;
 }
 
 export interface FetchCategoriesParams {
@@ -93,7 +98,7 @@ export async function fetchCategories(
   params: FetchCategoriesParams
 ): Promise<FetchCategoriesResponse> {
   return (
-    await internalApi.get<FetchCategoriesResponse>('categories', { params })
+    await serverApi.get<FetchCategoriesResponse>('categories', { params })
   ).data;
 }
 
@@ -101,8 +106,6 @@ export interface FetchFeedbacksParams {
   productId: string;
   page?: number;
   perPage?: number;
-  sortBy?: string; // додано
-  sortOrder?: 'asc' | 'desc'; // додано
 }
 
 export interface FetchFeedbacksResponse {
@@ -118,7 +121,6 @@ export interface FetchFeedbacksResponse {
 export async function fetchFeedbacks(
   params: FetchFeedbacksParams
 ): Promise<FetchFeedbacksResponse> {
-  return (
-    await internalApi.get<FetchFeedbacksResponse>('/feedbacks', { params })
-  ).data;
+  return (await serverApi.get<FetchFeedbacksResponse>('/feedbacks', { params }))
+    .data;
 }

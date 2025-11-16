@@ -1,32 +1,41 @@
-import { NextResponse } from 'next/server';
-// import { fetchFeedbacks } from '@/lib/api/serverApi';
+import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../api';
+import { isAxiosError } from 'axios';
+import { logErrorResponse } from '../_utils/utils';
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const productId = searchParams.get('productId') || '';
-  const page = Number(searchParams.get('page')) || 1;
-  const perPage = Number(searchParams.get('perPage')) || 10;
-
-  // try {
-  //   const data = await fetchFeedbacks({ productId, page, perPage });
-  //   return NextResponse.json(data);
-  // } catch (error) {
-  //   console.error("Помилка при отриманні відгуків:", error);
-  //   return NextResponse.json(
-  //     { message: "Не вдалося отримати відгуки" },
-  //     { status: 500 }
-  //   );
-  // }
-
+export async function GET(request: NextRequest) {
   try {
-    const data = (await api.get('/feedbacks')).data;
-    // console.log(data);
-    return NextResponse.json(data);
+    const productId = request.nextUrl.searchParams.get('productId');
+    const page = request.nextUrl.searchParams.get('page') ?? '1';
+    const perPage = request.nextUrl.searchParams.get('perPage') ?? '10';
+
+    if (!productId) {
+      return NextResponse.json(
+        { error: 'productId is required' },
+        { status: 400 }
+      );
+    }
+
+    const res = await api.get('/feedbacks', {
+      params: {
+        productId,
+        page,
+        perPage,
+      },
+    });
+
+    return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
-    console.error('Помилка при отриманні відгуків:', error);
+    if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.response?.status || 500 }
+      );
+    }
+    logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { message: 'Не вдалося отримати відгуки' },
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }

@@ -6,7 +6,7 @@ import { logErrorResponse } from '../_utils/utils';
 export async function GET(request: NextRequest) {
   try {
     const page = request.nextUrl.searchParams.get('page') ?? '1';
-    const perPage = request.nextUrl.searchParams.get('perPage') ?? '3';
+    const perPage = request.nextUrl.searchParams.get('perPage') ?? '100';
 
     const res = await api.get('/categories', {
       params: {
