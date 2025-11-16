@@ -1,4 +1,3 @@
-import css from './GoodPage.module.css';
 
 import {
   QueryClient,
