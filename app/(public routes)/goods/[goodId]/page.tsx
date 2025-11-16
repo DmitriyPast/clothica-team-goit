@@ -14,10 +14,11 @@ type Props = {
 
 export default async function GoodPage({ params }: Props) {
   const { id } = await params;
+
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['note', id],
+    queryKey: ['good', id],
     queryFn: () => fetchGoodById(id),
   });
 

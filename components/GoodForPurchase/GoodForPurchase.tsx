@@ -1,15 +1,16 @@
+'use client';
+
 import { Formik, Form, Field } from 'formik';
 import { useId, useState } from 'react';
 import Image from 'next/image';
 import Star from './star.svg';
 import HalfStar from './halfStar.svg';
-
-import { SIZES } from '@/constants/size';
-
+import { useRouter } from 'next/navigation';
+import { useCartStore } from '@/lib/store/cartStore';
 import css from './GoodForPurchase.module.css';
-import { Feedback } from '@/types/feedback';
 
 interface GoodProps {
+  id: string;
   image: string;
   name: string;
   price: { value: number };
@@ -22,28 +23,20 @@ interface GoodProps {
 }
 
 export default function GoodForPurchase(props: GoodProps) {
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(1);
   const fieldId = useId();
+  const addItem = useCartStore(state => state.addItem);
+  const router = useRouter();
 
-  const handleClick = () => {
-    setVolume(volume + 1);
-  };
-
+  // ---------- STARS ----------
   function Stars({ value }: { value: number }) {
     const full = Math.floor(value);
     const half = value % 1 >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
 
     return (
       <div className={css.stars_wrapper}>
         {Array.from({ length: full }).map((_, i) => (
-          <Image
-            key={`full-${i}`}
-            src={Star}
-            alt="star"
-            width={16}
-            height={16}
-          />
+          <Image key={i} src={Star} alt="star" width={16} height={16} />
         ))}
         {half === 1 && (
           <Image src={HalfStar} alt="half star" width={16} height={16} />
@@ -52,72 +45,115 @@ export default function GoodForPurchase(props: GoodProps) {
     );
   }
 
+  // ---------- ADD TO CART ----------
+  function handleAdd(size: string) {
+    // створюємо новий об'єкт товару для кошика
+    addItem(
+      {
+        _id: props.id,
+        name: props.name,
+        image: props.image,
+        price: props.price.value,
+        size,
+      },
+      volume
+    );
+  }
+
+  // ---------- BUY NOW ----------
+  function handleBuy(size: string) {
+    handleAdd(size);
+    router.push('/order');
+  }
+
   return (
     <div className={css.full_wrapper}>
+      {/* IMAGE */}
       <div className={css.image_wrapper}>
         <Image
           src={props.image}
-          alt={props.prevDescription!}
+          alt={props.prevDescription || props.name}
           width={640}
           height={640}
         />
       </div>
+
+      {/* INFO */}
       <div className={css.all_info}>
         <div className={css.short_descr_wrapper}>
           <h2 className={css.good_name}>{props.name}</h2>
-          <div className={css.price_and_rate_wrapper}>
-            <h3 className={css.good_price}>{props.price.value}грн</h3>
 
+          <div className={css.price_and_rate_wrapper}>
+            <h3 className={css.good_price}>{props.price.value} грн</h3>
             <Stars value={props.rate} />
             <p className={css.feedbacks_amount}>
               ({props.rate}) • {props.feedbacksAmount} відгуків
             </p>
           </div>
+
           <p className={css.good_prev_descr}>{props.prevDescription}</p>
-          <Formik initialValues={{}} onSubmit={() => {}}>
-            <Form className={css.form}>
-              <div className={css.size_wrapper}>
-                <label className={css.size} htmlFor={`${fieldId}-size`}>
-                  Розмір
-                </label>
-                <Field
-                  className={css.size_options}
-                  as="select"
-                  name="size"
-                  id={`${fieldId}-size`}>
-                  {props.size.map(s => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </Field>
-              </div>
-              <div className={css.add_to_busket_wrapper}>
+
+          {/* FORM */}
+          <Formik initialValues={{ size: props.size[0] }} onSubmit={() => {}}>
+            {({ values }) => (
+              <Form className={css.form}>
+                {/* SIZE SELECT */}
+                <div className={css.size_wrapper}>
+                  <label htmlFor={`${fieldId}-size`}>Розмір</label>
+                  <Field as="select" name="size" id={`${fieldId}-size`}>
+                    {props.size.map(s => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+
+                {/* ADD TO CART */}
+                <div className={css.add_to_busket_wrapper}>
+                  <button
+                    type="button"
+                    className={css.add_to_busket}
+                    onClick={() => {
+                      console.log(props.id, props.name, values.size, volume);
+                      handleAdd(values.size);
+                    }}>
+                    Додати в кошик
+                  </button>
+
+                  <input
+                    className={css.volume}
+                    type="number"
+                    min={1}
+                    value={volume}
+                    onChange={e =>
+                      setVolume(Math.max(1, Number(e.target.value)))
+                    }
+                  />
+                </div>
+
+                {/* BUY NOW */}
                 <button
-                  className={css.add_to_busket}
                   type="button"
-                  onClick={handleClick}>
-                  Додати в кошик
+                  className={css.buy_rn}
+                  onClick={() => handleBuy(values.size)}>
+                  Купити зараз
                 </button>
-                <Field
-                  className={css.volume}
-                  as="input"
-                  type="number"
-                  value={volume}
-                  placeholder="0"></Field>
-              </div>
-              <button className={css.buy_rn} type="submit">
-                Купити зараз
-              </button>
-              <p className={css.free_shipment}>
-                Безкоштовна доставка для замовлень від 1000 грн
-              </p>
-            </Form>
+
+                <p className={css.free_shipment}>
+                  Безкоштовна доставка для замовлень від 1000 грн
+                </p>
+              </Form>
+            )}
           </Formik>
         </div>
+
+        {/* DESCRIPTION */}
         <div className={css.full_descr}>
           <h3 className={css.descr_title}>Опис</h3>
           <p className={css.descr}>{props.description}</p>
+
+          {/* CHARACTERISTICS */}
           <div className={css.characteristics_wrapper}>
             <h3 className={css.characteristics_title}>
               Основні характеристики
