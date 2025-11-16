@@ -1,0 +1,93 @@
+.popularCategories {
+  padding: 80px 0;
+  background-color: var(--color-scheme-4-background);
+  overflow: visible;
+}
+
+.popularCategoriesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+
+.popularCategoriesH {
+  font-family: var(--second-family);
+  /* font-weight: 400; */
+  font-size: 48px;
+  line-height: 1.2;
+  color: var(--color-scheme-1-text);
+  letter-spacing: -0.01em;
+}
+
+.allCategoriesBtn {
+  background: var(--opacity-neutral-darkest-5);
+}
+
+.allCategoriesBtn:hover,
+.allCategoriesBtn:focus {
+  background: var(--opacity-neutral-darkest-15);
+  border: 1px solid var(--opacity-neutral-darkest-50);
+}
+
+/* Кнопки навігації слайдера */
+.sliderWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-neutral-darkest);
+  transition: all 0.3s;
+  z-index: 5;
+}
+.prevBtn {
+  left: -30px;
+}
+
+.nextBtn {
+  right: -30px;
+}
+
+.navBtn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1440px) {
+  .popularCategories {
+    padding: 48px 0;
+  }
+
+  .popularCategoriesHeader h2 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .allCategoriesBtn {
+    white-space: nowrap;
+  }
+  .sliderWrapper {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  /* Контейнер для мобільних стрілок */
+  .mobileArrows {
+    position: absolute;
+    bottom: -40px; /* під слайдер */
+    right: 0; /* відступ від правого краю секції */
+    display: flex; /* ставимо стрілки в ряд */
+    gap: 16px; /* відстань між кнопками */
+    z-index: 10;
+  }
+
+  .navBtn {
+    position: static; /* вимикаємо absolute */
+    transform: none;
+  }
+}
