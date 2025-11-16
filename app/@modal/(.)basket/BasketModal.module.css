@@ -1,14 +1,23 @@
+.backdrop {
+  justify-content: end;
+}
+
 .modal {
   height: 100%;
   border-radius: 0;
 }
 .closeBtn {
   position: absolute;
-  top: 20px;
+  top: 40px;
   right: 16px;
   background: transparent;
   border: none;
   cursor: pointer;
+}
+.closeIcon {
+  fill: var(--color-scheme-1-text);
+  stroke-width: 1px;
+  stroke: var(--color-scheme-1-text);
 }
 .title {
   font-family: 'Nunito Sans', sans-serif;
@@ -61,13 +70,13 @@
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-
   .backDrop {
     justify-content: end;
   }
 
   .modal {
-    width: 552px;
+    width: 590px;
+    padding: 96px 32px;
   }
 
   .actions {
@@ -77,12 +86,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .modal {
-    width: 590px;
-  }
   .title {
     font-size: 48px;
   }
-  
-  
 }
