@@ -6,12 +6,12 @@ import Link from 'next/link';
 import styles from './Header.module.css';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import { useAuthStore } from '@/lib/store/authStore';
-import { link } from 'fs';
+// import { link } from 'fs';
 import Image from 'next/image';
 import '@/app/globals.css';
 
 const Header: React.FC = () => {
-  const { isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated, user, logout } = useAuthStore();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -21,6 +21,18 @@ const Header: React.FC = () => {
       document.body.style.overflow = 'auto';
     };
   }, [isMobileMenuOpen]);
+
+  {
+    /* Для тесту ролі: адмін/юзер(авториз.) */
+  }
+  // useEffect(() => {
+  //   useAuthStore.getState().setUser({
+  //     username: 'Test User',
+  //     phone: '111',
+  //     role: 'Admin',
+  //   });
+  //   useAuthStore.getState().isAuthenticated = true;
+  // }, []);
 
   const links = [
     { href: '/', label: 'Головна' },
@@ -65,15 +77,28 @@ const Header: React.FC = () => {
               </Link>
             </>
           ) : (
-            <Link href="/profile" className={styles.btnCabinet}>
-              Кабінет
-            </Link>
+            <>
+              {/* Якщо користувач — адмін,+ уточнити шлях */}
+              {user?.role === 'Admin' && (
+                <Link
+                  href="/admin"
+                  className={`btn btn-secondary ${styles.btnAdmin}`}>
+                  Адмін-панель
+                </Link>
+              )}
+
+              {/* Якщо просто корис.*/}
+              <Link
+                href="/profile"
+                className={`btn btn-primary ${styles.btnCabinet}`}>
+                Кабінет
+              </Link>
+            </>
           )}
           <button
             className={`btn btn-circle ${styles.burgerBtn}`}
             aria-label="Відкрити меню"
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
-            {/* <div> */}
             {!isMobileMenuOpen ? (
               <svg width={24} height={24}>
                 <use
@@ -85,32 +110,24 @@ const Header: React.FC = () => {
                 <use href="/sprite.svg#close" />
               </svg>
             )}
-            {/* <Icon
-              name="menu" // icon-burger
-              sizeH={24}
-              sizeW={24}
-            /> */}
-            {/* </div> */}
           </button>
-          <button className={`btn btn-circle ${styles.cartCircle}`}>
-            <Link
-              href="/basket"
-              className={`btn-round ${styles.cartLink}`}
-              aria-label="Кошик">
-              {/* <div> */}
-              <svg className={styles.cartIcon} width={24} height={24}>
-                <use href="/sprite.svg#shopping_cart"></use>
-              </svg>
-              {/* </div> */}
-            </Link>
+          <Link
+            href="/basket"
+            className={`btn ${styles.cartLink}`}
+            onClick={() => setMobileMenuOpen(false)} // закриває мобібку при переході
+            aria-label="Кошик">
+            <svg className={styles.cartIcon} width={24} height={24}>
+              <use href="/sprite.svg#shopping_cart"></use>
+            </svg>
             <span className={styles.cartBadge}>1</span>
-          </button>
+          </Link>
         </div>
       </div>
       <MobileMenu
         open={isMobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
         isAuthenticated={isAuthenticated}
+        user={user}
         onLogout={() => {
           if (isAuthenticated) logout();
           setMobileMenuOpen(false);

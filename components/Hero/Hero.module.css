@@ -3,10 +3,6 @@
    ========================= */
 
 #hero {
-  /* padding: 64px 20px;
-  background: #f3f9ed;
-  box-sizing: border-box;
-  color: #000; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,12 +19,9 @@
 .title {
   font-family: var(--second-family);
   text-align: left;
-  /* width: auto; */
-  /* font-weight: 400; */
   font-size: 40px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  /* color: #000; */
   margin-bottom: 24px;
 }
 
@@ -52,7 +45,6 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  width: 100%;
 }
 
 .btnGoods,
@@ -61,13 +53,10 @@
 }
 
 .image {
-  /* width: 100%;
-  height: auto; */
   border-radius: 16px;
   width: 100%;
   height: auto;
   display: block;
-  /* object-fit: cover; */
 }
 
 .imageWrapper {
@@ -75,42 +64,11 @@
   width: 100%;
 }
 
-.image {
-  object-fit: cover;
-  object-position: center;
-}
-
-@media (max-width: 767px) {
-  .imageWrapper {
-    width: 335px;
-    height: 335px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1439px) {
-  .imageWrapper {
-    width: 336px;
-    height: 425px;
-  }
-}
-
-@media (min-width: 1440px) {
-  .imageWrapper {
-    width: 640px;
-    height: 394px;
-  }
-
-  .image {
-    object-position: center -14px; /* ← ось це піднімає фото */
-  }
-}
-
 /* =========================
    TABLET ≥768px
    ========================= */
 @media (min-width: 768px) {
   #hero {
-    /* padding: 64px 32px; */
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -130,12 +88,9 @@
     font-size: 18px;
   }
 
+  .btnCategs,
   .btnGoods {
-    max-width: 110px;
-  }
-
-  .btnCategs {
-    max-width: 184px;
+    width: auto;
   }
 
   .buttons {
@@ -144,9 +99,9 @@
     gap: 16px;
   }
 
-  .imageWrapper {
-    flex-shrink: 0;
+  .image {
     width: 336px;
+    height: 425px;
   }
 }
 
@@ -154,11 +109,6 @@
    DESKTOP ≥1440px
    ========================= */
 @media (min-width: 1440px) {
-  #hero {
-    /* padding: 112px 0; */
-    /* gap: 32px; */
-  }
-
   .content {
     max-width: 640px;
   }
@@ -167,7 +117,7 @@
     font-size: 56px;
   }
 
-  .imageWrapper {
+  .image {
     width: 640px;
     height: 394px;
   }
