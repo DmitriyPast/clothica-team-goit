@@ -19,7 +19,7 @@ const nunito = Nunito_Sans({
   subsets: ['latin', 'cyrillic'],
   weight: ['400'],
   display: 'swap',
-});
+}); 
 
 export const metadata: Metadata = {
   title: 'Clothica',
