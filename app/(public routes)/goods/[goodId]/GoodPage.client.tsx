@@ -23,7 +23,7 @@ export default function GoodPageClient() {
   });
 
   const { data: feedbacksData } = useQuery<FetchFeedbacksResponse>({
-    queryKey: ['good', goodId],
+    queryKey: ['feedbacks', goodId],
     queryFn: () => fetchFeedbacks({ productId: goodId }),
     refetchOnMount: false,
   });
@@ -43,6 +43,7 @@ export default function GoodPageClient() {
   if (!feedbacksData) return <p>Завантаження відгуків...</p>;
 
   const {
+    _id: id,
     image,
     prevDescription,
     name,
@@ -57,6 +58,7 @@ export default function GoodPageClient() {
     <section>
       <div className="container">
         <GoodForPurchase
+          id={id}
           image={image}
           prevDescription={prevDescription}
           name={name}
