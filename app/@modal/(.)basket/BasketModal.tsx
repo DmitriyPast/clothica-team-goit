@@ -17,7 +17,7 @@ export default function BasketModal() {
     if (!route) return;
     setTimeout(() => {
       router.push(route);
-    }, 5);
+    }, 50);
   };
 
   useEffect(() => {
