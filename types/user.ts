@@ -1,6 +1,7 @@
 import { ROLE } from '@/constants/user_role';
 
 export type User = {
+  _id: string;
   username: string;
   userSurname?: string;
   phone: string;
@@ -8,7 +9,7 @@ export type User = {
   avatar?: string;
   role: typeof ROLE[number];
   city?: string;
-  postNumber?: number;
+  postNumber?: string;
 };
 
 export type RegisterUser = {

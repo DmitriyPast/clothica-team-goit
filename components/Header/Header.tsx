@@ -6,12 +6,14 @@ import Link from 'next/link';
 import styles from './Header.module.css';
 import MobileMenu from '../MobileMenu/MobileMenu';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useCartStore } from '@/lib/store/cartStore';
 // import { link } from 'fs';
 import Image from 'next/image';
 import '@/app/globals.css';
 
 const Header: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
+  const { items } = useCartStore();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -119,7 +121,7 @@ const Header: React.FC = () => {
             <svg className={styles.cartIcon} width={24} height={24}>
               <use href="/sprite.svg#shopping_cart"></use>
             </svg>
-            <span className={styles.cartBadge}>1</span>
+            <span className={styles.cartBadge}>{items.length}</span>
           </Link>
         </div>
       </div>

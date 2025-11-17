@@ -54,7 +54,7 @@
 
 .navBtn.disabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
 @media (max-width: 1440px) {

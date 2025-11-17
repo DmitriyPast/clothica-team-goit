@@ -23,5 +23,4 @@ export default async function ReviewsList({ productId }: ReviewsListProps) {
 
   // Тут ми передаємо відгуки клієнтському компоненту
   return <ReviewsSlider feedbacks={feedbacks} productId={productId} />;
-  return <p>'this is a dud'</p>;
 }
