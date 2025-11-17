@@ -6,6 +6,24 @@ import { Category } from '@/types/category';
 import { Feedback } from '@/types/feedback';
 import { GENDERS } from '@/constants/gender';
 import { SIZES } from '@/constants/size';
+import { AxiosError } from 'axios'; // ✅ ЩОЙНО ДОДАВ: для типізації помилок
+
+// ✅ ЩОЙНО ДОДАВ: Експорт типів для використання в інших файлах
+export type ApiError<T = { message?: string; error?: string }> = AxiosError<T>;
+export type { Category, Size, Good };
+
+// ✅ ЩОЙНО ДОДАВ: Enums для сортування (щоб не писати 'price.value' вручну)
+export enum SortBy {
+  Date = 'createdAt',
+  Price = 'price.value',
+  Name = 'name',
+}
+
+// ✅ ЩОЙНО ДОДАВ: Enums для напрямку сортування
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
+}
 
 export interface FetchGoodsResponse {
   goods: Good[];
@@ -24,7 +42,7 @@ export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
   category?: string;
-  size?: Size[];
+  size?: Size;
   gender?: (typeof GENDERS)[number];
   minPrice?: number;
   maxPrice?: number;
