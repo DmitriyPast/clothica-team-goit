@@ -80,7 +80,7 @@ const [slidesPerView, setSlidesPerView] = useState(1);
   };
 
   return (
-    <section className={`section ${css.popularCategories}`}>
+    <section id="popular-categories" className={`section ${css.popularCategories}`}>
             <div className={css.popularCategoriesHeader}>
         <h2 className={css.popularCategoriesH}>Популярні категорії</h2>
         <Link href="/categories" className={`btn ${ css.allCategoriesBtn}`}>Всі категорії</Link>
