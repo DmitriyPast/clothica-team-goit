@@ -5,10 +5,14 @@ import { useRouter } from "next/navigation";
 import { create } from "zustand";
 import css from "./AdminTable.module.css";
 
-// Типи
+
+/* Типи статусів з API */
 type ApiStatus = "Pending" | "Processing" | "Completed" | "Cancelled";
+
+/* Локальні статуси (те, що бачить адмін) */
 type OrderStatus = "У процесі" | "Комплектується" | "Виконано" | "Скасовано";
 
+/* Тип одного замовлення */
 interface Order {
   orderId: string;
   createdAt: string;
@@ -17,7 +21,7 @@ interface Order {
   country?: string;
 }
 
-// Мапінг статусів
+/* Відповідність API-статусів українським */
 const statusMap: Record<ApiStatus, OrderStatus> = {
   Pending: "У процесі",
   Processing: "Комплектується",
@@ -25,6 +29,7 @@ const statusMap: Record<ApiStatus, OrderStatus> = {
   Cancelled: "Скасовано",
 };
 
+/* Зворотна відповідність для відправки на API */
 const reverseStatusMap: Record<OrderStatus, ApiStatus> = {
   "У процесі": "Pending",
   "Комплектується": "Processing",
@@ -34,22 +39,27 @@ const reverseStatusMap: Record<OrderStatus, ApiStatus> = {
 
 const API = process.env.NEXT_PUBLIC_API_BASE;
 
-// Zustand Store
+/* Zustand Store: зберігає замовлення та методи роботи з ними */
 const useOrderStore = create<{
   orders: Order[];
   updateOrderStatus: (id: string, status: OrderStatus) => void;
   fetchOrders: (page: number, perPage: number) => Promise<void>;
 }>((set) => ({
   orders: [],
+
+  /* Оновлення статусу поточного замовлення */
   updateOrderStatus: async (id, status) => {
     try {
       const apiStatus = reverseStatusMap[status];
+
+      /* PATCH-запит на бекенд */
       await fetch(`${API}/api/orders/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: apiStatus }),
       });
 
+      /* Оновлення стану в Zustand */
       set((state) => ({
         orders: state.orders.map((o) =>
           o.orderId === id ? { ...o, status } : o
@@ -59,11 +69,14 @@ const useOrderStore = create<{
       console.error("Помилка оновлення статусу:", err);
     }
   },
+
+  /* Завантаження списку замовлень (посторінково) */
   fetchOrders: async (page, perPage) => {
     try {
       const res = await fetch(`${API}/api/orders?page=${page}&perPage=${perPage}`);
       const data = await res.json();
 
+      /* Нормалізація структури отриманих даних */
       const orders: Order[] = data.map((o: any) => ({
         orderId: o.orderNumber,
         createdAt: o.createdAt,
@@ -72,6 +85,7 @@ const useOrderStore = create<{
         country: o.shippingAddress,
       }));
 
+      /* Додавання нових замовлень до існуючих */
       set((state) => ({ orders: [...state.orders, ...orders] }));
     } catch (err) {
       console.error("Помилка завантаження замовлень:", err);
@@ -79,17 +93,20 @@ const useOrderStore = create<{
   },
 }));
 
-// Компонент таблиці
+/* Основний компонент адмін-таблиці */
 export default function AdminTable() {
   const { orders, updateOrderStatus, fetchOrders } = useOrderStore();
-  const [page, setPage] = useState(1);
-  const perPage = 4;
+
+  const [page, setPage] = useState(1); // Поточна сторінка
+  const perPage = 4;                   // Кількість замовлень на сторінку
   const router = useRouter();
 
+  /* Завантаження замовлень при зміні сторінки */
   useEffect(() => {
     fetchOrders(page, perPage);
   }, [page, fetchOrders]);
 
+  /* Вихід із кабінету */
   const handleExit = () => {
     router.push("/profile");
   };
