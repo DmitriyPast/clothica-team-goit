@@ -15,7 +15,8 @@ export default async function GoodsPage() {
     page: 1,
     perPage: 8, // Дефолтне значення для сервера (мобільна версія)
     category: 'all',
-    size: [], // ✅ ВАЖЛИВО: Додаємо порожній масив, щоб ключ збігався з клієнтом
+    // size: [0], // ✅ ВАЖЛИВО: Додаємо порожній масив, щоб ключ збігався з клієнтом
+    // !(ПОМИЛКА)
   };
 
   await queryClient.prefetchQuery({
