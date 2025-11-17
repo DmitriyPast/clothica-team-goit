@@ -76,7 +76,7 @@ export default function CreateOrderForm() {
         ...(user?._id && { userId: user._id }),
         userName: values.username,
         userSurname: values.userSurname,
-        userEmail: user?.email || '', // якщо є email
+        ...(user?.email && { userEmail: user.email }), // якщо є email
         items: items.map(item => ({
           goodId: item._id,
           name: item.name,
