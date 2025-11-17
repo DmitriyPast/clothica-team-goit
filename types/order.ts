@@ -28,7 +28,7 @@ export type Order = {
   status: (typeof ORDER_STATUSES)[number];
   shippingAddress: {
     city: string;
-    postNumber: string | number;
+    postNumber: string;
   };
   contactPhone: string;
   comment?: string;
