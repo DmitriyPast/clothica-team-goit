@@ -8,8 +8,8 @@ import HalfStar from './halfStar.svg';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import css from './GoodForPurchase.module.css';
-import showToast, { ToastType } from "@/lib/utils/messageService";
-
+import showToast, { ToastType } from '@/lib/utils/messageService';
+import { Size } from '@/types/good';
 
 interface GoodProps {
   id: string;
@@ -17,7 +17,7 @@ interface GoodProps {
   name: string;
   price: { value: number };
   prevDescription?: string;
-  size: string[];
+  size: Size[];
   description?: string;
   characteristics: string[];
   rate: number;
@@ -48,7 +48,7 @@ export default function GoodForPurchase(props: GoodProps) {
   }
 
   // ---------- ADD TO CART ----------
-  function handleAdd(size: string) {
+  function handleAdd(size: Size) {
     // створюємо новий об'єкт товару для кошика
     addItem(
       {
@@ -63,7 +63,7 @@ export default function GoodForPurchase(props: GoodProps) {
   }
 
   // ---------- BUY NOW ----------
-  function handleBuy(size: string) {
+  function handleBuy(size: Size) {
     handleAdd(size);
     router.push('/order');
   }
@@ -130,39 +130,37 @@ export default function GoodForPurchase(props: GoodProps) {
                 </div>
 
                 {/* ADD TO CART */}
-                <div className={css.add_to_busket_wrapper} >
+                <div className={css.add_to_busket_wrapper}>
                   <button
-                      type="button"
-                      className={css.add_to_busket}
-                      onClick={() => {
-                        console.log(props.id, props.name, values.size, volume);
-                        handleAdd(values.size);
-                        showToast(ToastType.success, 'Товар додано у кошик');
-                      }}
-                        >
-                           Додати в кошик
+                    type="button"
+                    className={css.add_to_busket}
+                    onClick={() => {
+                      console.log(props.id, props.name, values.size, volume);
+                      handleAdd(values.size);
+                      showToast(ToastType.success, 'Товар додано у кошик');
+                    }}>
+                    Додати в кошик
                   </button>
 
-<input
-  className={css.volume}
-  type="number"
-  min={1}
-  value={localVolume}
-  onChange={onVolumeChange}
-  onBlur={() => {
-    if (localVolume === '') {
-      setLocalVolume(String(volume));
-    }
-  }}
-  onKeyDown={e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAdd(values.size);
-      showToast(ToastType.success, 'Товар додано у кошик');
-    }
-  }}
-/>
-
+                  <input
+                    className={css.volume}
+                    type="number"
+                    min={1}
+                    value={localVolume}
+                    onChange={onVolumeChange}
+                    onBlur={() => {
+                      if (localVolume === '') {
+                        setLocalVolume(String(volume));
+                      }
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAdd(values.size);
+                        showToast(ToastType.success, 'Товар додано у кошик');
+                      }
+                    }}
+                  />
                 </div>
 
                 {/* BUY NOW */}
