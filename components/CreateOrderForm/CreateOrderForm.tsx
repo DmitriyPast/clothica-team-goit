@@ -64,7 +64,6 @@ export default function CreateOrderForm() {
 
       // Zustand — оновимо локальний стейт
       updateUser({
-        ...user,
         username: values.username,
         userSurname: values.userSurname,
         phone: values.contactPhone,
@@ -103,11 +102,7 @@ export default function CreateOrderForm() {
 
       router.push('/goods');
       clearCart();
-    } catch (err) {
-      console.error(err);
-      if (isAxiosError(err)) {
-        console.log('Server response:', err.response?.data);
-      }
+    } catch (err) {     
       setError('Помилка збереження');
       setIsSubmitting(false);
     }
