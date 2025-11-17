@@ -7,7 +7,7 @@ import { fetchGoodById } from '@/lib/api/clientApi';
 import GoodsOrderListItem from './GoodsOrderListItem';
 
 export default function GoodsOrderList() {
-  const { items } = useCartStore();
+  const { items, total } = useCartStore();
 
   const queries = useQueries({
     queries: items.map(cartItem => ({
@@ -31,6 +31,25 @@ export default function GoodsOrderList() {
             />
           );
         })}
+      </ul>
+      {/* TOTAL */}
+      <ul className={css.totalBlock}>
+        <li className={css.block}>
+          <p className={css.text}>Проміжний підсумок</p>
+          <p className={css.price}>
+            {total.value} {total.currency}
+          </p>
+        </li>
+        <li className={css.block}>
+          <p className={css.text}>Доставка</p>
+          <p className={css.price}>Безкоштовно</p>
+        </li>
+        <li className={css.block}>
+          <p className={css.strongText}>Всього:</p>
+          <strong className={css.price}>
+            {total.value} {total.currency}
+          </strong>
+        </li>
       </ul>
     </div>
   );

@@ -4,16 +4,19 @@ import { ORDER_STATUSES } from '@/constants/order_status';
 import { SIZES } from '@/constants/size';
 
 export type Order = {
-  userId: string;
+  userId?: string | null; // може бути null, якщо користувач не залогінений
+  userName: string;
+  userSurname: string;
+  userEmail?: string;
   orderNumber?: string;
-  items: [
-    {
-      goodId: string;
-      quantity: number;
-      size?: (typeof SIZES)[number];
-      gender?: (typeof GENDERS)[number];
-    },
-  ];
+  items: {
+    goodId: string;
+    name: string;
+    quantity: number;
+    price: number;
+    size?: (typeof SIZES)[number];
+    gender?: (typeof GENDERS)[number];
+  }[];
   deliveryCost?: {
     value: number;
     currency: (typeof CURRENCIES)[number];
@@ -23,7 +26,10 @@ export type Order = {
     currency: (typeof CURRENCIES)[number];
   };
   status: (typeof ORDER_STATUSES)[number];
-  shippingAddress: string;
+  shippingAddress: {
+    city: string;
+    postNumber: string;
+  };
   contactPhone: string;
   comment?: string;
 };
