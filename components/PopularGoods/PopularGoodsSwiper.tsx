@@ -81,7 +81,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
   };
 
   return (
-    <section className={css.popularGoods}>
+    <section id="popular-goods" className={css.popularGoods}>
       <div className={css.header}>
         <h2 className={css.popularGoodsTitle}>Популярні товари</h2>
         <Link href="/goods" className={`${css.viewAllButton} btn`}>
