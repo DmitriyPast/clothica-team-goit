@@ -8,6 +8,9 @@
   align-items: flex-end;
   margin-bottom: 40px;
 }
+.swiper-slide {
+  width: fit-content;
+}
 
 .popularGoodsTitle {
   font-family: var(--second-family);

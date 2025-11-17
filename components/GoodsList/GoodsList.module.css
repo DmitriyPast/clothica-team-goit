@@ -1,17 +1,32 @@
 .goodsList {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  /* flex-grow: 10; */
+  flex-wrap: wrap;
+  justify-content: end;
+  /* grid-template-columns: 1fr; */
   gap: 32px;
+  width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
   .goodsList {
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
   }
+}
+
+.goodItem {
+  display: flex;
+  justify-content: center;
+  width: 198px;
+  height: 423px;
 }
 
 @media only screen and (min-width: 1440px) {
   .goodsList {
-    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+  }
+
+  .goodItem {
+    width: 304px;
   }
 }
