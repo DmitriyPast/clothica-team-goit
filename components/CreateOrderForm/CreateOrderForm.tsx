@@ -77,7 +77,6 @@ export default function CreateOrderForm() {
         userName: values.username,
         userSurname: values.userSurname,
         userEmail: user?.email || '', // якщо є email
-        orderNumber: '', // можна генерувати на сервері
         items: items.map(item => ({
           goodId: item._id,
           name: item.name,
