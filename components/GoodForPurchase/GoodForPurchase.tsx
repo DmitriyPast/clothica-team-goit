@@ -26,7 +26,14 @@ export default function GoodForPurchase(props: GoodProps) {
   const [volume, setVolume] = useState(1);
   const fieldId = useId();
   const addItem = useCartStore(state => state.addItem);
+  const { items } = useCartStore();
   const router = useRouter();
+
+  const quantityById = useCartStore(state =>
+    state.items
+      .filter(i => i._id === props.id)
+      .reduce((sum, i) => sum + i.quantity, 0)
+  );
 
   // ---------- STARS ----------
   function Stars({ value }: { value: number }) {

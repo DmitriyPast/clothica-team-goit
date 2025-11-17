@@ -2,12 +2,16 @@
 
 import css from './GoodPage.module.css';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { fetchGoodById, fetchFeedbacks } from '@/lib/api/clientApi';
 import { FetchFeedbacksResponse } from '@/lib/api/serverApi';
 import { Feedback } from '@/types/feedback';
+import ReviewsSlider from '@/components/ReviewsList/ReviewsSlider';
 import GoodForPurchase from '@/components/GoodForPurchase/GoodForPurchase';
+import AddFeedbackModal from '@/components/AddFeedbackModal/AddFeedbackModal';
+
 // import Feedbacks from '@/components/Feedbacks/Feedbacks';
 import { useMemo } from 'react';
 
@@ -15,6 +19,7 @@ import Loading from '@/app/loading';
 
 export default function GoodPageClient() {
   const { goodId } = useParams<{ goodId: string }>();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { data: good } = useQuery({
     queryKey: ['good', goodId],
@@ -77,6 +82,27 @@ export default function GoodPageClient() {
           </div>
         ))}
         <div>{feedbacks?.feedbacks[0].description}</div> */}
+        <div className={css.review_wrapper}>
+          <div className={css.leave_feedback_wrapper}>
+            <h2 className={css.feedbacks_title}>Відгуки клієнтів</h2>
+            <button
+              type="button"
+              className={css.add_feedback}
+              onClick={() => setModalOpen(!modalOpen)}>
+              Залишити відгук
+            </button>
+          </div>
+          <ReviewsSlider
+            feedbacks={feedbacksData.feedbacks}
+            productId={goodId}
+          />
+        </div>
+        {modalOpen && (
+          <AddFeedbackModal
+            onClose={() => setModalOpen(!modalOpen)}
+            id={goodId}
+          />
+        )}
       </div>
     </section>
   );

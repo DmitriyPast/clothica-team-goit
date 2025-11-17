@@ -124,7 +124,16 @@ export async function fetchFeedbacks(
 }
 
 // --- POST feedback ---
-export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+
+export type NewFeedback = Omit<Feedback, '_id' | 'date'> & {
+  date?: string;
+};
+
+// export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+//   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
+// }
+
+export async function createFeedback(feedback: NewFeedback): Promise<Feedback> {
   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 }
 
