@@ -1,6 +1,7 @@
 /* =========================
    MOBILE FIRST (до 375px)
    ========================= */
+
 .styleSection {
   padding: 32px 0;
   background: #f5f8f0;
@@ -36,35 +37,19 @@
   gap: 12px;
 }
 
-.icon {
+/* .icon {
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-}
+} */
 
-.icon1 {
-  background-image: url('/style-img/one.png');
-}
-.icon2 {
-  background-image: url('/style-img/two.png');
-}
-.icon3 {
-  background-image: url('/style-img/three.png');
-}
-
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .icon1 {
-    background-image: url('/style-img/one@2x.png');
-  }
-  .icon2 {
-    background-image: url('/style-img/two@2x.png');
-  }
-  .icon3 {
-    background-image: url('/style-img/three@2x.png');
-  }
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .itemTitle {

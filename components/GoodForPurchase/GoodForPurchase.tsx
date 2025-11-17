@@ -73,6 +73,24 @@ export default function GoodForPurchase(props: GoodProps) {
     router.push('/order');
   }
 
+  //---------- VOLUME INPUT HANDLER ----------
+  const [localVolume, setLocalVolume] = useState(String(volume));
+  const onVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val === '') {
+      setLocalVolume('');
+      return;
+    }
+    if (!/^\d+$/.test(val)) return;
+    const num = Number(val);
+    if (num <= 0) {
+      setLocalVolume(val);
+      return;
+    }
+    setLocalVolume(val);
+    setVolume(num);
+  };
+
   return (
     <div className={css.full_wrapper}>
       {/* IMAGE */}
@@ -132,10 +150,19 @@ export default function GoodForPurchase(props: GoodProps) {
                     className={css.volume}
                     type="number"
                     min={1}
-                    value={volume}
-                    onChange={e =>
-                      setVolume(Math.max(1, Number(e.target.value)))
-                    }
+                    value={localVolume}
+                    onChange={onVolumeChange}
+                    onBlur={() => {
+                      if (localVolume === '') {
+                        setLocalVolume(String(volume));
+                      }
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAdd(values.size);
+                      }
+                    }}
                   />
                 </div>
 
