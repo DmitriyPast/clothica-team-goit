@@ -21,7 +21,7 @@ export default async function LastReviews() {
   return (
     <section className={css.section}>
       <h2 className={css.titleLastReviews}>Останні відгуки</h2>
-      <ReviewsList />
+      <ReviewsList/>
     </section>
   );
 }
