@@ -7,31 +7,29 @@ import { fetchCategories } from '@/lib/api/clientApi';
 import css from './CategoriesPage.module.css';
 
 export default function CategoriesPage() {
-  const [allCategories, setAllCategories] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(6); // По замовчуванню для десктопу
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Перший запит - 6 категорій, наступні - по 3
-  const perPage = page === 1 ? 6 : 3;
-
+  // ✅ Завантажуємо всі категорії одразу
   const { data, isLoading, error } = useQuery({
-    queryKey: ['categories', page],
-    queryFn: () => fetchCategories({ page, perPage }),
+    queryKey: ['categories-all'],
+    queryFn: () => fetchCategories({ page: 1, perPage: 20 }), // Завантажуємо всі
   });
 
-  // ✅ Функція для сортування категорій згідно макету
+  // ✅ Функція для сортування категорій
   const sortCategories = (categories: any[]) => {
     const order = [
       'футболки та сорочки',
       'худі та світшоти',
-      'худі та кофти', // альтернативна назва
+      'худі та кофти',
       'джинси та штани',
-      'штани та джинси', // альтернативна назва
+      'штани та джинси',
       'сукні та спідниці',
       'куртки та верхній одяг',
-      'верхній одяг', // альтернативна назва
+      'верхній одяг',
       'домашній та спортивний одяг',
       'топи',
-      'топи та майки', // альтернативна назва
+      'топи та майки',
       'інше',
     ];
 
@@ -42,7 +40,6 @@ export default function CategoriesPage() {
       let aIndex = order.indexOf(aName);
       let bIndex = order.indexOf(bName);
 
-      // Якщо не знайдено в списку - ставимо в кінець
       if (aIndex === -1) aIndex = 999;
       if (bIndex === -1) bIndex = 999;
 
@@ -50,30 +47,31 @@ export default function CategoriesPage() {
     });
   };
 
+  // ✅ Визначаємо початкову кількість на клієнті
   useEffect(() => {
-    if (data?.categories) {
-      if (page === 1) {
-        // Перший запит - замінюємо і сортуємо
-        const sorted = sortCategories(data.categories);
-        setAllCategories(sorted);
+    setIsMounted(true);
+    const updateVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width >= 1440) {
+        setVisibleCount(6); // Desktop
       } else {
-        // Наступні запити - додаємо і сортуємо все разом
-        setAllCategories(prev => {
-          const newCategories = data.categories.filter(
-            newCat => !prev.some(cat => cat._id === newCat._id)
-          );
-          const combined = [...prev, ...newCategories];
-          return sortCategories(combined);
-        });
+        setVisibleCount(4); // Tablet & Mobile
       }
-    }
-  }, [data, page]);
+    };
+
+    updateVisibleCount();
+    window.addEventListener('resize', updateVisibleCount);
+
+    return () => window.removeEventListener('resize', updateVisibleCount);
+  }, []);
+
+  const allCategories = data?.categories ? sortCategories(data.categories) : [];
+  const displayedCategories = allCategories.slice(0, visibleCount);
+  const hasMore = visibleCount < allCategories.length;
 
   const loadMore = () => {
-    setPage(prev => prev + 1);
+    setVisibleCount(prev => Math.min(prev + 4, allCategories.length));
   };
-
-  const hasMore = data && page < data.totalPages;
 
   if (error) {
     return (
@@ -94,12 +92,12 @@ export default function CategoriesPage() {
           </div>
 
           <div className={css.content}>
-            {isLoading && page === 1 ? (
+            {isLoading ? (
               <p className={css.loading}>Завантаження...</p>
             ) : (
               <>
                 <div className={css.grid}>
-                  {allCategories.map((category, index) => (
+                  {displayedCategories.map((category, index) => (
                     <Category
                       key={category._id}
                       category={category}
@@ -108,14 +106,13 @@ export default function CategoriesPage() {
                   ))}
                 </div>
 
-                {hasMore && (
+                {isMounted && hasMore && (
                   <div className={css.buttonWrapper}>
                     <button
                       type="button"
                       onClick={loadMore}
-                      className={css.button}
-                      disabled={isLoading}>
-                      {isLoading ? 'Завантаження...' : 'Показати більше'}
+                      className={css.button}>
+                      Показати більше
                     </button>
                   </div>
                 )}

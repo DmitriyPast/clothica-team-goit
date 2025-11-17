@@ -98,9 +98,6 @@
   .grid {
     grid-template-columns: 1fr;
   }
-    .grid > *:nth-child(n + 5) {
-    display: none;
-  }
 }
 
 /* Tablet - 2 columns */
@@ -113,9 +110,7 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-    .grid > *:nth-child(n + 5) {
-    display: none;
-  }
+
   .button {
     max-width: 160px;
   }
@@ -139,7 +134,8 @@
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
-   .button {
+
+  .button {
     max-width: 160px;
   }
 }
