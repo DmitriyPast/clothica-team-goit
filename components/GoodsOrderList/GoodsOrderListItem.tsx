@@ -71,7 +71,7 @@ export default function GoodsOrderListItem({ cartItem, item }: any) {
             </div>
           </div>
         </div>
-        <div  className={css.sizePriceBlock}>
+        <div className={css.sizePriceBlock}>
           <p className={css.text}>Розмір: {cartItem.size}</p>
           <p className={css.price}>
             {item.price.value} {item.price.currency}
