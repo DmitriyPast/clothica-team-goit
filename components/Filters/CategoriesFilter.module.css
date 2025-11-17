@@ -1,0 +1,421 @@
+/* ===========================================================
+   БАЗОВІ ЗМІННІ 
+   =========================================================== */
+:root {
+  --color-black: #000000;
+  --color-gray: #7a7a7a;
+  --color-light-gray: #e5e5e5;
+  --color-accent: #1c1c1c;
+
+  --radius: 4px;
+}
+
+/* ===========================================================
+   КОНТЕЙНЕР
+   =========================================================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 16px;
+  max-width: 340px;
+  box-sizing: border-box;
+  background-color: #f3f9ed;
+}
+
+/* ===========================================================
+   HEADER (Фільтри + Очистити всі)
+   =========================================================== */
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.clearAllButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-black);
+  font-size: 14px;
+  /* text-decoration: underline; */
+  padding: 4px 0;
+}
+
+/* ===========================================================
+   CAPTION "Показано X з Y"
+   =========================================================== */
+.caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-black);
+}
+
+/* ===========================================================
+   SECTION (всі блоки: категорії, розмір, ціна, стать)
+   =========================================================== */
+.section {
+  border-bottom: 1px solid var(--color-light-gray);
+  padding: 16px 0;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: space-between; /* ✔ розтягує заголовок і шеврон */
+}
+
+.sectionHeader {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* ⬅️ Шеврон КРАЙНІЙ справа */
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-black);
+  /* text-decoration: underline; */
+}
+
+/* ================== */
+/* WRAPPER */
+/* ================================
+   DOUBLE RANGE SLIDER — CLEAN CSS
+   ================================ */
+
+/* Контейнер */
+.doubleSliderWrapper {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+}
+
+/* Сіра лінія */
+.track {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background: #e5e5e5;
+  border-radius: 4px;
+}
+
+/* Активний чорний відрізок */
+.range {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  background: #000;
+  border-radius: 4px;
+}
+
+/* ОБИДВА INPUT RANGE */
+.thumbMin,
+.thumbMax {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 30px;
+
+  /* Прибираємо БУДЬ-ЯКІ нативні стилі */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  -moz-appearance: none !important;
+
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+
+  pointer-events: none; /* трек не клікабельний */
+}
+
+/* Ховаємо нативну лінію Chrome */
+.thumbMin::-webkit-slider-runnable-track,
+.thumbMax::-webkit-slider-runnable-track {
+  -webkit-appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Ховаємо лінію у Firefox */
+.thumbMin::-moz-range-track,
+.thumbMax::-moz-range-track {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Кружечки-повзунки */
+.thumbMin::-webkit-slider-thumb,
+.thumbMax::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+
+  pointer-events: all; /* робить кружок клікабельним */
+
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.thumbMin::-moz-range-thumb,
+.thumbMax::-moz-range-thumb {
+  pointer-events: all;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* ======== */
+
+/* ===========================================================
+   CHEVRON (тільки мобілка)
+   =========================================================== */
+.chevron {
+  /* font-size: 20px;
+  transition: transform 0.2s ease;
+  display: inline-block; */
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+/* Сховано на tablet + desktop */
+@media (min-width: 768px) {
+  .chevron {
+    display: none;
+  }
+}
+
+.chevronOpen {
+  transform: rotate(0deg);
+}
+
+.chevronClosed {
+  transform: rotate(-180deg);
+}
+
+/* ===========================================================
+   ACCORDION
+   =========================================================== */
+.accordion {
+  margin-top: 16px;
+}
+
+/* ===========================================================
+   LIST
+   =========================================================== */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categoryItem {
+  margin-bottom: 8px;
+}
+
+/* ===========================================================
+   CATEGORY BUTTONS
+   =========================================================== */
+.categoryButton {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 14px;
+  padding: 6px 0;
+  cursor: pointer;
+  color: var(--color-black);
+  /* text-decoration: underline; */
+}
+
+.categoryButtonActive {
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+/* ===========================================================
+   SIZE CHECKBOXES
+   =========================================================== */
+.optionRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Custom checkbox */
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-gray);
+  border-radius: var(--radius);
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.checkboxChecked {
+  background: var(--color-black);
+  border-color: var(--color-black);
+}
+.checkboxChecked::after {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  transform: rotate(-45deg);
+  margin-bottom: 1px;
+}
+
+/* ===========================================================
+   RADIO BUTTON (СТАТЬ)
+   =========================================================== */
+.radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray);
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.radioChecked {
+  background: var(--color-black);
+  border-color: var(--color-black);
+}
+.radioChecked::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background-color: #ffffff;
+}
+/* ===========================================================
+   LABEL
+   =========================================================== */
+.optionLabel {
+  font-size: 14px;
+  color: var(--color-black);
+}
+
+/* ===========================================================
+   CLEAR INLINE (десктоп)
+   =========================================================== */
+.clearInlineButton {
+  background: none;
+  border: none;
+  /* text-decoration: underline; */
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--color-black);
+}
+
+/* ===========================================================
+   CLEAR (mobile)
+   =========================================================== */
+.clearMobileButton {
+  background: none;
+  border: none;
+  /* text-decoration: underline; */
+  font-size: 14px;
+  margin-top: 12px;
+  cursor: pointer;
+  color: var(--color-black);
+}
+
+/* ===========================================================
+   PRICE INPUTS
+   =========================================================== */
+.priceInputsRow {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.priceField {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.priceLabel {
+  font-size: 12px;
+  color: var(--color-gray);
+  margin-bottom: 4px;
+}
+
+.priceInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+}
+.priceInputR {
+  text-align: right;
+}
+.priceInput::-webkit-inner-spin-button,
+.priceInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Ховаємо стрілочки у Firefox */
+.priceInput[type='number'] {
+  -moz-appearance: textfield;
+}
+/* ===========================================================
+   SLIDER
+   =========================================================== */
+.sliderWrapper {
+  margin-top: 16px;
+}
+
+.slider {
+  width: 100%;
+}
+
+/* ===========================================================
+   DESKTOP STYLE FIXING
+   =========================================================== */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 300px;
+    padding: 0;
+  }
+}

@@ -1,0 +1,53 @@
+/* --- Стилі для сторінки --- */
+.page-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f3f4f6;
+}
+
+/* --- ГОЛОВНА РОЗМІТКА: Grid --- */
+.grid-container {
+  display: grid;
+  gap: 2rem;
+
+  /* Це головний рядок: 2 колонки однакової ширини */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* --- Інші стилі (щоб виглядало так само) --- */
+
+/* Обгортка для фільтра */
+.filter-container {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Стилі для самого блоку StoreDebug */
+.store-debug {
+  padding: 1rem;
+  background-color: #111827;
+  color: #4ade80;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  overflow: auto;
+}
+
+.store-debug h3 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.debug-column {
+  /* Вмикає "липкий" режим */
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
