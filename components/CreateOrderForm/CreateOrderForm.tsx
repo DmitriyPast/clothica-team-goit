@@ -10,6 +10,7 @@ import { createOrder, updateMe } from '@/lib/api/clientApi';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useAuthStore } from '@/lib/store/authStore';
 import { isAxiosError } from 'axios';
+import showToast, { ToastType } from "@/lib/utils/messageService";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -100,13 +101,15 @@ export default function CreateOrderForm() {
 
       await createOrder(payload);
 
-      router.push('/goods');
-      clearCart();
-    } catch (err) {     
-      setError('Помилка збереження');
-      setIsSubmitting(false);
-    }
-  };
+       showToast(ToastType.success, 'Замовлення успішно оформлено!');
+    router.push('/goods');
+    clearCart();
+  } catch (err) {
+    setError('Помилка збереження');
+    showToast(ToastType.error, 'Не вдалося оформити замовлення');
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <Formik
