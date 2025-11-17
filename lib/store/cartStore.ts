@@ -1,15 +1,17 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CURRENCIES } from '@/constants/currency';
+import { GENDERS } from '@/constants/gender';
+import { SIZES } from '@/constants/size';
 
 export interface CartItem {
   _id: string; // унікальний id товару
   name: string;
   image: string;
   price: number;
-  size: string;
+  size?: (typeof SIZES)[number];
   quantity: number;
-}
+ gender?: (typeof GENDERS)[number];}
 
 type CartState = {
   items: CartItem[];
