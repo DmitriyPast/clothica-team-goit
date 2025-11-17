@@ -1,25 +1,29 @@
 'use client';
 
-import Image from "next/image";
-import css from "./CategoriesList.module.css"
+import Image from 'next/image';
+import css from './CategoriesList.module.css';
+import { Category } from '@/types/category';
 
-export type Category = {
-  id: string | number;
-  name: string;
-  image: string;
-};
+// export type Category = {
+//   _id: string | number;
+//   name: string;
+//   image: string;
+// };
 
 type CategoriesListProps = {
   categories: Category[];
 };
 
-export default function CategoriesList({ categories = [] }: CategoriesListProps) {
+export default function CategoriesList({
+  categories = [],
+}: CategoriesListProps) {
   return (
-   <ul className={`container ${css.categoriesList}`}>
-      {categories.map((category) => (
-        <li key={category.id} className={css.itemCategoriesList}>
+    <ul className={`container ${css.categoriesList}`}>
+      {categories.map(category => (
+        <li key={category._id} className={css.itemCategoriesList}>
           <Image
-            src={category.image}
+            src={`/category-img/${category._id}.webp`}
+            // src={`/fut.jpg`}
             alt={category.name}
             width={416}
             height={277}
