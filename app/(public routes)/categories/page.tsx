@@ -17,35 +17,35 @@ export default function CategoriesPage() {
   });
 
   // ✅ Функція для сортування категорій
-  const sortCategories = (categories: any[]) => {
-    const order = [
-      'футболки та сорочки',
-      'худі та світшоти',
-      'худі та кофти',
-      'джинси та штани',
-      'штани та джинси',
-      'сукні та спідниці',
-      'куртки та верхній одяг',
-      'верхній одяг',
-      'домашній та спортивний одяг',
-      'топи',
-      'топи та майки',
-      'інше',
-    ];
+  // const sortCategories = (categories: any[]) => {
+  //   const order = [
+  //     'футболки та сорочки',
+  //     'худі та світшоти',
+  //     'худі та кофти',
+  //     'джинси та штани',
+  //     'штани та джинси',
+  //     'сукні та спідниці',
+  //     'куртки та верхній одяг',
+  //     'верхній одяг',
+  //     'домашній та спортивний одяг',
+  //     'топи',
+  //     'топи та майки',
+  //     'інше',
+  //   ];
 
-    return [...categories].sort((a, b) => {
-      const aName = a.name.trim().toLowerCase();
-      const bName = b.name.trim().toLowerCase();
+  //   return [...categories].sort((a, b) => {
+  //     const aName = a.name.trim().toLowerCase();
+  //     const bName = b.name.trim().toLowerCase();
 
-      let aIndex = order.indexOf(aName);
-      let bIndex = order.indexOf(bName);
+  //     let aIndex = order.indexOf(aName);
+  //     let bIndex = order.indexOf(bName);
 
-      if (aIndex === -1) aIndex = 999;
-      if (bIndex === -1) bIndex = 999;
+  //     if (aIndex === -1) aIndex = 999;
+  //     if (bIndex === -1) bIndex = 999;
 
-      return aIndex - bIndex;
-    });
-  };
+  //     return aIndex - bIndex;
+  //   });
+  // };
 
   // ✅ Визначаємо початкову кількість на клієнті
   useEffect(() => {
@@ -65,12 +65,14 @@ export default function CategoriesPage() {
     return () => window.removeEventListener('resize', updateVisibleCount);
   }, []);
 
-  const allCategories = data?.categories ? sortCategories(data.categories) : [];
-  const displayedCategories = allCategories.slice(0, visibleCount);
-  const hasMore = visibleCount < allCategories.length;
+  // const allCategories = data?.categories ? sortCategories(data.categories) : [];
+  const displayedCategories = data?.categories.slice(0, visibleCount);
+  const hasMore = data?.categories && visibleCount < data?.categories.length;
 
   const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 4, allCategories.length));
+    setVisibleCount(prev =>
+      Math.min(prev + 4, data?.categories.length as number)
+    );
   };
 
   if (error) {
@@ -97,7 +99,7 @@ export default function CategoriesPage() {
             ) : (
               <>
                 <div className={css.grid}>
-                  {displayedCategories.map((category, index) => (
+                  {displayedCategories?.map((category, index) => (
                     <Category
                       key={category._id}
                       category={category}
