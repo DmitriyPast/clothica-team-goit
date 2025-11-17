@@ -54,7 +54,6 @@ export default function GoodsOrderListItem({ cartItem, item }: any) {
         <div className={css.nameBlock}>
           <div>
             <h3 className={css.title}>{item.name}</h3>
-
             <div className={css.ratingBlock}>
               <div className={css.rating}>
                 <svg width={16} height={16}>
@@ -71,7 +70,8 @@ export default function GoodsOrderListItem({ cartItem, item }: any) {
               </span>
             </div>
           </div>
-
+        </div>
+        <div  className={css.sizePriceBlock}>
           <p className={css.text}>Розмір: {cartItem.size}</p>
           <p className={css.price}>
             {item.price.value} {item.price.currency}

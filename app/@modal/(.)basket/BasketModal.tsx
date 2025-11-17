@@ -10,14 +10,14 @@ import { useEffect } from 'react';
 
 export default function BasketModal() {
   const router = useRouter();
-  const { items, total } = useCartStore();
+  const { items } = useCartStore();
 
   const onClose = (route?: string) => {
     router.back();
     if (!route) return;
     setTimeout(() => {
       router.push(route);
-    }, 50);
+    }, 5);
   };
 
   useEffect(() => {
@@ -62,27 +62,7 @@ export default function BasketModal() {
           {items.length > 0 ? (
             <>
               <GoodsOrderList />
-
-              {/* TOTAL */}
-              <ul className={css.totalBlock}>
-                <li className={css.block}>
-                  <p className={css.text}>Проміжний підсумок</p>
-                  <p className={css.price}>
-                    {total.value} {total.currency}
-                  </p>
-                </li>
-                <li className={css.block}>
-                  <p className={css.text}>Доставка</p>
-                  <p className={css.price}>Безкоштовно</p>
-                </li>
-                <li className={css.block}>
-                  <p className={css.strongText}>Всього:</p>
-                  <strong className={css.price}>
-                    {total.value} {total.currency}
-                  </strong>
-                </li>
-              </ul>
-
+           
               {/* ACTIONS */}
               <div className={css.actions}>
                 <button
