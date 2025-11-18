@@ -26,6 +26,7 @@ interface FilterStore {
   sortOrder: 'asc' | 'desc';
 
   setPage: (page: number) => void;
+  setPerPage: (perPage: number) => void;
   setSort: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
 
   getApiParams: () => FetchGoodsParams;
@@ -87,6 +88,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
   // API STATE
   // =========================
   setPage: page => set({ page }),
+  setPerPage: perPage => set({ perPage }), //////////////////////////////
   setSort: (sortBy, sortOrder) => set({ sortBy, sortOrder }),
 
   // =========================
