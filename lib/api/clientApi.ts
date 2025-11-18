@@ -6,6 +6,24 @@ import { Category } from '@/types/category';
 import { Feedback } from '@/types/feedback';
 import { GENDERS } from '@/constants/gender';
 import { SIZES } from '@/constants/size';
+import { AxiosError } from 'axios'; // ✅ ЩОЙНО ДОДАВ: для типізації помилок
+
+// ✅ ЩОЙНО ДОДАВ: Експорт типів для використання в інших файлах
+export type ApiError<T = { message?: string; error?: string }> = AxiosError<T>;
+export type { Category, Size, Good };
+
+// ✅ ЩОЙНО ДОДАВ: Enums для сортування (щоб не писати 'price.value' вручну)
+export enum SortBy {
+  Date = 'createdAt',
+  Price = 'price.value',
+  Name = 'name',
+}
+
+// ✅ ЩОЙНО ДОДАВ: Enums для напрямку сортування
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
+}
 
 export interface FetchGoodsResponse {
   goods: Good[];
@@ -24,7 +42,7 @@ export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
   category?: string;
-  size?: Size[];
+  size?: Size;
   gender?: (typeof GENDERS)[number];
   minPrice?: number;
   maxPrice?: number;
@@ -64,7 +82,7 @@ export async function fetchOrderById(orderId: string) {
 
 //POST create order
 export async function createOrder(order: Order): Promise<Order> {
-  const { data } = await internalApi.post<Order>('/orders', order);
+  const { data } = await internalApi.post<Order>('/order', order);
   return data;
 }
 
@@ -124,7 +142,16 @@ export async function fetchFeedbacks(
 }
 
 // --- POST feedback ---
-export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+
+export type NewFeedback = Omit<Feedback, '_id' | 'date'> & {
+  date?: string;
+};
+
+// export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+//   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
+// }
+
+export async function createFeedback(feedback: NewFeedback): Promise<Feedback> {
   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 }
 
@@ -184,11 +211,11 @@ export async function getMe(): Promise<User | null> {
 }
 
 export type UpdateUserRequest = {
-  name?: string;
-  surName?: string;
+  userName?: string;
+  userSurname?: string;
   phone?: string;
   city?: string;
-  postNumber?: number;
+  postNumber?: string;
 };
 
 // update user

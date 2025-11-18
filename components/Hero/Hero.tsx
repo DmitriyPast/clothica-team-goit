@@ -33,20 +33,29 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      <div className={styles.imageWrapper}>
+      <picture>
+        <source
+          media="(min-width: 1440px)"
+          srcSet="/hero-img/hero-desktop.jpg 1x, /hero-img/hero-desktop@2x.jpg 2x"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcSet="/hero-img/hero-tab.jpg 1x, /hero-img/hero-tab@2x.jpg 2x"
+        />
+        <source
+          media="(max-width: 767px)"
+          srcSet="/hero-img/hero-mob.jpg 1x, /hero-img/hero-mob@2x.jpg 2x"
+        />
         <Image
-          src="/hero-img/hero.jpg"
+          src="/hero-img/hero-mob@2x.jpg"
           alt="Моделі у базовому одязі Clothica"
-          fill
+          loading="eager"
+          width={335}
+          height={335}
           priority
           className={styles.image}
-          sizes="
-      (max-width: 767px) 335px,
-      (max-width: 1439px) 336px,
-      640px
-    "
         />
-      </div>
+      </picture>
     </section>
   );
 };

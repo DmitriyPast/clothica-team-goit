@@ -1,0 +1,139 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+/* Заголовок і підзаголовок */
+.title {
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 112px;
+    margin-bottom: 48px;
+    color: var(--color-neutral-darkest);
+}
+
+.subtitle {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--color-scheme-1-text);
+}
+
+/* Таблиця */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+}
+
+.table th {
+    text-align: left;
+    padding: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-scheme-1-text);
+    border-bottom: 1px solid var(--opacity-neutral-darkest-15);
+}
+
+.table td {
+    padding: 8px;
+    font-size: 16px;
+    border-bottom: 1px solid var(--opacity-neutral-darkest-10);
+    vertical-align: top;
+    color: var(--color-scheme-1-text);
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Селект */
+.select {
+    width: 100%;
+    max-width: 180px;
+    background: var(--opacity-transparent);
+    color: var(--color-scheme-1-text);
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    border-radius: 16px;
+    padding: 8px;
+    outline: none;
+    font-size: 16px;
+}
+
+.select:focus,
+.select:hover {
+    border-color: var(--color-deco-darkest);
+}
+
+/* Кнопки */
+.button {
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.button:hover,
+.button:focus {
+    border-color: var(--color-deco-darker);
+    background: var(--color-deco-dark);
+}
+
+.button:active {
+    background: var(--color-deco-darkest);
+    color: var(--color-white);
+}
+
+/* Кнопка "Показати ще" */
+.loadMoreBtn {
+    /* border: 1px solid var(--color-deco); */
+    background: var(--color-white);
+    color: #000;
+    margin-bottom: 16px;
+}
+
+/* Кнопка "Вийти з кабінету" */
+.button {
+    border: 1px solid var(--opacity-neutral-darkest-15);
+    background: var(--opacity-neutral-darkest-5);
+    color: var(--color-neutral-darkest);
+}
+
+/* Контейнери для кнопок */
+.actions {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.logout {
+    text-align: center;
+    margin-top: 32px;
+}
+
+/* Адаптивність */
+@media (min-width: 768px) {
+    .section {
+        padding-top: 128px;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .section {
+        padding-top: 144px;
+        padding-left: 64px;
+        padding-right: 64px;
+    }
+}

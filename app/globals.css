@@ -46,6 +46,9 @@ img {
   width: 100%;
   height: auto;
 }
+textarea {
+  display: block;
+}
 .visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -137,7 +140,7 @@ img {
 /* main settings */
 html {
   scroll-behavior: smooth;
-  min-width: fit-content; /*so site doesn't break below 375px*/
+  overflow: auto;
 }
 
 html,
@@ -375,6 +378,7 @@ textarea::placeholder {
 /* arrows */
 .arrow {
   fill: var(--color-scheme-1-text);
+  stroke: var(--color-scheme-1-text);
   display: flex;
   align-items: center;
   justify-content: center;

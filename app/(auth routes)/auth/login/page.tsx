@@ -11,8 +11,6 @@ import { LoginUser } from '@/types/user';
 import { ApiError } from '@/lib/api/api';
 import { PHONE_REGEX } from '@/constants/phone_regex';
 import toast from 'react-hot-toast';
-import AuthHeader from '@/components/AuthHeader/AuthHeader';
-import AuthFooter from '@/components/AuthFooter/AuthFooter';
 
 const LoginForm = () => {
   const router = useRouter();
