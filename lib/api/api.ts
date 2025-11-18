@@ -12,4 +12,3 @@ const internalApi = axios.create({
 });
 
 export default internalApi;
-
