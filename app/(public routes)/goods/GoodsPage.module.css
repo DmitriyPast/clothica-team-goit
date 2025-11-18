@@ -1,6 +1,6 @@
-.goodsTitle{
+.goodsTitle {
   font-size: 36px;
-} 
+}
 
 @media only screen and (min-width: 1440px) {
   .goodsTitle {
@@ -8,11 +8,11 @@
   }
 }
 
-.goodsPage{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    margin-top: 24px;   
+.goodsPage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 24px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -22,8 +22,9 @@
   }
 }
 
-.goodsMain{
+.goodsMain {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 32px;
 }

@@ -14,7 +14,7 @@
 .infoBlock {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  row-gap: 16px;
 }
 
 .infoBlock_name {
