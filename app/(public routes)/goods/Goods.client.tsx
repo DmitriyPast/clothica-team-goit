@@ -7,6 +7,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 // Components
 import CategoriesFilter from '@/components/CategoriesFilter/CategoriesFilter';
 import GoodsList from '@/components/GoodsList/GoodsList';
+import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 // API functions
 import { fetchGoods } from '@/lib/api/clientApi';
 import type { FetchGoodsResponse } from '@/lib/api/clientApi';
@@ -133,17 +134,11 @@ export default function GoodsClient() {
 
           {/* Повідомлення про відсутність товарів з кнопкою скидання фільтрів */}
           {!allGoods.length && !isLoading && (
-            <div>
-              <p>
-                За вашим запитом не знайдено жодних товарів, спробуйте змінити
-                фільтри, або скинути їх.
-              </p>
-
-              <button className="btn btn-secondary" onClick={resetFilters}>
-                {' '}
-                Очистити всі
-              </button>
-            </div>
+            <MessageNoInfo
+              onClick={() => resetFilters()}
+              text="За вашим запитом не знайдено жодних товарів, спробуйте змінити фільтри, або скинути їх."
+              buttonText="Очистити всі"
+            />
           )}
 
           <main className={css.goodsMain}>
