@@ -140,7 +140,7 @@ textarea {
 /* main settings */
 html {
   scroll-behavior: smooth;
-  min-width: fit-content; /*so site doesn't break below 375px*/
+  overflow: auto;
 }
 
 html,
@@ -378,6 +378,7 @@ textarea::placeholder {
 /* arrows */
 .arrow {
   fill: var(--color-scheme-1-text);
+  stroke: var(--color-scheme-1-text);
   display: flex;
   align-items: center;
   justify-content: center;
