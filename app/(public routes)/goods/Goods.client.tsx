@@ -83,48 +83,46 @@ export default function GoodsClient() {
         <h1 className={css.goodsTitle}>Всі товари</h1>
 
         <div className={css.goodsPage}>
-          <aside>
-            <CategoriesFilter
-              total={total}
-              shown={goodsToShow.length}
-              category={category}
-              size={size}
-              // gender={gender}
-              categories={[]}
-              onCategoryChange={setCategory}
-              onSizeChange={s =>
-                setSize(prev =>
-                  prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
-                )
-              }
-              // onGenderChange={setGender}
+          <CategoriesFilter
+            total={total}
+            shown={goodsToShow.length}
+            category={category}
+            size={size}
+            // gender={gender}
+            categories={[]}
+            onCategoryChange={setCategory}
+            onSizeChange={s =>
+              setSize(prev =>
+                prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
+              )
+            }
+            // onGenderChange={setGender}
 
-              onResetAll={() => {
-                setCategory('all');
-                setSize([]);
-                // setGender("Всі");
-              }}
-              onResetSizes={() => setSize([])}
-              // onResetGender={() => setGender("Всі")}
-              onResetCategory={() => setCategory('all')}
-              onResetPrice={() => {}}
-            />
+            onResetAll={() => {
+              setCategory('all');
+              setSize([]);
+              // setGender("Всі");
+            }}
+            onResetSizes={() => setSize([])}
+            // onResetGender={() => setGender("Всі")}
+            onResetCategory={() => setCategory('all')}
+            onResetPrice={() => {}}
+          />
 
-            {isLoading && <p>Завантаження…</p>}
+          {isLoading && <p>Завантаження…</p>}
 
-            {!allGoods.length && !isLoading && (
-              <div>
-                <p>
-                  За вашим запитом не знайдено жодних товарів, спробуйте змінити
-                  фільтри, або скинути їх.
-                </p>
+          {!allGoods.length && !isLoading && (
+            <div>
+              <p>
+                За вашим запитом не знайдено жодних товарів, спробуйте змінити
+                фільтри, або скинути їх.
+              </p>
 
-                <button className="btn btn-secondary" onClick={resetFilters}>
-                  Очистити всі
-                </button>
-              </div>
-            )}
-          </aside>
+              <button className="btn btn-secondary" onClick={resetFilters}>
+                Очистити всі
+              </button>
+            </div>
+          )}
 
           <main className={css.goodsMain}>
             {goodsToShow.length > 0 && <GoodsList goods={goodsToShow} />}

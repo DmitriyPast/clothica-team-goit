@@ -1,127 +1,405 @@
-'use client';
+// ==============================================================================
+// ФАЙЛ: components/Filters/CategoriesFilter.tsx
 
-import type { Size } from '@/types/good';
+import { useState, useEffect, useMemo } from 'react';
+import styles from './CategoriesFilter.module.css';
+
+// Store + Data hooks
+import { useFilterStore } from '@/lib/store/filterStore';
+import { useFilterData } from '@/lib/hooks/useFilterData';
+import { useGoods } from '@/lib/hooks/useGoods';
+
 import { SIZES } from '@/constants/size';
+import { GENDERS } from '@/constants/gender';
+import { Size, Gender } from '@/types/good';
 
-import css from './CategoriesFilter.module.css';
+const CategoriesFilter = () => {
+  // --- Store
+  const {
+    filters,
+    setCategory,
+    toggleSize,
+    setGender,
+    setPrice,
+    clearSizes,
+    clearGender,
+    clearPrice,
+    clearAll,
+  } = useFilterStore();
 
-type Props = {
-  total: number;
-  shown: number;
+  // --- API data
+  const { data: filtersData, isLoading: isLoadingCategories } = useFilterData();
+  const { data: goodsData } = useGoods();
 
-  category: string;
-  size: Size[];
+  // Counters X of Y
+  const totalGoodsY = goodsData?.pages[0]?.totalGoods || 0;
+  const shownGoodsX = goodsData?.pages.flatMap(p => p.goods).length || 0;
 
-  categories: { _id: string; name: string }[];
+  // Price logic
+  const minLimit = 0;
+  const maxLimit = 10000;
+  const currentMinPrice = filters.price.min ?? minLimit;
+  const currentMaxPrice = filters.price.max ?? maxLimit;
 
-  onCategoryChange: (c: string) => void;
-  onSizeChange: (s: Size) => void;
+  // Mobile controls accordions
+  const [isMobile, setIsMobile] = useState(false);
+  const [catOpen, setCatOpen] = useState(true);
+  const [sizeOpen, setSizeOpen] = useState(true);
+  const [genderOpen, setGenderOpen] = useState(true);
+  const [priceOpen, setPriceOpen] = useState(true);
 
-  onResetAll: () => void;
-  onResetSizes: () => void;
-  onResetCategory: () => void;
-  onResetPrice: () => void;
-};
+  // Detect mobile
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
-export default function CategoriesFilter({
-  total,
-  shown,
-  categories,
-  category,
-  size,
+  // Desktop — all blocks always opened
+  useEffect(() => {
+    if (!isMobile) {
+      setCatOpen(true);
+      setSizeOpen(true);
+      setGenderOpen(true);
+      setPriceOpen(true);
+    }
+  }, [isMobile]);
 
-  onCategoryChange,
-  onSizeChange,
+  // Category list (with "All")
+  const categoryOptions = useMemo(() => {
+    const arr = [{ id: 'all', name: 'Усі' }];
+    if (filtersData?.categories) {
+      filtersData.categories.forEach((cat: any) =>
+        arr.push({ id: cat._id, name: cat.name })
+      );
+    }
+    return arr;
+  }, [filtersData]);
 
-  onResetAll,
-  onResetSizes,
-  onResetCategory,
-  onResetPrice,
-}: Props) {
   return (
-    <div className={css.wrapper}>
-      <h2 className={css.title}>Фільтри</h2>
+    <aside className={styles.container}>
+      {/* HEADER */}
+      <div className={styles.headerRow}>
+        <h3 className={styles.headerTitle}>Фільтри</h3>
 
-      <button className="btn btn-secondary" onClick={onResetAll}>
-        Очистити всі
-      </button>
-
-      <p className={css.info}>
-        Показано <strong>{shown}</strong> з <strong>{total}</strong>
+        {/* Clear all — always visible */}
+        <button
+          type="button"
+          className={styles.clearAllButton}
+          onClick={clearAll}>
+          Очистити всі
+        </button>
+      </div>
+      {/* Counters */}
+      <p className={styles.caption}>
+        Показано {shownGoodsX} з {totalGoodsY}
       </p>
+      {/* ============================================================ */}
+      {/* CATEGORY */}
+      {/* ============================================================ */}
+      <section className={styles.section}>
+        <button
+          type="button"
+          className={styles.sectionHeader}
+          onClick={() => isMobile && setCatOpen(!catOpen)}>
+          <h4 className={styles.sectionTitle}>Категорії</h4>
 
-      {/* Категорії */}
-      <div className={css.block}>
-        <div className={css.blockHeader}>
-          <h3>Категорії</h3>
-          <button onClick={onResetCategory} className={css.resetBtn}>
-            Очистити
+          {/* Chevron only mobile */}
+          <span
+            className={`${styles.chevron} ${
+              catOpen ? styles.chevronOpen : styles.chevronClosed
+            }`}>
+            <svg width="20" height="20">
+              <use href="/sprite.svg#keyboard_arrow_down" />
+            </svg>
+          </span>
+        </button>
+
+        {catOpen && (
+          <div className={styles.accordion}>
+            <ul className={styles.list}>
+              {isLoadingCategories && <li>Завантаження...</li>}
+
+              {categoryOptions.map(cat => {
+                const isActive = filters.category === cat.id;
+                return (
+                  <li key={cat.id} className={styles.categoryItem}>
+                    <button
+                      type="button"
+                      className={`${styles.categoryButton} ${
+                        isActive ? styles.categoryButtonActive : ''
+                      }`}
+                      onClick={() => setCategory(cat.id)}>
+                      {cat.name}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </section>
+      {/* ============================================================ */}
+      {/* SIZE */}
+      {/* ============================================================ */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeaderRow}>
+          <button
+            type="button"
+            className={styles.sectionHeader}
+            onClick={() => isMobile && setSizeOpen(!sizeOpen)}>
+            <h4 className={styles.sectionTitle}>Розмір</h4>
+
+            <span
+              className={`${styles.chevron} ${
+                sizeOpen ? styles.chevronOpen : styles.chevronClosed
+              }`}>
+              <svg width="20" height="20">
+                <use href="/sprite.svg#keyboard_arrow_down" />
+              </svg>
+            </span>
           </button>
+
+          {!isMobile && (
+            <button
+              type="button"
+              className={styles.clearInlineButton}
+              onClick={clearSizes}>
+              Очистити
+            </button>
+          )}
         </div>
 
-        <ul className={css.list}>
-          <li>
-            <label className={css.option}>
-              <input
-                type="radio"
-                name="category"
-                checked={category === 'all'}
-                onChange={() => onCategoryChange('all')}
+        {sizeOpen && (
+          <div className={styles.accordion}>
+            <ul className={styles.list}>
+              {SIZES.map(size => {
+                const checked = filters.sizes.includes(size as Size);
+                return (
+                  <li key={size} className={styles.optionRow}>
+                    <button
+                      type="button"
+                      className={`${styles.checkbox} ${
+                        checked ? styles.checkboxChecked : ''
+                      }`}
+                      onClick={() => toggleSize(size as Size)}
+                    />
+                    <span className={styles.optionLabel}>{size}</span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {isMobile && (
+              <button
+                type="button"
+                className={styles.clearMobileButton}
+                onClick={clearSizes}>
+                Очистити
+              </button>
+            )}
+          </div>
+        )}
+      </section>
+      {/* ============================================================ */}
+      {/* PRICE — DOUBLE RANGE */}
+      {/* ============================================================ */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeaderRow}>
+          <button
+            type="button"
+            className={styles.sectionHeader}
+            onClick={() => isMobile && setPriceOpen(!priceOpen)}>
+            <h4 className={styles.sectionTitle}>Ціна</h4>
+
+            <span
+              className={`${styles.chevron} ${
+                priceOpen ? styles.chevronOpen : styles.chevronClosed
+              }`}>
+              <svg width="20" height="20">
+                <use href="/sprite.svg#keyboard_arrow_down" />
+              </svg>
+            </span>
+          </button>
+
+          {!isMobile && (
+            <button
+              type="button"
+              className={styles.clearInlineButton}
+              onClick={clearPrice}>
+              Очистити
+            </button>
+          )}
+        </div>
+
+        {priceOpen && (
+          <>
+            {/* DOUBLE RANGE */}
+            <div className={styles.doubleSliderWrapper}>
+              <div className={styles.track} />
+
+              <div
+                className={styles.range}
+                style={{
+                  left: `${(currentMinPrice / maxLimit) * 100}%`,
+                  width: `${((currentMaxPrice - currentMinPrice) / maxLimit) * 100}%`,
+                }}
               />
-              Усі
-            </label>
-          </li>
 
-          {categories.map(cat => (
-            <li key={cat._id}>
-              <label className={css.option}>
+              {/* MIN THUMB */}
+              <input
+                type="range"
+                min={minLimit}
+                max={maxLimit}
+                step={100}
+                value={currentMinPrice}
+                onChange={e =>
+                  setPrice({
+                    min: Number(e.target.value),
+                    max: currentMaxPrice,
+                  })
+                }
+                className={styles.thumbMin}
+              />
+
+              {/* MAX THUMB */}
+              <input
+                type="range"
+                min={minLimit}
+                max={maxLimit}
+                step={100}
+                value={currentMaxPrice}
+                onChange={e =>
+                  setPrice({
+                    min: currentMinPrice,
+                    max: Number(e.target.value),
+                  })
+                }
+                className={styles.thumbMax}
+              />
+            </div>
+
+            {/* INPUTS */}
+            <div className={styles.priceInputsRow}>
+              <div className={styles.priceField}>
+                {/* <span className={styles.priceLabel}>Від</span> */}
                 <input
-                  type="radio"
-                  name="category"
-                  checked={category === cat._id}
-                  onChange={() => onCategoryChange(cat._id)}
+                  type="number"
+                  min={minLimit}
+                  max={maxLimit}
+                  value={currentMinPrice}
+                  onChange={e =>
+                    setPrice({
+                      min: Number(e.target.value),
+                      max: currentMaxPrice,
+                    })
+                  }
+                  className={styles.priceInput}
                 />
-                {cat.name}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
+              </div>
 
-      {/* Розмір */}
-      <div className={css.block}>
-        <div className={css.blockHeader}>
-          <h3>Розмір</h3>
-          <button onClick={onResetSizes} className={css.resetBtn}>
-            Очистити
+              <div className={styles.priceField}>
+                {/* <span className={styles.priceLabel}>До</span> */}
+                <input
+                  type="number"
+                  min={minLimit}
+                  max={maxLimit}
+                  value={currentMaxPrice}
+                  onChange={e =>
+                    setPrice({
+                      min: currentMinPrice,
+                      max: Number(e.target.value),
+                    })
+                  }
+                  className={`${styles.priceInput} ${styles.priceInputR}`}
+                />
+              </div>
+            </div>
+
+            {isMobile && (
+              <button
+                type="button"
+                className={styles.clearMobileButton}
+                onClick={clearPrice}>
+                Очистити
+              </button>
+            )}
+          </>
+        )}
+      </section>
+
+      {/* ============================================================ */}
+      {/* GENDER */}
+      {/* ============================================================ */}
+      <section className={styles.section}>
+        <div className={styles.sectionHeaderRow}>
+          <button
+            type="button"
+            className={styles.sectionHeader}
+            onClick={() => isMobile && setGenderOpen(!genderOpen)}>
+            <h4 className={styles.sectionTitle}>Стать</h4>
+
+            <span
+              className={`${styles.chevron} ${
+                genderOpen ? styles.chevronOpen : styles.chevronClosed
+              }`}>
+              <svg width="20" height="20">
+                <use href="/sprite.svg#keyboard_arrow_down" />
+              </svg>
+            </span>
           </button>
+
+          {!isMobile && (
+            <button
+              type="button"
+              className={styles.clearInlineButton}
+              onClick={clearGender}>
+              Очистити
+            </button>
+          )}
         </div>
 
-        <ul className={css.list}>
-          {SIZES.map(s => (
-            <li key={s}>
-              <label className={css.option}>
-                <input
-                  type="checkbox"
-                  checked={size.includes(s)}
-                  onChange={() => onSizeChange(s)}
-                />
-                {s}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
+        {genderOpen && (
+          <>
+            <ul className={styles.list}>
+              {GENDERS.map(g => {
+                const active = filters.gender === g;
+                return (
+                  <li key={g} className={styles.optionRow}>
+                    <button
+                      type="button"
+                      className={`${styles.radio} ${
+                        active ? styles.radioChecked : ''
+                      }`}
+                      onClick={() => setGender(g as Gender)}
+                    />
+                    <span className={styles.optionLabel}>
+                      {g === 'women'
+                        ? 'Жіночий'
+                        : g === 'men'
+                          ? 'Чоловічий'
+                          : g === 'unisex'
+                            ? 'Унісекс'
+                            : 'Усі'}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
 
-      {/* Ціна */}
-      <div className={css.block}>
-        <div className={css.blockHeader}>
-          <h3>Ціна</h3>
-          <button onClick={onResetPrice} className={css.resetBtn}>
-            Очистити
-          </button>
-        </div>
-      </div>
-    </div>
+            {isMobile && (
+              <button
+                type="button"
+                className={styles.clearMobileButton}
+                onClick={clearGender}>
+                Очистити
+              </button>
+            )}
+          </>
+        )}
+      </section>
+    </aside>
   );
-}
+};
+export default CategoriesFilter;
