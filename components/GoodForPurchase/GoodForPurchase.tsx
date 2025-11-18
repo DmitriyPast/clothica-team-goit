@@ -3,11 +3,11 @@
 import { Formik, Form, Field } from 'formik';
 import { useId, useState } from 'react';
 import Image from 'next/image';
-import Star from './star.svg';
-import HalfStar from './halfStar.svg';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import css from './GoodForPurchase.module.css';
+import Link from 'next/link';
+import SizeSelect from '@/components/SizeSelect/SizeSelect';
 
 interface GoodProps {
   id: string;
@@ -20,34 +20,42 @@ interface GoodProps {
   characteristics: string[];
   rate: number;
   feedbacksAmount: number;
+  category: { name: string; _id: string };
 }
 
 export default function GoodForPurchase(props: GoodProps) {
   const [volume, setVolume] = useState(1);
   const fieldId = useId();
   const addItem = useCartStore(state => state.addItem);
-  const { items } = useCartStore();
   const router = useRouter();
 
-  const quantityById = useCartStore(state =>
-    state.items
-      .filter(i => i._id === props.id)
-      .reduce((sum, i) => sum + i.quantity, 0)
-  );
-
-  // ---------- STARS ----------
   function Stars({ value }: { value: number }) {
-    const full = Math.floor(value);
-    const half = value % 1 >= 0.5 ? 1 : 0;
+    const full = Math.floor(value); // кількість повних зірок
+    const half = value % 1 >= 0.5 ? 1 : 0; // 1 якщо пів-зірка, 0 якщо ні
+    const empty = 5 - full - half; // решта заповнюємо пустими
 
     return (
       <div className={css.stars_wrapper}>
+        {/* FULL STARS */}
         {Array.from({ length: full }).map((_, i) => (
-          <Image key={i} src={Star} alt="star" width={16} height={16} />
+          <svg key={`full-${i}`} width="20" height="20" aria-hidden="true">
+            <use href="/sprite.svg#star-filled" />
+          </svg>
         ))}
+
+        {/* HALF STAR */}
         {half === 1 && (
-          <Image src={HalfStar} alt="half star" width={16} height={16} />
+          <svg key="half" width="20" height="20" aria-hidden="true">
+            <use href="/sprite.svg#star_half" />
+          </svg>
         )}
+
+        {/* EMPTY STARS */}
+        {Array.from({ length: empty }).map((_, i) => (
+          <svg key={`empty-${i}`} width="20" height="20" aria-hidden="true">
+            <use href="/sprite.svg#star" />
+          </svg>
+        ))}
       </div>
     );
   }
@@ -106,6 +114,35 @@ export default function GoodForPurchase(props: GoodProps) {
       {/* INFO */}
       <div className={css.all_info}>
         <div className={css.short_descr_wrapper}>
+          <ul className={css.bread_crumbs_list}>
+            <li>
+              <Link href="/goods" className={css.bread_crumbs}>
+                Всі товари
+              </Link>
+            </li>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="/sprite.svg#chevron_right"></use>
+              </svg>
+            </li>
+            <li>
+              <Link href="/categories" className={css.bread_crumbs}>
+                Категорії
+              </Link>
+            </li>
+            <li>
+              <svg width="20" height="20" aria-hidden="true">
+                <use href="/sprite.svg#chevron_right"></use>
+              </svg>
+            </li>
+            <li>
+              <Link
+                href={`/goods/${props.id}`}
+                className={`${css.current_category} ${css.bread_crumbs}`}>
+                {props.name}
+              </Link>
+            </li>
+          </ul>
           <h2 className={css.good_name}>{props.name}</h2>
 
           <div className={css.price_and_rate_wrapper}>
@@ -125,13 +162,14 @@ export default function GoodForPurchase(props: GoodProps) {
                 {/* SIZE SELECT */}
                 <div className={css.size_wrapper}>
                   <label htmlFor={`${fieldId}-size`}>Розмір</label>
-                  <Field as="select" name="size" id={`${fieldId}-size`}>
+                  {/* <Field as="select" name="size" id={`${fieldId}-size`}>
                     {props.size.map(s => (
                       <option key={s} value={s}>
                         {s}
                       </option>
                     ))}
-                  </Field>
+                  </Field> */}
+                  <SizeSelect name="size" sizes={props.size} />
                 </div>
 
                 {/* ADD TO CART */}

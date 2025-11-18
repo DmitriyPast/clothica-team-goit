@@ -11,6 +11,7 @@ import { Feedback } from '@/types/feedback';
 import ReviewsSlider from '@/components/ReviewsList/ReviewsSlider';
 import GoodForPurchase from '@/components/GoodForPurchase/GoodForPurchase';
 import AddFeedbackModal from '@/components/AddFeedbackModal/AddFeedbackModal';
+import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 
 // import Feedbacks from '@/components/Feedbacks/Feedbacks';
 import { useMemo } from 'react';
@@ -25,27 +26,27 @@ export default function GoodPageClient() {
     queryKey: ['good', goodId],
     queryFn: () => fetchGoodById(goodId),
     refetchOnMount: false,
+    placeholderData: prev => prev,
   });
 
-  const { data: feedbacksData } = useQuery<FetchFeedbacksResponse>({
-    queryKey: ['feedbacks', goodId],
-    queryFn: () => fetchFeedbacks({ productId: goodId }),
-    refetchOnMount: false,
-  });
+  // const { data: feedbacksData } = useQuery<FetchFeedbacksResponse>({
+  //   queryKey: ['feedbacks', goodId],
+  //   queryFn: () => fetchFeedbacks({ productId: goodId }),
+  //   refetchOnMount: false,
+  //   placeholderData: prev => prev,
+  // });
 
   function averageRate(feedbacks: Feedback[] | undefined): number {
     if (!feedbacks || feedbacks.length === 0) return 0;
     const sum = feedbacks.reduce((acc, f) => acc + (f.rate ?? 0), 0);
-    return sum / feedbacks.length;
+    const avg = parseFloat((sum / feedbacks.length).toFixed(2));
+    return avg;
   }
 
-  const avg = useMemo(
-    () => averageRate(feedbacksData?.feedbacks),
-    [feedbacksData?.feedbacks]
-  );
+  const avg = useMemo(() => averageRate(good?.feedbacks), [good?.feedbacks]);
 
   if (!good) return <p>Завантаження товару...</p>;
-  if (!feedbacksData) return <p>Завантаження відгуків...</p>;
+  // if (!feedbacksData) return <p>Завантаження відгуків...</p>;
 
   const {
     _id: id,
@@ -57,6 +58,7 @@ export default function GoodPageClient() {
     size,
     characteristics,
     feedbacks,
+    category,
   } = good;
 
   return (
@@ -73,15 +75,8 @@ export default function GoodPageClient() {
           characteristics={characteristics || []}
           rate={avg}
           feedbacksAmount={feedbacks?.length || 0}
+          category={category}
         />
-        {/* {feedbacks.feedbacks.map(f => (
-          <div key={f._id}>
-            <h3>{f.rate}</h3>
-            <h4>{f.author}</h4>
-            <p>{f.description}</p>
-          </div>
-        ))}
-        <div>{feedbacks?.feedbacks[0].description}</div> */}
         <div className={css.review_wrapper}>
           <div className={css.leave_feedback_wrapper}>
             <h2 className={css.feedbacks_title}>Відгуки клієнтів</h2>
@@ -92,10 +87,15 @@ export default function GoodPageClient() {
               Залишити відгук
             </button>
           </div>
-          <ReviewsSlider
-            feedbacks={feedbacksData.feedbacks}
-            productId={goodId}
-          />
+          {!feedbacks || feedbacks.length === 0 ? (
+            <MessageNoInfo
+              onClick={() => setModalOpen(!modalOpen)}
+              text="У цього товару ще немає відгуків"
+              buttonText="Залишити відгук"
+            />
+          ) : (
+            <ReviewsSlider feedbacks={feedbacks ?? []} productId={goodId} />
+          )}
         </div>
         {modalOpen && (
           <AddFeedbackModal
