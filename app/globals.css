@@ -46,6 +46,9 @@ img {
   width: 100%;
   height: auto;
 }
+textarea {
+  display: block;
+}
 .visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);

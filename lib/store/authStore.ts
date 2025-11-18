@@ -7,6 +7,7 @@ interface AuthStore {
   setUser: (user: User) => void;
   clearIsAuthenticated: () => void;
   logout: () => void;
+  updateUser: (data: Partial<User>) => void;
 }
 
 export const useAuthStore = create<AuthStore>()(set => ({
@@ -22,5 +23,10 @@ export const useAuthStore = create<AuthStore>()(set => ({
   logout: () => {
     set(() => ({ user: null, isAuthenticated: false }));
     localStorage.removeItem('token');
+  },
+  updateUser: (data: Partial<User>) => {
+    set(state => ({
+      user: state.user ? { ...state.user, ...data } : null,
+    }));
   },
 }));

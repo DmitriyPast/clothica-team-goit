@@ -110,6 +110,7 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .button {
     max-width: 160px;
   }
@@ -133,7 +134,8 @@
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
-   .button {
+
+  .button {
     max-width: 160px;
   }
 }

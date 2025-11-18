@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import css from "./Footer.module.css";
 
-import showToast, { ToastType } from "@/lib/messageService";
+import showToast, { ToastType } from "@/lib/utils/messageService";
 
 export default function Footer() {
   const [email, setEmail] = useState("");

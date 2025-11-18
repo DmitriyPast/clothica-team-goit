@@ -6,6 +6,7 @@ import { Keyboard } from "swiper/modules";
 import "swiper/css";
 import css from "./ReviewsList.module.css";
 import { Feedback } from "@/types/feedback";
+import Link from "next/link";
 
 interface ReviewsSliderProps {
   feedbacks: Feedback[];
@@ -97,8 +98,8 @@ export default function ReviewsSlider({ feedbacks, productId }: ReviewsSliderPro
               {renderStars(fb.rate)}
               <p className={css.text}>&ldquo;{fb.description}&rdquo;</p>
               <p className={css.author}>{fb.author}</p>
-              {!productId && fb.category && (
-                <p className={css.category}>{fb.category}</p>
+              {!productId && (
+                <Link href={`/goods/${fb.productId?._id}`}  className={css.productName}>{fb.productId?.name}</Link>
               )}
             </div>
           </SwiperSlide>

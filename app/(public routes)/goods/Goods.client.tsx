@@ -10,15 +10,12 @@ import { Good, type Size } from '@/types/good';
 import css from './GoodsPage.module.css';
 import { Gender } from '@/types/good';
 
-
-
 function getInitialPerPage() {
   if (typeof window === 'undefined') return 8;
   return window.innerWidth >= 1440 ? 12 : 8;
 }
 
 export default function GoodsClient() {
-  
   const [page, setPage] = useState(1);
   const [perPage] = useState(getInitialPerPage);
 
@@ -31,7 +28,7 @@ export default function GoodsClient() {
 
   const { data, isLoading, isFetching } = useQuery<FetchGoodsResponse>({
     queryKey: ['goods', { page, perPage, category, size }],
-    queryFn: () => fetchGoods({ page, perPage, category, size }),
+    queryFn: () => fetchGoods({ page, perPage, category, size: size[0] }),
     placeholderData: keepPreviousData,
   });
 

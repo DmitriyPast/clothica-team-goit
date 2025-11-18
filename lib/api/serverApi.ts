@@ -98,7 +98,7 @@ export async function fetchCategories(
 }
 
 export interface FetchFeedbacksParams {
-  productId: string;
+  productId?: string;
   page?: number;
   perPage?: number;
   sortBy?: string; // додано
