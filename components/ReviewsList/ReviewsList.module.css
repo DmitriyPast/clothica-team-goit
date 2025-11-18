@@ -69,22 +69,23 @@
   color: lightgray;
 }
 
-.starHalf::before {
+/* .starHalf::before {
   content: '★';
   position: absolute;
   left: 0;
   width: 50%;
   overflow: hidden;
   color: #000;
-}
+} */
 
 /* Навігаційні кнопки */
 .navButtons {
   /* position: absolute; */
+  padding: 10px 0;
   right: 0;
   bottom: 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 12px;
   z-index: 1;
   bottom: 40px;
@@ -136,6 +137,12 @@
   pointer-events: none;
 }
 
+@media (min-width: 768px) {
+  .navButtons {
+    padding: 10px 0;
+    justify-content: flex-end;
+  }
+}
 @media (min-width: 1440px) {
   .text {
     font-size: 20;
