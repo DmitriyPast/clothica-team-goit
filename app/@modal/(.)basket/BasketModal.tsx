@@ -5,14 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cartStore';
 import GoodsOrderList from '@/components/GoodsOrderList/GoodsOrderList';
 import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
-// import { X } from 'lucide-react';
 import Modal from '@/components/Modal/Modal';
 import { useEffect } from 'react';
-import { on } from 'events';
 
 export default function BasketModal() {
   const router = useRouter();
-  const { items, total } = useCartStore();
+  const { items } = useCartStore();
 
   const onClose = (route?: string) => {
     router.back();
@@ -54,9 +52,8 @@ export default function BasketModal() {
           className={`modal ${css.modal}`}
           onClick={e => e.stopPropagation()}>
           <button className={css.closeBtn} onClick={() => router.back()}>
-            {/* <X size={24} /> */}
-            <svg className={css.closeIcon} height={24} width={24}>
-              <use href="/sprite.svg#close"></use>
+            <svg width="32" height="32" className={css.closeBtn}>
+              <use href="/sprite.svg#close" />
             </svg>
           </button>
 
@@ -65,27 +62,7 @@ export default function BasketModal() {
           {items.length > 0 ? (
             <>
               <GoodsOrderList />
-
-              {/* TOTAL */}
-              <ul className={css.totalBlock}>
-                <li className={css.block}>
-                  <p className={css.text}>Проміжний підсумок</p>
-                  <p className={css.price}>
-                    {total.value} {total.currency}
-                  </p>
-                </li>
-                <li className={css.block}>
-                  <p className={css.text}>Доставка</p>
-                  <p className={css.price}>Безкоштовно</p>
-                </li>
-                <li className={css.block}>
-                  <p className={css.strongText}>Всього:</p>
-                  <strong className={css.price}>
-                    {total.value} {total.currency}
-                  </strong>
-                </li>
-              </ul>
-
+           
               {/* ACTIONS */}
               <div className={css.actions}>
                 <button

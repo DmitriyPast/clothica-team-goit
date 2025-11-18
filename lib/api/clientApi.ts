@@ -82,7 +82,7 @@ export async function fetchOrderById(orderId: string) {
 
 //POST create order
 export async function createOrder(order: Order): Promise<Order> {
-  const { data } = await internalApi.post<Order>('/orders', order);
+  const { data } = await internalApi.post<Order>('/order', order);
   return data;
 }
 
@@ -142,7 +142,16 @@ export async function fetchFeedbacks(
 }
 
 // --- POST feedback ---
-export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+
+export type NewFeedback = Omit<Feedback, '_id' | 'date'> & {
+  date?: string;
+};
+
+// export async function createFeedback(feedback: Feedback): Promise<Feedback> {
+//   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
+// }
+
+export async function createFeedback(feedback: NewFeedback): Promise<Feedback> {
   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 }
 
@@ -202,11 +211,11 @@ export async function getMe(): Promise<User | null> {
 }
 
 export type UpdateUserRequest = {
-  name?: string;
-  surName?: string;
+  userName?: string;
+  userSurname?: string;
   phone?: string;
   city?: string;
-  postNumber?: number;
+  postNumber?: string;
 };
 
 // update user

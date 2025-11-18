@@ -1,19 +1,21 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import {CURRENCIES} from '@/constants/currency';
+import { CURRENCIES } from '@/constants/currency';
+import { GENDERS } from '@/constants/gender';
+import { SIZES } from '@/constants/size';
 
 export interface CartItem {
   _id: string; // унікальний id товару
   name: string;
   image: string;
   price: number;
-  size: string;
+  size?: (typeof SIZES)[number];
   quantity: number;
-}
+ gender?: (typeof GENDERS)[number];}
 
 type CartState = {
   items: CartItem[];
-  total: { value: number; currency: typeof CURRENCIES[number] };
+  total: { value: number; currency: (typeof CURRENCIES)[number] };
   addItem: (item: Omit<CartItem, 'quantity'>, quantity?: number) => void;
   removeItem: (_id: string, size: string) => void;
   setQuantity: (_id: string, size: string, q: number) => void;
@@ -22,7 +24,7 @@ type CartState = {
 
 const calculateTotal = (
   items: CartItem[],
-  currency: typeof CURRENCIES[number] = 'грн'
+  currency: (typeof CURRENCIES)[number] = 'грн'
 ) => ({
   value: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
   currency,
@@ -63,9 +65,12 @@ export const useCartStore = create<CartState>()(
       },
 
       setQuantity: (_id, size, quantity) => {
+        if (!Number.isFinite(quantity) || quantity <= 0) return; // ❗ блок невалідних значень
+
         const items = get().items.map(i =>
           i._id === _id && i.size === size ? { ...i, quantity } : i
         );
+
         set({ items, total: calculateTotal(items) });
       },
 
