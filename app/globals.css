@@ -44,6 +44,7 @@ button {
 img {
   display: block;
   width: 100%;
+  height: auto;
 }
 textarea {
   display: block;
@@ -144,7 +145,7 @@ html {
 
 html,
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-family, --font-inter);
   color: var(--color-scheme-4-text);
   font-size: 16px;
   line-height: 1.5;
@@ -221,57 +222,6 @@ section {
   gap: 24px;
 }
 
-/* ==================================================================== */
-Footer.mychanges.null {
-  .inputSubscribe {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px;
-    flex-shrink: 1;
-  }
-
-  .input {
-    flex-grow: 1;
-    width: 195px; /* can't do min/max cuz flex-grow */
-    /* min-width: 195px; */
-    /* max-width: 100%; */
-    max-height: 40px;
-    /* padding: 8px; */
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 16px;
-    outline: none;
-    background: rgba(255, 255, 255, 0);
-    color: #000;
-  }
-
-  .input:focus,
-  .input:hover {
-    border: 1px solid #3b4331;
-  }
-
-  .input::placeholder {
-    font-size: 16px;
-    line-height: 150%;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 0.6);
-  }
-
-  .button {
-    min-width: 124px;
-    /* padding: 8px; */
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 16px;
-    background: rgba(0, 0, 0, 0.05);
-    font-size: 16px;
-    line-height: 150%;
-    font-weight: 500;
-    color: #000;
-  }
-}
-/* ==================================================================== */
-
 /* buttons */
 .btn {
   display: flex;
@@ -326,7 +276,6 @@ Footer.mychanges.null {
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  /* height: 24px; */
 }
 .link:hover,
 .link:focus {
@@ -352,12 +301,10 @@ textarea {
   border: 1px solid var(--opacity-neutral-darkest-15);
   border-radius: 16px;
   padding: 8px;
-  /* min-width: 100%; */
   outline: none;
 }
 input:focus,
 textarea:focus {
-  /* border: 1px solid var(--color-scheme-1-accent); */
   border: 1px solid var(--color-deco-darkest);
 }
 input::placeholder,

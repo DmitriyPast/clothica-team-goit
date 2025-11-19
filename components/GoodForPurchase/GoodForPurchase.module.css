@@ -1,9 +1,16 @@
 .image_wrapper {
-  width: 335px;
+  width: 100%;
+}
+
+.image {
+  /* width: 335px; */
   margin-bottom: 48px;
+  border-radius: 16px;
+  /* height: 357px; */
 }
 
 .all_info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -158,14 +165,14 @@
     gap: 32px;
   }
 
-  .image_wrapper {
-    width: 336px;
-    max-width: 100%;
+  .image {
+    /* width: 336px; */
+    /* max-width: 100%; */
     margin-bottom: 0;
   }
 
   .all_info {
-    width: 336px;
+    /* width: 336px; */
   }
 
   /* .short_descr_wrapper {

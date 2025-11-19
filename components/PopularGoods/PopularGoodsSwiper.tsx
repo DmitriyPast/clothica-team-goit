@@ -120,11 +120,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
             className={`${css.navButton} ${css.prevBtn} arrow ${!canSlidePrev ? css.disabled : ''}`}
             onClick={handlePrev}
             disabled={!canSlidePrev}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 16 16"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="24" height="24">
               <use href="/sprite.svg#arrow_back"></use>
             </svg>
           </button>
@@ -132,12 +128,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
             className={`${css.navButton}  ${css.nextBtn} arrow ${!canSlideNext ? css.disabled : ''}`}
             onClick={handleNext}
             disabled={!canSlideNext || visibleGoodsCount >= goods.length}>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg width="24" height="24">
               <use href="/sprite.svg#arrow_forward"></use>
             </svg>
           </button>

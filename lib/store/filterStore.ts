@@ -115,7 +115,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
       params.gender = filters.gender;
     }
 
-    // size (backend supports only one size)
+    // size (backend supports only one size)(welp that sucks)
     if (filters.sizes.length > 0) {
       params.size = filters.sizes[0];
     }
