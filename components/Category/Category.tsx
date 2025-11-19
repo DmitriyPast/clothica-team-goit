@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useFilterStore } from '@/lib/store/filterStore';
 import css from './Category.module.css';
 import { Category as CategoryType } from '@/types/category';
 
@@ -9,6 +12,14 @@ type Props = {
 };
 
 export default function Category({ category, priority = false }: Props) {
+  const router = useRouter();
+  const setCategory = useFilterStore(state => state.setCategory);
+
+  const handleClick = () => {
+    setCategory(category._id);
+    router.push('/goods');
+  };
+
   // Мапінг назв з бекенду → зображення
   // const getImageName = (name: string) => {
   //   const normalizedName = name.trim().toLowerCase();
@@ -59,7 +70,10 @@ export default function Category({ category, priority = false }: Props) {
   // const displayName = getDisplayName(category.name);
 
   return (
-    <Link href={`/categories/${category._id}`} className={css.card}>
+    <div
+      onClick={handleClick}
+      className={css.card}
+      style={{ cursor: 'pointer' }}>
       <div className={css.imageWrapper}>
         <Image
           src={`/category-img/${category._id}.webp`}
@@ -73,6 +87,6 @@ export default function Category({ category, priority = false }: Props) {
       <div className={css.content}>
         <h3 className={css.title}>{category.name}</h3>
       </div>
-    </Link>
+    </div>
   );
 }
