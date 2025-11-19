@@ -81,7 +81,7 @@ export default function OrderPage() {
 
                     {user?.role === 'Admin' ? (
                       <select name="status"
-                        
+                        defaultValue={order.status}
                             onChange={async e => {
                               try {
                                 const newStatus = e.target.value as (typeof ORDER_STATUSES)[number];

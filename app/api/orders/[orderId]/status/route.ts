@@ -10,26 +10,29 @@ export async function PATCH(
 ) {
   try {
 const cookieStore = await cookies();
-const accessToken = cookieStore.get('accessToken')?.value;
 
-if (!accessToken) {
-  return NextResponse.json(
-    { message: 'Access token missing' },
-    { status: 401 }
-  );
-}
+    const accessToken = cookieStore.get('accessToken')?.value;
+    const refreshToken = cookieStore.get('refreshToken')?.value;
+    const sessionId = cookieStore.get('sessionId')?.value;
 
+    const cookieHeader = [
+      accessToken ? `accessToken=${accessToken}` : '',
+      refreshToken ? `refreshToken=${refreshToken}` : '',
+      sessionId ? `sessionId=${sessionId}` : '',
+    ]
+      .filter(Boolean)
+      .join('; ');
+    
     const { orderId } =await params;
     const { status } = await request.json();
 
-    console.log('Cookies:', cookieStore.getAll());
     const res = await api.patch(
       `/orders/${orderId}/status`,
       { status },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
+          Cookie: cookieHeader,
         },
       }
     );

@@ -7,10 +7,13 @@ import { logErrorResponse } from '../_utils/utils';
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+    const page = request.nextUrl.searchParams.get('page') ?? '1';
+    const perPage = request.nextUrl.searchParams.get('perPage') ?? '7';
 
     const body = await request.json();
 
     const res = await api.post('/orders', body, {
+      params: { page, perPage },
       headers: {
         Cookie: cookieStore.toString(),
         'Content-Type': 'application/json',
