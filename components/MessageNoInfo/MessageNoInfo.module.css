@@ -3,6 +3,7 @@
   background-color: var(--color-deco-light);
   border-radius: 16px;
   padding: 24px 16px;
+  height: fit-content;
 }
 
 .text {
