@@ -7,7 +7,7 @@ export type Feedback = {
   rate: number;
   category?: string;
   productId?: {
-    _id: string,
-    name: string,
+    _id: string;
+    name?: string;
   };
 };
