@@ -34,6 +34,7 @@
   position: relative;
   display: flex;
   align-items: center;
+
   width: 100%;
 }
 
@@ -56,7 +57,7 @@
 
 .navButton {
   position: absolute;
-  top: 50%;
+  top: 33%;
   transform: translateY(-50%);
   color: var(--color-neutral-darkest);
   transition: all 0.3s;
@@ -72,7 +73,7 @@
 
 .navButton.disabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
 @media (max-width: 1440px) {
