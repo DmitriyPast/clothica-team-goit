@@ -14,6 +14,7 @@ import { FetchOrdersResponse } from '@/lib/api/clientApi';
 import { Order } from '@/types/order';
 import { useAuthStore } from '@/lib/store/authStore';
 import { ORDER_STATUSES } from '@/constants/order_status';
+import Pagination from '@/components/Pagination/Pagination';
 
 const ORDER_STATUS_TRANSLATIONS: Record<string, string> = {
   Pending: 'Очікується',
@@ -31,18 +32,25 @@ export default function OrderPage() {
   const { user } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       try {
-        const data: FetchOrdersResponse = await fetchAllOrders();
+        const data: FetchOrdersResponse = await fetchAllOrders({
+          page: currentPage,
+          perPage: 7,
+        });
         setOrders(data.orders);
+        setTotalPages(data.totalPages);
       } catch (error) {
         showToast(ToastType.error, 'Помилка при завантаженні замовлень.');
       } finally {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [currentPage]);
 
   const handleClick = async () => {
     await logoutUser();
@@ -59,33 +67,40 @@ export default function OrderPage() {
             <UserInfoForm />
           </div>
           {orders.length > 0 ? (
-            <div className={css.ordersList}>
-              <h3 className={css.titleH3}>Мої транзакції</h3>
-              <ul className={css.orders}>
-                {orders.map(order => (
-                  <li key={order._id} className={css.orderItem}>
-                    <div className={css.orderInfo}>
-                      <p className={css.orderDate}>
-                        {order.createdAt
-                          ? new Date(order.createdAt).toLocaleDateString()
-                          : 'Out Date'}
-                      </p>
-                      <p className={css.orderId}>№-{order._id?.slice(-8)}</p>
-                    </div>
-                    <div className={css.orderInfo}>
-                      <p className={css.orderTotal}>Сума:</p>
-                      <p>
-                        {order.totalPrice.value} {order.totalPrice.currency}
-                      </p>
-                    </div>
-
-                    {user?.role === 'Admin' ? (
-                      <select name="status"
-                        defaultValue={order.status}
+            <div>
+              <div className={css.ordersList}>
+                <h3 className={css.titleH3}>Мої транзакції</h3>
+                <ul className={css.orders}>
+                  {orders.map(order => (
+                    <li key={order._id} className={css.orderItem}>
+                      <div className={css.orderInfo}>
+                        <p className={css.orderDate}>
+                          {order.createdAt
+                            ? new Date(order.createdAt).toLocaleDateString()
+                            : 'Out Date'}
+                        </p>
+                        <p className={css.orderId}>№-{order._id?.slice(-8)}</p>
+                      </div>
+                      <div className={css.orderInfo}>
+                        <p className={css.orderTotal}>Сума:</p>
+                        <p>
+                          {order.totalPrice.value} {order.totalPrice.currency}
+                        </p>
+                      </div>
+                      <div className={css.orderInfo}>
+                        <p className={css.orderTotal}>Статус:</p>
+                        {user?.role === 'Admin' ? (
+                          <select
+                            className={css.select}
+                            name="status"
+                            defaultValue={order.status}
                             onChange={async e => {
                               try {
-                                const newStatus = e.target.value as (typeof ORDER_STATUSES)[number];
-                                await updateOrderStatus(order._id!, { status: newStatus });
+                                const newStatus = e.target
+                                  .value as (typeof ORDER_STATUSES)[number];
+                                await updateOrderStatus(order._id!, {
+                                  status: newStatus,
+                                });
                                 setOrders(prevOrders =>
                                   prevOrders.map(o =>
                                     o._id === order._id
@@ -103,26 +118,26 @@ export default function OrderPage() {
                                   'Помилка при оновленні статусу замовлення.'
                                 );
                               }
-                          }}>
-                        {ORDER_STATUSES.map(status => (
-                          <option
-                            key={status}
-                            value={status}
-                          >
-                            {translateOrderStatus(status)}
-                          </option>
-                        ))}
-
-                      </select>
-                    ) : (
-                      <div className={css.orderInfo}>
-                        <p className={css.orderTotal}>Статус:</p>
-                        <p>{translateOrderStatus(order.status)}</p>
+                            }}>
+                            {ORDER_STATUSES.map(status => (
+                              <option key={status} value={status}>
+                                {translateOrderStatus(status)}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <p>{translateOrderStatus(order.status)}</p>
+                        )}{' '}
                       </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </div>
           ) : (
             <MessageNoInfo

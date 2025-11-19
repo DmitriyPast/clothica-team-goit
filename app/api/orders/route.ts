@@ -37,11 +37,14 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+    const page = request.nextUrl.searchParams.get('page') ?? '1';
+    const perPage = request.nextUrl.searchParams.get('perPage') ?? '7';
 
     const res = await api.get('/orders', {
+      params: { page, perPage },
       headers: {
         Cookie: cookieStore.toString(),
       },
