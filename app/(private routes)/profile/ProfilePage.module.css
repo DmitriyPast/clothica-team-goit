@@ -1,0 +1,68 @@
+.headTitle {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ordersContainer {
+  margin-top: 32px;
+}
+.titleH3 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.orders {
+ display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--opacity-neutral-darkest-20);
+}
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+}
+.orderDate{
+  font-size: 14px;
+}
+.orderTotal,
+.orderId {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+@media screen and (min-width: 1440px) {
+ 
+ .wrapper{
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 32px;
+ }
+  .form,
+    .orders{
+     width: 640px;
+    }
+    .button{
+      margin: 0 auto;
+    }
+  
+}

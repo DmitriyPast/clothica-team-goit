@@ -4,6 +4,7 @@ import { ORDER_STATUSES } from '@/constants/order_status';
 import { SIZES } from '@/constants/size';
 
 export type Order = {
+  _id: string;
   userId?: string | null; // може бути null, якщо користувач не залогінений
   userName: string;
   userSurname: string;
@@ -32,6 +33,8 @@ export type Order = {
   };
   contactPhone: string;
   comment?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type UpdateOrderStatus = {

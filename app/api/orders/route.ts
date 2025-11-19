@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../_utils/utils';
 
-
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
@@ -34,3 +33,30 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const cookieStore = await cookies();
+
+    const res = await api.get('/orders', {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+    return NextResponse.json(res.data, { status: res.status });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.status }
+      );
+    }
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
+}
+
