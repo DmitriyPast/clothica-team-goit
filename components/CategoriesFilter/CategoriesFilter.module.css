@@ -175,15 +175,16 @@
    =========================================================== */
 .section {
   border-bottom: 1px solid var(--color-light-gray);
-  padding: 16px 0;
+  padding: 0;
 }
 
 .sectionHeaderRow {
   display: flex;
+  height: 67px;
   justify-content: space-between;
   align-items: center;
   justify-content: space-between; /* ✔ розтягує заголовок і шеврон */
-  gap: 12px;
+  /* gap: 12px; */
 }
 
 .sectionHeader {
@@ -335,7 +336,7 @@
    ACCORDION
    =========================================================== */
 .accordion {
-  margin-top: 16px;
+  /* margin-top: 16px; */
 }
 
 @media (max-width: 767px) {
@@ -361,7 +362,7 @@
 .list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding-bottom: 20px;
 }
 
 .categoryItem {
