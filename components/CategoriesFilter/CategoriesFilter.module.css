@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 16px;
+  padding: 0;
   max-width: 340px;
   box-sizing: border-box;
   background-color: #f3f9ed;
@@ -55,6 +55,110 @@
   margin-top: 8px;
   font-size: 14px;
   color: var(--color-black);
+}
+
+/* ===========================================================
+   MAIN MOBILE ACCORDION WRAPPER
+   =========================================================== */
+.mobileAccordionWrapper {
+  display: contents; /* На tablet+ не впливає на розмітку */
+}
+
+@media (max-width: 767px) {
+  .mobileAccordionWrapper {
+    display: block;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 16px;
+    padding: 0px 16px;
+    margin-top: 16px;
+  }
+}
+
+/* Main accordion header (only mobile) */
+.mainAccordionHeader {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mainAccordionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 16px 0;
+  }
+}
+
+.mainAccordionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+/* Main chevron */
+.mainChevron {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mainChevron {
+    display: block;
+  }
+}
+
+.mainChevronOpen {
+  transform: rotate(0deg);
+}
+
+.mainChevronClosed {
+  transform: rotate(-180deg);
+}
+
+/* Main accordion content */
+@media (max-width: 767px) {
+  .mobileAccordeonMobile {
+    overflow-y: scroll;
+    padding-right: 16px;
+
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease;
+  }
+}
+
+/* Ширина скролу */
+.mobileAccordeonMobile::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Трек (фон) скролу - світло-зелений, вужчий */
+.mobileAccordeonMobile::-webkit-scrollbar-track {
+  background: var(--color-deco);
+  border-radius: 3px;
+  border-left: 3px solid transparent; /* відступ зліва */
+  border-right: 3px solid transparent; /* відступ справа */
+  border-top: 20px solid transparent; /* відступ зверху */
+  border-bottom: 20px solid transparent; /* відступ знизу */
+  background-clip: content-box; /* щоб фон не заходив у border */
+}
+
+/* Повзунок скролу - темно-зелений, на всю ширину */
+.mobileAccordeonMobile::-webkit-scrollbar-thumb {
+  background: #5a6b5a;
+  border-radius: 7px;
+  border-top: 20px solid transparent; /* відступ зверху */
+  border-bottom: 20px solid transparent; /* відступ знизу */
+}
+
+/* Повзунок при наведенні - трохи темніше */
+.mobileAccordeonMobile::-webkit-scrollbar-thumb:hover {
+  background: #4a5a4a;
 }
 
 /* ===========================================================
