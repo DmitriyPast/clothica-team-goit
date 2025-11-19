@@ -6,7 +6,7 @@ import { useId, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import css from './AddFeedbackModal.module.css';
-import { createFeedback } from '@/lib/api/clientApi';
+import { createFeedback, NewFeedback } from '@/lib/api/clientApi';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Feedback } from '@/types/feedback';
@@ -17,12 +17,12 @@ interface ModalProps {
   id: string;
 }
 
-export type NewFeedback = {
-  author: string;
-  description: string;
-  rate: number;
-  productId: string;
-};
+// export type NewFeedback = {
+//   author: string;
+//   description: string;
+//   rate: number;
+//   productId: string;
+// };
 
 export default function AddFeedbackModal({ onClose, id }: ModalProps) {
   const formId = useId();
@@ -120,7 +120,7 @@ export default function AddFeedbackModal({ onClose, id }: ModalProps) {
             onSubmit={values => {
               const payload: NewFeedback = {
                 ...values,
-                productId: id,
+                productId: { _id: id },
               };
 
               mutation.mutate(payload);
