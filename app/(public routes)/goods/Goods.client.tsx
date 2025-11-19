@@ -121,8 +121,8 @@ export default function GoodsClient() {
   const canLoadMore = visibleCount < total;
 
   return (
-    <div className="container">
-      <section>
+    <section>
+      <div className="container">
         <h1 className={css.goodsTitle}>Всі товари</h1>
 
         <div className={css.goodsPage}>
@@ -143,7 +143,9 @@ export default function GoodsClient() {
 
           <main className={css.goodsMain}>
             {/* Список товарів: відображаємо тільки якщо є товари */}
-            {goodsToShow.length > 0 && <GoodsList goods={goodsToShow} />}
+            {goodsToShow.length > 0 && (
+              <GoodsList type="goodsPage" goods={goodsToShow} />
+            )}
 
             {/* Кнопка "Показати більше": показуємо якщо є ще товари для завантаження */}
             {canLoadMore && (
@@ -158,7 +160,7 @@ export default function GoodsClient() {
             )}
           </main>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
