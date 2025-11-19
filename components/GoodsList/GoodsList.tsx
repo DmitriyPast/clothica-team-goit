@@ -11,21 +11,20 @@ type GoodsListProps = {
   type?: supportedtypes;
 };
 
-const classes = {
-  goodsList: css.goodsList,
-  goodItem: css.goodsItem,
-};
-
 export default function GoodsList({
   goods,
   type = 'popularGoodsHomepage',
 }: GoodsListProps) {
+  const classes = {
+    goodsList: css.goodsList,
+    goodsItem: css.goodsItem,
+  };
   if (!goods.length) return null;
 
   switch (type) {
     case 'goodsPage':
       classes.goodsList = css.goodsPageList;
-      classes.goodItem = css.goodsPageItem;
+      classes.goodsItem = css.goodsPageItem;
       break;
     default:
       break;
@@ -34,7 +33,7 @@ export default function GoodsList({
   return (
     <ul className={classes.goodsList}>
       {goods.map(good => (
-        <li key={good._id} className={css[classes.goodItem]}>
+        <li key={good._id} className={classes.goodsItem}>
           <GoodInfo cssitems="" good={good} />
         </li>
       ))}
