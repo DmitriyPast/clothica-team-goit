@@ -81,13 +81,13 @@ const Header: React.FC = () => {
           ) : (
             <>
               {/* Якщо користувач — адмін,+ уточнити шлях */}
-              {user?.role === 'Admin' && (
+              {/* {user?.role === 'Admin' && (
                 <Link
                   href="/admin"
                   className={`btn btn-secondary ${styles.btnAdmin}`}>
                   Адмін-панель
                 </Link>
-              )}
+              )} */}
 
               {/* Якщо просто корис.*/}
               <Link
