@@ -74,14 +74,16 @@ export interface FetchOrdersResponse {
   orders: Order[];
 }
 export interface FetchOrdersParams {
-
   page?: number;
   perPage?: number;
 }
 
 //GET fetch all orders
-export async function fetchAllOrders(params?: FetchOrdersParams): Promise<FetchOrdersResponse> {
-  return (await internalApi.get<FetchOrdersResponse>('/orders', { params })).data;
+export async function fetchAllOrders(
+  params?: FetchOrdersParams
+): Promise<FetchOrdersResponse> {
+  return (await internalApi.get<FetchOrdersResponse>('/orders', { params }))
+    .data;
 }
 
 //GET fetch order by id
@@ -91,7 +93,7 @@ export async function fetchOrderById(orderId: string) {
 
 //POST create order
 export async function createOrder(order: Order): Promise<Order> {
-  const { data } = await internalApi.post<Order>('/order', order);
+  const { data } = await internalApi.post<Order>('/orders', order);
   return data;
 }
 
@@ -152,13 +154,20 @@ export async function fetchFeedbacks(
 
 // --- POST feedback ---
 
-export type NewFeedback = Omit<Feedback, '_id' | 'date'> & {
-  date?: string;
-};
+// export type NewFeedback = Omit<Feedback, '_id' | 'date'> & {
+//   date?: string;
+// };
 
 // export async function createFeedback(feedback: Feedback): Promise<Feedback> {
 //   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
 // }
+
+export type NewFeedback = {
+  author: string;
+  description: string;
+  rate: number;
+  productId: string;
+};
 
 export async function createFeedback(feedback: NewFeedback): Promise<Feedback> {
   return (await internalApi.post<Feedback>('/feedbacks', feedback)).data;
