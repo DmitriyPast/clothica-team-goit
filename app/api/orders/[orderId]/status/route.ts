@@ -6,7 +6,7 @@ import { logErrorResponse } from '@/app/api/_utils/utils';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { orderId: string } }
+  context: { params: Promise<{ orderId: string }> }
 ) {
   try {
 const cookieStore = await cookies();
@@ -23,7 +23,7 @@ const cookieStore = await cookies();
       .filter(Boolean)
       .join('; ');
     
-    const { orderId } =await params;
+    const { orderId } =await context.params;
     const { status } = await request.json();
 
     const res = await api.patch(
