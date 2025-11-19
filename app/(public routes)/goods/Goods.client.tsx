@@ -7,6 +7,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 // Components
 import CategoriesFilter from '@/components/CategoriesFilter/CategoriesFilter';
 import GoodsList from '@/components/GoodsList/GoodsList';
+import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 // API functions
 import { fetchGoods } from '@/lib/api/clientApi';
 import type { FetchGoodsResponse } from '@/lib/api/clientApi';
@@ -120,8 +121,8 @@ export default function GoodsClient() {
   const canLoadMore = visibleCount < total;
 
   return (
-    <div className="container">
-      <section>
+    <section>
+      <div className="container">
         <h1 className={css.goodsTitle}>Всі товари</h1>
 
         <div className={css.goodsPage}>
@@ -133,22 +134,18 @@ export default function GoodsClient() {
 
           {/* Повідомлення про відсутність товарів з кнопкою скидання фільтрів */}
           {!allGoods.length && !isLoading && (
-            <div>
-              <p>
-                За вашим запитом не знайдено жодних товарів, спробуйте змінити
-                фільтри, або скинути їх.
-              </p>
-
-              <button className="btn btn-secondary" onClick={resetFilters}>
-                {' '}
-                Очистити всі
-              </button>
-            </div>
+            <MessageNoInfo
+              onClick={() => resetFilters()}
+              text="За вашим запитом не знайдено жодних товарів, спробуйте змінити фільтри, або скинути їх."
+              buttonText="Очистити всі"
+            />
           )}
 
           <main className={css.goodsMain}>
             {/* Список товарів: відображаємо тільки якщо є товари */}
-            {goodsToShow.length > 0 && <GoodsList goods={goodsToShow} />}
+            {goodsToShow.length > 0 && (
+              <GoodsList type="goodsPage" goods={goodsToShow} />
+            )}
 
             {/* Кнопка "Показати більше": показуємо якщо є ще товари для завантаження */}
             {canLoadMore && (
@@ -163,7 +160,7 @@ export default function GoodsClient() {
             )}
           </main>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

@@ -70,6 +70,7 @@
   justify-content: space-between;
   align-items: center;
   justify-content: space-between; /* ✔ розтягує заголовок і шеврон */
+  gap: 12px;
 }
 
 .sectionHeader {
@@ -81,6 +82,7 @@
   align-items: center;
   justify-content: space-between; /* ⬅️ Шеврон КРАЙНІЙ справа */
   width: 100%;
+  min-width: 0;
 }
 
 .sectionTitle {
@@ -223,6 +225,23 @@
   margin-top: 16px;
 }
 
+@media (max-width: 767px) {
+  .accordionMobile {
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  .accordionVisible {
+    opacity: 1;
+  }
+
+  .accordionHidden {
+    opacity: 0;
+  }
+}
+
 /* ===========================================================
    LIST
    =========================================================== */
@@ -339,19 +358,16 @@
   font-size: 14px;
   cursor: pointer;
   color: var(--color-black);
+  white-space: nowrap;
+  padding: 4px 0 4px 12px;
 }
 
-/* ===========================================================
-   CLEAR (mobile)
-   =========================================================== */
-.clearMobileButton {
-  background: none;
-  border: none;
-  /* text-decoration: underline; */
-  font-size: 14px;
-  margin-top: 12px;
-  cursor: pointer;
-  color: var(--color-black);
+@media (max-width: 767px) {
+  .clearInlineButton {
+    font-size: 13px;
+    padding-left: 8px;
+    flex-shrink: 0;
+  }
 }
 
 /* ===========================================================
@@ -397,6 +413,7 @@
 
 /* Ховаємо стрілочки у Firefox */
 .priceInput[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 /* ===========================================================
