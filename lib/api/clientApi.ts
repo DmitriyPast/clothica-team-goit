@@ -1,11 +1,11 @@
-import { Good, Size } from '@/types/good';
+import { Gender, Good, Size } from '@/types/good';
 import internalApi from './api';
 import type { User, RegisterUser, LoginUser } from '@/types/user';
 import { Order, UpdateOrderStatus } from '@/types/order';
 import { Category } from '@/types/category';
 import { Feedback } from '@/types/feedback';
-import { GENDERS } from '@/constants/gender';
-import { SIZES } from '@/constants/size';
+// import { GENDERS } from '@/constants/gender';
+// import { SIZES } from '@/constants/size';
 import { AxiosError } from 'axios'; // ✅ ЩОЙНО ДОДАВ: для типізації помилок
 
 // ✅ ЩОЙНО ДОДАВ: Експорт типів для використання в інших файлах
@@ -43,7 +43,7 @@ export interface FetchGoodsParams {
   perPage?: number;
   category?: string;
   size?: Size;
-  gender?: (typeof GENDERS)[number];
+  gender?: Gender;
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
@@ -61,8 +61,8 @@ export async function fetchGoods(
 }
 
 //GET good by id
-export async function fetchGoodById(noteId: string): Promise<Good> {
-  const { data } = await internalApi.get<Good>(`/goods/${noteId}`);
+export async function fetchGoodById(goodId: string): Promise<Good> {
+  const { data } = await internalApi.get<Good>(`/goods/${goodId}`);
   return data;
 }
 
