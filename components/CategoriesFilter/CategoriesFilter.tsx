@@ -36,7 +36,7 @@ const CategoriesFilter = () => {
   // Mobile controls accordions
   const [isMobile, setIsMobile] = useState(false);
   const [isMainAccordionOpen, setIsMainAccordionOpen] = useState(false);
-  const [openedSection, setOpenedSection] = useState<SectionKey | null>(null);
+  const [openedSection, setOpenedSection] = useState<SectionKey | null>('category');
   const mainAccordionRef = useRef<HTMLDivElement>(null);
   const categoryAccordionRef = useRef<HTMLDivElement>(null);
   const sizeAccordionRef = useRef<HTMLDivElement>(null);
@@ -60,10 +60,13 @@ const CategoriesFilter = () => {
 
   // Desktop — all blocks always opened
   useEffect(() => {
-    if (!isMobile) {
-      setIsMainAccordionOpen(false);
-      setOpenedSection(null);
+    if (isMobile) {
+      setOpenedSection(prev => prev ?? 'category');
+      return;
     }
+
+    setIsMainAccordionOpen(false);
+    setOpenedSection(null);
   }, [isMobile]);
 
   const isSectionOpen = (section: SectionKey) => !isMobile || openedSection === section;
@@ -166,209 +169,175 @@ const CategoriesFilter = () => {
       </p>
 
       {/* Main mobile accordion wrapper */}
-      <div className={styles.mobileAccordionWrapper}>
-        {/* Main accordion header (only mobile) */}
-        <button
-          type="button"
-          className={styles.mainAccordionHeader}
-          aria-expanded={isMainAccordionOpen}
-          onClick={() => setIsMainAccordionOpen(!isMainAccordionOpen)}>
-          <h4 className={styles.mainAccordionTitle}>Фільтри</h4>
-          <span className={`${styles.mainChevron} ${isMainAccordionOpen ? styles.mainChevronOpen : styles.mainChevronClosed}`}>
-            <svg width="20" height="20">
-              <use href="/sprite.svg#keyboard_arrow_down" />
-            </svg>
-          </span>
-        </button>
+      <div className={styles.overlayContainer}>
+        <div className={styles.mobileAccordionWrapper}>
+          {/* Main accordion header (only mobile) */}
+          <button
+            type="button"
+            className={styles.mainAccordionHeader}
+            aria-expanded={isMainAccordionOpen}
+            onClick={() => setIsMainAccordionOpen(!isMainAccordionOpen)}>
+            <h4 className={styles.mainAccordionTitle}>Фільтри</h4>
+            <span className={`${styles.mainChevron} ${isMainAccordionOpen ? styles.mainChevronOpen : styles.mainChevronClosed}`}>
+              <svg width="20" height="20">
+                <use href="/sprite.svg#keyboard_arrow_down" />
+              </svg>
+            </span>
+          </button>
 
-        {/* Main accordion content */}
-        <div
-          ref={mainAccordionRef}
-          className={`${styles.mobileAccordeon} ${isMobile ? styles.mobileAccordeonMobile : ''}`}
-          style={
-            isMobile
-              ? {
-                  maxHeight: isMainAccordionOpen ? `${Math.min(mainAccordionHeight, 444)}px` : '0px',
-                }
-              : undefined
-          }>
-          {/* ============================================================ */}
-          {/* CATEGORY */}
-          {/* ============================================================ */}
-          <section className={styles.section}>
-            <div className={styles.sectionHeaderRow}>
-              <button
-                type="button"
-                className={styles.sectionHeader}
-                aria-expanded={isSectionOpen('category')}
-                aria-controls="categories-filter-panel"
-                onClick={() => toggleSection('category')}>
-                <h4 className={styles.sectionTitle}>Категорії</h4>
-
-                {/* Chevron only mobile */}
-                <span className={`${styles.chevron} ${isSectionOpen('category') ? styles.chevronOpen : styles.chevronClosed}`}>
-                  <svg width="20" height="20">
-                    <use href="/sprite.svg#keyboard_arrow_down" />
-                  </svg>
-                </span>
-              </button>
-
-              {renderInlineClear('category', hasCategoryFilter, () => setCategory('all'))}
-            </div>
-
-            <div
-              id="categories-filter-panel"
-              ref={categoryAccordionRef}
-              className={getAccordionClass('category')}
-              style={getAccordionStyle('category')}
-              aria-hidden={isMobile && !isSectionOpen('category')}>
-              <ul className={styles.list}>
-                {isLoadingCategories && <li>Завантаження...</li>}
-
-                {categoryOptions.map(cat => {
-                  const isActive = filters.category === cat.id;
-                  return (
-                    <li key={cat.id} className={styles.categoryItem}>
-                      <button
-                        type="button"
-                        className={`${styles.categoryButton} ${isActive ? styles.categoryButtonActive : ''}`}
-                        onClick={() => setCategory(cat.id)}>
-                        {cat.name}
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </section>
-          {/* ============================================================ */}
-          {/* SIZE */}
-          {/* ============================================================ */}
-          <section className={styles.section}>
-            <div className={styles.sectionHeaderRow}>
-              <button
-                type="button"
-                className={styles.sectionHeader}
-                aria-expanded={isSectionOpen('size')}
-                aria-controls="sizes-filter-panel"
-                onClick={() => toggleSection('size')}>
-                <h4 className={styles.sectionTitle}>Розмір</h4>
-
-                <span className={`${styles.chevron} ${isSectionOpen('size') ? styles.chevronOpen : styles.chevronClosed}`}>
-                  <svg width="20" height="20">
-                    <use href="/sprite.svg#keyboard_arrow_down" />
-                  </svg>
-                </span>
-              </button>
-
-              {renderInlineClear('size', hasSizeFilter, clearSizes)}
-            </div>
-
-            <div
-              id="sizes-filter-panel"
-              ref={sizeAccordionRef}
-              className={getAccordionClass('size')}
-              style={getAccordionStyle('size')}
-              aria-hidden={isMobile && !isSectionOpen('size')}>
-              <ul className={styles.list}>
-                {SIZES.map(size => {
-                  const checked = filters.sizes.includes(size as Size);
-                  return (
-                    <li key={size} className={styles.optionRow}>
-                      <button
-                        type="button"
-                        className={`${styles.checkbox} ${checked ? styles.checkboxChecked : ''}`}
-                        onClick={() => toggleSize(size as Size)}
-                      />
-                      <span className={styles.optionLabel}>{size}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </section>
-          {/* ============================================================ */}
-          {/* PRICE — DOUBLE RANGE */}
-          {/* ============================================================ */}
-          <section className={styles.section}>
-            <div className={styles.sectionHeaderRow}>
-              <button
-                type="button"
-                className={styles.sectionHeader}
-                aria-expanded={isSectionOpen('price')}
-                aria-controls="price-filter-panel"
-                onClick={() => toggleSection('price')}>
-                <h4 className={styles.sectionTitle}>Ціна</h4>
-
-                <span className={`${styles.chevron} ${isSectionOpen('price') ? styles.chevronOpen : styles.chevronClosed}`}>
-                  <svg width="20" height="20">
-                    <use href="/sprite.svg#keyboard_arrow_down" />
-                  </svg>
-                </span>
-              </button>
-
-              {renderInlineClear('price', hasPriceFilter, clearPrice)}
-            </div>
-
-            <div
-              id="price-filter-panel"
-              ref={priceAccordionRef}
-              className={getAccordionClass('price')}
-              style={getAccordionStyle('price')}
-              aria-hidden={isMobile && !isSectionOpen('price')}>
-              {/* DOUBLE RANGE */}
-              <div className={styles.doubleSliderWrapper}>
-                <div className={styles.track} />
-
-                <div
-                  className={styles.range}
-                  style={{
-                    left: `${(currentMinPrice / maxLimit) * 100}%`,
-                    width: `${((currentMaxPrice - currentMinPrice) / maxLimit) * 100}%`,
-                  }}
-                />
-
-                {/* MIN THUMB */}
-                <input
-                  type="range"
-                  min={minLimit}
-                  max={maxLimit}
-                  step={100}
-                  value={currentMinPrice}
-                  onChange={e =>
-                    setPrice({
-                      min: Number(e.target.value),
-                      max: currentMaxPrice,
-                    })
+          {/* Main accordion content */}
+          <div
+            ref={mainAccordionRef}
+            className={`${styles.mobileAccordeon} ${isMobile ? styles.mobileAccordeonMobile : ''}`}
+            style={
+              isMobile
+                ? {
+                    maxHeight: isMainAccordionOpen ? `${Math.min(mainAccordionHeight, 444)}px` : '0px',
                   }
-                  className={styles.thumbMin}
-                />
+                : undefined
+            }>
+            {/* ============================================================ */}
+            {/* CATEGORY */}
+            {/* ============================================================ */}
+            <section className={styles.section}>
+              <div className={styles.sectionHeaderRow}>
+                <button
+                  type="button"
+                  className={styles.sectionHeader}
+                  aria-expanded={isSectionOpen('category')}
+                  aria-controls="categories-filter-panel"
+                  onClick={() => toggleSection('category')}>
+                  <h4 className={styles.sectionTitle}>Категорії</h4>
 
-                {/* MAX THUMB */}
-                <input
-                  type="range"
-                  min={minLimit}
-                  max={maxLimit}
-                  step={100}
-                  value={currentMaxPrice}
-                  onChange={e =>
-                    setPrice({
-                      min: currentMinPrice,
-                      max: Number(e.target.value),
-                    })
-                  }
-                  className={styles.thumbMax}
-                />
+                  {/* Chevron only mobile */}
+                  <span className={`${styles.chevron} ${isSectionOpen('category') ? styles.chevronOpen : styles.chevronClosed}`}>
+                    <svg width="20" height="20">
+                      <use href="/sprite.svg#keyboard_arrow_down" />
+                    </svg>
+                  </span>
+                </button>
+
+                {renderInlineClear('category', hasCategoryFilter, () => setCategory('all'))}
               </div>
 
-              {/* INPUTS */}
-              <div className={styles.priceInputsRow}>
-                <div className={styles.priceField}>
-                  {/* <span className={styles.priceLabel}>Від</span> */}
+              <div
+                id="categories-filter-panel"
+                ref={categoryAccordionRef}
+                className={getAccordionClass('category')}
+                style={getAccordionStyle('category')}
+                aria-hidden={isMobile && !isSectionOpen('category')}>
+                <ul className={styles.list}>
+                  {isLoadingCategories && <li>Завантаження...</li>}
+
+                  {categoryOptions.map(cat => {
+                    const isActive = filters.category === cat.id;
+                    return (
+                      <li key={cat.id} className={styles.categoryItem}>
+                        <button
+                          type="button"
+                          className={`${styles.categoryButton} ${isActive ? styles.categoryButtonActive : ''}`}
+                          onClick={() => setCategory(cat.id)}>
+                          {cat.name}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </section>
+            {/* ============================================================ */}
+            {/* SIZE */}
+            {/* ============================================================ */}
+            <section className={styles.section}>
+              <div className={styles.sectionHeaderRow}>
+                <button
+                  type="button"
+                  className={styles.sectionHeader}
+                  aria-expanded={isSectionOpen('size')}
+                  aria-controls="sizes-filter-panel"
+                  onClick={() => toggleSection('size')}>
+                  <h4 className={styles.sectionTitle}>Розмір</h4>
+
+                  <span className={`${styles.chevron} ${isSectionOpen('size') ? styles.chevronOpen : styles.chevronClosed}`}>
+                    <svg width="20" height="20">
+                      <use href="/sprite.svg#keyboard_arrow_down" />
+                    </svg>
+                  </span>
+                </button>
+
+                {renderInlineClear('size', hasSizeFilter, clearSizes)}
+              </div>
+
+              <div
+                id="sizes-filter-panel"
+                ref={sizeAccordionRef}
+                className={getAccordionClass('size')}
+                style={getAccordionStyle('size')}
+                aria-hidden={isMobile && !isSectionOpen('size')}>
+                <ul className={styles.list}>
+                  {SIZES.map(size => {
+                    const checked = filters.sizes.includes(size as Size);
+                    return (
+                      <li key={size} className={styles.optionRow}>
+                        <button
+                          type="button"
+                          className={`${styles.checkbox} ${checked ? styles.checkboxChecked : ''}`}
+                          onClick={() => toggleSize(size as Size)}
+                        />
+                        <span className={styles.optionLabel}>{size}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </section>
+            {/* ============================================================ */}
+            {/* PRICE — DOUBLE RANGE */}
+            {/* ============================================================ */}
+            <section className={styles.section}>
+              <div className={styles.sectionHeaderRow}>
+                <button
+                  type="button"
+                  className={styles.sectionHeader}
+                  aria-expanded={isSectionOpen('price')}
+                  aria-controls="price-filter-panel"
+                  onClick={() => toggleSection('price')}>
+                  <h4 className={styles.sectionTitle}>Ціна</h4>
+
+                  <span className={`${styles.chevron} ${isSectionOpen('price') ? styles.chevronOpen : styles.chevronClosed}`}>
+                    <svg width="20" height="20">
+                      <use href="/sprite.svg#keyboard_arrow_down" />
+                    </svg>
+                  </span>
+                </button>
+
+                {renderInlineClear('price', hasPriceFilter, clearPrice)}
+              </div>
+
+              <div
+                id="price-filter-panel"
+                ref={priceAccordionRef}
+                className={getAccordionClass('price')}
+                style={getAccordionStyle('price')}
+                aria-hidden={isMobile && !isSectionOpen('price')}>
+                {/* DOUBLE RANGE */}
+                <div className={styles.doubleSliderWrapper}>
+                  <div className={styles.track} />
+
+                  <div
+                    className={styles.range}
+                    style={{
+                      left: `${(currentMinPrice / maxLimit) * 100}%`,
+                      width: `${((currentMaxPrice - currentMinPrice) / maxLimit) * 100}%`,
+                    }}
+                  />
+
+                  {/* MIN THUMB */}
                   <input
-                    type="number"
+                    type="range"
                     min={minLimit}
                     max={maxLimit}
+                    step={100}
                     value={currentMinPrice}
                     onChange={e =>
                       setPrice({
@@ -376,16 +345,15 @@ const CategoriesFilter = () => {
                         max: currentMaxPrice,
                       })
                     }
-                    className={styles.priceInput}
+                    className={styles.thumbMin}
                   />
-                </div>
 
-                <div className={styles.priceField}>
-                  {/* <span className={styles.priceLabel}>До</span> */}
+                  {/* MAX THUMB */}
                   <input
-                    type="number"
+                    type="range"
                     min={minLimit}
                     max={maxLimit}
+                    step={100}
                     value={currentMaxPrice}
                     onChange={e =>
                       setPrice({
@@ -393,55 +361,92 @@ const CategoriesFilter = () => {
                         max: Number(e.target.value),
                       })
                     }
-                    className={`${styles.priceInput} ${styles.priceInputR}`}
+                    className={styles.thumbMax}
                   />
                 </div>
+
+                {/* INPUTS */}
+                <div className={styles.priceInputsRow}>
+                  <div className={styles.priceField}>
+                    {/* <span className={styles.priceLabel}>Від</span> */}
+                    <input
+                      type="number"
+                      min={minLimit}
+                      max={maxLimit}
+                      value={currentMinPrice}
+                      onChange={e =>
+                        setPrice({
+                          min: Number(e.target.value),
+                          max: currentMaxPrice,
+                        })
+                      }
+                      className={styles.priceInput}
+                    />
+                  </div>
+
+                  <div className={styles.priceField}>
+                    {/* <span className={styles.priceLabel}>До</span> */}
+                    <input
+                      type="number"
+                      min={minLimit}
+                      max={maxLimit}
+                      value={currentMaxPrice}
+                      onChange={e =>
+                        setPrice({
+                          min: currentMinPrice,
+                          max: Number(e.target.value),
+                        })
+                      }
+                      className={`${styles.priceInput} ${styles.priceInputR}`}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* ============================================================ */}
-          {/* GENDER */}
-          {/* ============================================================ */}
-          <section className={styles.section}>
-            <div className={styles.sectionHeaderRow}>
-              <button
-                type="button"
-                className={styles.sectionHeader}
-                aria-expanded={isSectionOpen('gender')}
-                aria-controls="gender-filter-panel"
-                onClick={() => toggleSection('gender')}>
-                <h4 className={styles.sectionTitle}>Стать</h4>
+            {/* ============================================================ */}
+            {/* GENDER */}
+            {/* ============================================================ */}
+            <section className={styles.section}>
+              <div className={styles.sectionHeaderRow}>
+                <button
+                  type="button"
+                  className={styles.sectionHeader}
+                  aria-expanded={isSectionOpen('gender')}
+                  aria-controls="gender-filter-panel"
+                  onClick={() => toggleSection('gender')}>
+                  <h4 className={styles.sectionTitle}>Стать</h4>
 
-                <span className={`${styles.chevron} ${isSectionOpen('gender') ? styles.chevronOpen : styles.chevronClosed}`}>
-                  <svg width="20" height="20">
-                    <use href="/sprite.svg#keyboard_arrow_down" />
-                  </svg>
-                </span>
-              </button>
+                  <span className={`${styles.chevron} ${isSectionOpen('gender') ? styles.chevronOpen : styles.chevronClosed}`}>
+                    <svg width="20" height="20">
+                      <use href="/sprite.svg#keyboard_arrow_down" />
+                    </svg>
+                  </span>
+                </button>
 
-              {renderInlineClear('gender', hasGenderFilter, clearGender)}
-            </div>
+                {renderInlineClear('gender', hasGenderFilter, clearGender)}
+              </div>
 
-            <div
-              id="gender-filter-panel"
-              ref={genderAccordionRef}
-              className={getAccordionClass('gender')}
-              style={getAccordionStyle('gender')}
-              aria-hidden={isMobile && !isSectionOpen('gender')}>
-              <ul className={styles.list}>
-                {GENDERS.map(g => {
-                  const active = filters.gender === g;
-                  return (
-                    <li key={g} className={styles.optionRow}>
-                      <button type="button" className={`${styles.radio} ${active ? styles.radioChecked : ''}`} onClick={() => setGender(g as Gender)} />
-                      <span className={styles.optionLabel}>{g === 'women' ? 'Жіночий' : g === 'men' ? 'Чоловічий' : g === 'unisex' ? 'Унісекс' : 'Усі'}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </section>
+              <div
+                id="gender-filter-panel"
+                ref={genderAccordionRef}
+                className={getAccordionClass('gender')}
+                style={getAccordionStyle('gender')}
+                aria-hidden={isMobile && !isSectionOpen('gender')}>
+                <ul className={styles.list}>
+                  {GENDERS.map(g => {
+                    const active = filters.gender === g;
+                    return (
+                      <li key={g} className={styles.optionRow}>
+                        <button type="button" className={`${styles.radio} ${active ? styles.radioChecked : ''}`} onClick={() => setGender(g as Gender)} />
+                        <span className={styles.optionLabel}>{g === 'women' ? 'Жіночий' : g === 'men' ? 'Чоловічий' : g === 'unisex' ? 'Унісекс' : 'Усі'}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     </aside>

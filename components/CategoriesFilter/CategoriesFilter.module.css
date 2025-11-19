@@ -65,12 +65,21 @@
 }
 
 @media (max-width: 767px) {
+  .container {
+    position: relative;
+    margin-bottom: 60px;
+  }
   .mobileAccordionWrapper {
+    background-color: #f3f9ed;
+    width: 100%;
+    position: absolute;
+    z-index: 3;
     display: block;
     border: 1px solid var(--color-light-gray);
     border-radius: 16px;
     padding: 0px 16px;
     margin-top: 16px;
+    box-shadow: #1c1c1c1b 0px 2px 16px -2px;
   }
 }
 
@@ -88,7 +97,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 16px 0;
+    padding: 8px 0;
   }
 }
 
@@ -356,19 +365,17 @@
 }
 
 .categoryItem {
-  margin-bottom: 8px;
 }
 
 /* ===========================================================
    CATEGORY BUTTONS
    =========================================================== */
 .categoryButton {
+  height: 40px;
   width: 100%;
   text-align: left;
-  background: none;
-  border: none;
   font-size: 14px;
-  padding: 6px 0;
+  /* padding: 6px 0; */
   cursor: pointer;
   color: var(--color-black);
   /* text-decoration: underline; */
@@ -377,6 +384,7 @@
 .categoryButtonActive {
   color: var(--color-black);
   font-weight: 600;
+  text-decoration: underline;
 }
 
 /* ===========================================================
@@ -385,8 +393,9 @@
 .optionRow {
   display: flex;
   align-items: center;
+  height: 40px;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 /* Custom checkbox */
