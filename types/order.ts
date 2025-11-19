@@ -4,7 +4,7 @@ import { ORDER_STATUSES } from '@/constants/order_status';
 import { SIZES } from '@/constants/size';
 
 export type Order = {
-  _id: string;
+  _id?: string;
   userId?: string | null; // може бути null, якщо користувач не залогінений
   userName: string;
   userSurname: string;
