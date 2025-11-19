@@ -4,18 +4,38 @@ import css from './GoodsList.module.css';
 import { Good } from '@/types/good';
 import GoodInfo from '../GoodInfo/GoodInfo';
 
+type supportedtypes = 'popularGoodsHomepage' | 'goodsPage';
+
 type GoodsListProps = {
   goods: Good[];
+  type?: supportedtypes;
 };
 
-export default function GoodsList({ goods }: GoodsListProps) {
+const classes = {
+  goodsList: css.goodsList,
+  goodItem: css.goodsItem,
+};
+
+export default function GoodsList({
+  goods,
+  type = 'popularGoodsHomepage',
+}: GoodsListProps) {
   if (!goods.length) return null;
 
+  switch (type) {
+    case 'goodsPage':
+      classes.goodsList = css.goodsPageList;
+      classes.goodItem = css.goodsPageItem;
+      break;
+    default:
+      break;
+  }
+
   return (
-    <ul className={css.goodsList}>
+    <ul className={classes.goodsList}>
       {goods.map(good => (
-        <li key={good._id} className={css.goodItem}>
-          <GoodInfo good={good} />
+        <li key={good._id} className={css[classes.goodItem]}>
+          <GoodInfo cssitems="" good={good} />
         </li>
       ))}
     </ul>
