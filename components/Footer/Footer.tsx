@@ -1,49 +1,40 @@
-"use client";
+'use client'; // 🔹 Вказує, що компонент рендериться на клієнті (Next.js 13+)
 
-import { useState } from "react";
-import Link from "next/link";
-import css from "./Footer.module.css";
+import { addSubscription } from '@/lib/api/clientApi'; // 🔹 Функція для POST-запиту на підписку
+import Link from 'next/link'; // 🔹 Компонент для навігації між сторінками Next.js
 
-import showToast, { ToastType } from "@/lib/utils/messageService";
+import css from './Footer.module.css'; // 🔹 Імпорт стилів для компонента Footer
+import { Formik, Form, Field } from 'formik'; // 🔹 Компоненти для роботи з формами
+import { toast } from 'react-hot-toast'; // 🔹 Бібліотека для показу повідомлень (toast)
+import * as Yup from 'yup'; // 🔹 Бібліотека для валідації форм
 
+// 🔹 Схема валідації email-поля у формі
+const subscriptionSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Невірний формат email') // 🔸 Повідомлення при неправильному форматі
+    .required('Email обов’язковий'), // 🔸 Повідомлення при порожньому полі
+});
+
+// 🔹 Головний компонент футера
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  // 🔹 Обробник сабміту форми підписки
+  const handleSubmit = async (
+    values: { email: string }, // 🔸 Об'єкт з email, який ввів користувач
+    { resetForm }: any // 🔸 Функція для очищення форми після успішної підписки
+  ) => {
+    if (!values.email) return; // 🔸 Захист: якщо email порожній — нічого не робимо
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (isSubmitting) return;
+    try {
+      const message = await addSubscription({ email: values.email }); 
+      toast.success('Дякуємо! Ви підписані на оновлення.'); 
+      resetForm(); // 🔸 Очищення форми після успішного запиту
+    } catch (err: any) {
+      toast.error(err.message); // 🔸 Показ повідомлення про помилку, якщо запит не вдався
+    };
+  }
 
-    const emailTrimmed = email.trim();
-    if (!emailTrimmed) return;
 
-    setIsSubmitting(true);
-
-    const res = await fetch(`${API_URL}/subscriptions`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: emailTrimmed }),
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if (res.status === 409) {
-      // Email вже є в базі
-      showToast(ToastType.error, "Ви вже оформили підписку.");
-    } else if (res.ok) {
-      // Успішна підписка
-      setEmail("");
-      showToast(ToastType.success, "Готово! Ви підписані на розсилку.");
-    } else {
-      // Інші помилки
-      showToast(ToastType.error, data?.message || "Помилка підписки.");
-    }
-
-    setIsSubmitting(false);
-  };
-
-  return (
+   return (
     <footer className={css.footer}>
       <div className="container">
         <div className={css.containerWrap}>
@@ -69,21 +60,33 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className={css.subscribeWrap}>
-            <h3 className={css.subscribe}>Підписатися</h3>
-            <form className={css.inputSubscribe} onSubmit={handleSubmit}>
-              <input
-                type="email"
-                placeholder="Введіть ваш email"
-                className={css.input}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className={css.button} disabled={isSubmitting}>
-                {isSubmitting ? "Відправка..." : "Підписатися"}
-              </button>
-            </form>
+           <div className={css.subscribeWrap}>
+             <Formik
+                initialValues={{ email: '' }}
+                validationSchema={subscriptionSchema}
+                onSubmit={handleSubmit}
+             >
+              {({ isSubmitting }) => (
+    <Form className={css.inputSubscribe}>
+      <h3 className={css.subscribe}>Підписатися</h3>
+      <p className={css.text}>
+        Приєднуйтесь до нашої розсилки, щоб бути в курсі новин та акцій.
+      </p>
+      <Field
+        className={css.input}
+        type="email"
+        name="email"
+        placeholder="Введіть ваш email"
+        required
+      />
+      <button type="submit" className={css.button} disabled={isSubmitting}>
+        {isSubmitting ? "Відправка..." : "Підписатися"}
+      </button>
+    </Form>
+  )}
+</Formik>
+
+
           </div>
         </div>
 
