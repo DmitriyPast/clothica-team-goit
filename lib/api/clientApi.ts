@@ -67,12 +67,21 @@ export async function fetchGoodById(goodId: string): Promise<Good> {
 }
 
 export interface FetchOrdersResponse {
+  page: number;
+  perPage: number;
+  totalOrders: number;
+  totalPages: number;
   orders: Order[];
+}
+export interface FetchOrdersParams {
+
+  page?: number;
+  perPage?: number;
 }
 
 //GET fetch all orders
-export async function fetchAllOrders(): Promise<FetchOrdersResponse> {
-  return (await internalApi.get<FetchOrdersResponse>('/orders')).data;
+export async function fetchAllOrders(params?: FetchOrdersParams): Promise<FetchOrdersResponse> {
+  return (await internalApi.get<FetchOrdersResponse>('/orders', { params })).data;
 }
 
 //GET fetch order by id
@@ -176,8 +185,12 @@ export async function registerUser(data: RegisterUser): Promise<User | null> {
 }
 
 // Login user
-export async function loginUser(data: LoginUser): Promise<User> {
-  const { data: responseData } = await internalApi.post<User>(
+export type LoginResponse = {
+  message: string;
+  user: User;
+};
+export async function loginUser(data: LoginUser): Promise<LoginResponse> {
+  const { data: responseData } = await internalApi.post<LoginResponse>(
     '/auth/login',
     data
   );

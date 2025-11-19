@@ -29,9 +29,9 @@ const LoginForm = () => {
   const handleSubmit = async (values: LoginUser) => {
     console.log(values);
     try {
-      const res = await loginUser(values);
-      if (res) {
-        setUser(res);
+      const {user} = await loginUser(values);
+      if (user) {
+        setUser(user);
         router.push('/');
       } else {
         toast.error('Невірний номер телефону або пароль');
