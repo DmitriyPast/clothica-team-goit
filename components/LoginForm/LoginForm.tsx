@@ -77,7 +77,7 @@ const LoginForm = () => {
                         type="tel"
                         placeholder="+38 (0__) ___-__-__"
                         className={`input ${css.authInput} ${
-                          form.touched.username && form.errors.username
+                          form.touched.phone && form.errors.phone
                             ? 'input-error'
                             : ''
                         }`}
@@ -99,7 +99,7 @@ const LoginForm = () => {
                         type="password"
                         placeholder="********"
                         className={`input ${css.authInput} ${
-                          form.touched.username && form.errors.username
+                          form.touched.password && form.errors.password
                             ? 'input-error'
                             : ''
                         }`}
