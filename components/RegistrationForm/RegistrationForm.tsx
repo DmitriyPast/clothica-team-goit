@@ -30,7 +30,6 @@ const RegistrationForm = () => {
   });
 
   const handleSubmit = async (values: RegisterUser) => {
-    console.log(values);
     try {
       const res = await registerUser(values);
       if (res) {

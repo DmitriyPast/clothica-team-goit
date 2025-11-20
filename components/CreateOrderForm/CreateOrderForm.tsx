@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -9,7 +9,6 @@ import { Order } from '@/types/order';
 import { createOrder, updateMe } from '@/lib/api/clientApi';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useAuthStore } from '@/lib/store/authStore';
-import { isAxiosError } from 'axios';
 import showToast, { ToastType } from "@/lib/utils/messageService";
 
 const validationSchema = Yup.object({
@@ -37,6 +36,7 @@ export default function CreateOrderForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+ 
 
   const initialValues = {
     username: user?.username || '',
@@ -46,7 +46,19 @@ export default function CreateOrderForm() {
     postNumber: user?.postNumber || '',
     comment: '',
   };
-
+  const [formValues, setFormValues] = useState(initialValues);
+  useEffect(() => {
+    if (user) {
+      setFormValues({
+        username: user.username || '',
+        userSurname: user.userSurname || '',
+        contactPhone: user.phone || '',
+        shippingAddress: user.city || '',
+        postNumber: user.postNumber || '',
+        comment: '',
+      });
+    }
+  }, [user]);
   const handleSubmit = async (values: typeof initialValues) => {
     setIsSubmitting(true);
     setError(null);
@@ -59,7 +71,7 @@ export default function CreateOrderForm() {
           userSurname: values.userSurname,
           phone: values.contactPhone,
           city: values.shippingAddress,
-          postNumber: String(values.postNumber),
+          postNumber: values.postNumber,
         });
       }
 
@@ -93,7 +105,7 @@ export default function CreateOrderForm() {
         status: 'Pending',
         shippingAddress: {
           city: values.shippingAddress,
-          postNumber: String(values.postNumber),
+          postNumber: values.postNumber,
         },
         contactPhone: values.contactPhone,
         comment: values.comment,
