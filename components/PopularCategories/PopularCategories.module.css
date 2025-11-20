@@ -38,7 +38,7 @@
 }
 .navBtn {
   position: absolute;
-  top: 50%;
+  top: 34%;
   transform: translateY(-50%);
   color: var(--color-neutral-darkest);
   transition: all 0.3s;
