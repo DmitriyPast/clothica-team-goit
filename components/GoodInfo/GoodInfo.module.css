@@ -56,15 +56,25 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .imageWrapper {
-    /* height: 244px; */
+  .goodsPage {
+    height: 244px;
+  }
+  .popularGoods {
+    height: 414px;
+    width: 345px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
-  .imageWrapper {
-    /* height: 356px; */
+  .goodsPage {
+    height: 375px;
   }
+
+  .popularGoods {
+    height: 374px;
+    width: 315px;
+  }
+
   .infoBlock_name {
     font-size: 18px;
     width: 200px;

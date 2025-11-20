@@ -5,10 +5,10 @@ import styles from './GoodInfo.module.css';
 
 type GoodInfoProps = {
   good: Good; // Good object received from the backend
-  cssitems?: string;
+  variant: 'popularGoods' | 'goodsPage';
 };
 
-export default function GoodInfo({ good }: GoodInfoProps) {
+export default function GoodInfo({ good, variant }: GoodInfoProps) {
   // Calculate number of likes (feedbacks with rating 4+)
   const likesCount = good.feedbacks?.filter(f => f.rate >= 4).length || 0;
 
@@ -20,7 +20,7 @@ export default function GoodInfo({ good }: GoodInfoProps) {
 
   return (
     <>
-      <div className={styles.imageWrapper}>
+      <div className={`${styles.imageWrapper} ${styles[variant]}`}>
         <Image src={good.image} alt={good.name} className={styles.image} fill />
       </div>
 

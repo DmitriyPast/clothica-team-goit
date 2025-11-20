@@ -20,6 +20,15 @@
     flex-wrap: nowrap;
     margin-top: 40px;
   }
+  .goodsPage > :first-child {
+    flex: 0 0 243px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .goodsPage > :first-child {
+    flex: inherit;
+  }
 }
 
 .goodsMain {

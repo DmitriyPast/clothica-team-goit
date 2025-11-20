@@ -71,7 +71,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
           }}>
           {goods.map((good, index) => (
             <SwiperSlide key={index}>
-              <GoodInfo good={good} />
+              <GoodInfo variant="popularGoods" good={good} />
             </SwiperSlide>
           ))}
         </Swiper>
