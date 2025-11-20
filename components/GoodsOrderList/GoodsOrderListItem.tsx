@@ -56,9 +56,15 @@ export default function GoodsOrderListItem({ cartItem, item }: any) {
             <h3 className={css.title}>{item.name}</h3>
             <div className={css.ratingBlock}>
               <div className={css.rating}>
-                <svg width={16} height={16}>
-                  <use href="/sprite.svg#star-filled" />
-                </svg>
+                {avg ? (
+                  <svg width={16} height={16}>
+                    <use href="/sprite.svg#star-filled" />
+                  </svg>
+                ) : (
+                  <svg width={16} height={16}>
+                    <use href="/sprite.svg#star" />
+                  </svg>
+                )}
                 <span>{avg}</span>
               </div>
 
@@ -74,7 +80,7 @@ export default function GoodsOrderListItem({ cartItem, item }: any) {
         <div className={css.sizePriceBlock}>
           <p className={css.text}>Розмір: {cartItem.size}</p>
           <p className={css.price}>
-            {item.price.value} {item.price.currency}
+            {(item.price.value).toLocaleString()} {item.price.currency}
           </p>
         </div>
 
