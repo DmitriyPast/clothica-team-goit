@@ -183,13 +183,17 @@ export async function addSubscription(params: AddSubscriptionParams) {
 }
 
 //register user
-export async function registerUser(data: RegisterUser): Promise<User | null> {
+export type RegisterResponse = {
+  message: string;
+  user: User;
+};
+
+export async function registerUser(data: RegisterUser): Promise<RegisterResponse> {
   try {
-    const response = await internalApi.post<User>('/auth/register', data);
-    return response.data;
+    const {data: responseData} = await internalApi.post<RegisterResponse>('/auth/register', data);
+    return responseData;
   } catch (error) {
-    console.error('Registration error:', error);
-    return null;
+    throw new Error('Registration failed');
   }
 }
 
