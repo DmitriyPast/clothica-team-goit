@@ -106,7 +106,9 @@ export default function GoodsClient() {
     const nextVisible = visibleCount + 3; // додаємо 3 товари
 
     // Обмежуємо максимальним значенням total
-    const clampedNextVisible = total ? Math.min(nextVisible, total) : nextVisible;
+    const clampedNextVisible = total
+      ? Math.min(nextVisible, total)
+      : nextVisible;
     setVisibleCount(clampedNextVisible);
 
     // Якщо показуємо більше товарів, ніж завантажено - запитуємо наступну сторінку
@@ -141,11 +143,16 @@ export default function GoodsClient() {
 
           <main className={css.goodsMain}>
             {/* Список товарів: відображаємо тільки якщо є товари */}
-            {goodsToShow.length > 0 && <GoodsList type="goodsPage" goods={goodsToShow} />}
+            {goodsToShow.length > 0 && (
+              <GoodsList type="goodsPage" goods={goodsToShow} />
+            )}
 
             {/* Кнопка "Показати більше": показуємо якщо є ще товари для завантаження */}
             {canLoadMore && (
-              <button onClick={loadMore} disabled={isFetching} className={`btn btn-primary ${css.loadMoreBtn} ${isFetching ? css.loadMoreBtnDisabled : ''}`}>
+              <button
+                onClick={loadMore}
+                disabled={isFetching}
+                className={`btn btn-primary ${css.loadMoreBtn} ${isFetching ? css.loadMoreBtnDisabled : ''}`}>
                 {isFetching ? 'Завантаження…' : 'Показати більше'}
               </button>
             )}
