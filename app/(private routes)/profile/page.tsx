@@ -34,7 +34,7 @@ export default function OrderPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
@@ -134,11 +134,13 @@ export default function OrderPage() {
                   ))}
                 </ul>
               </div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              )}
             </div>
           ) : (
             <MessageNoInfo
