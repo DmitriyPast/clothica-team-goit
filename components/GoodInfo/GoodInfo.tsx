@@ -5,7 +5,7 @@ import styles from './GoodInfo.module.css';
 
 type GoodInfoProps = {
   good: Good; // Good object received from the backend
-  cssitems: string;
+  cssitems?: string;
 };
 
 export default function GoodInfo({ good }: GoodInfoProps) {
