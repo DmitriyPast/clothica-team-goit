@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import css from './UserInfoForm.module.css';
 import { updateMe } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { useCartStore } from '@/lib/store/cartStore';
 import showToast, { ToastType } from '@/lib/utils/messageService';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const validationSchema = Yup.object({
   username: Yup.string().min(2, 'Мінімум 2 символи'),
@@ -32,7 +33,18 @@ export default function UserInfoForm() {
     shippingAddress: user?.city || '',
     postNumber: user?.postNumber || '',
   };
-
+  const [formValues, setFormValues] = useState(initialValues);
+  useEffect(() => {
+    if (user) {
+      setFormValues({
+        username: user.username || '',
+        userSurname: user.userSurname || '',
+        contactPhone: user.phone || '',
+        shippingAddress: user.city || '',
+        postNumber: user.postNumber || '',
+      });
+    }
+  }, [user]);
   const handleSubmit = async (values: typeof initialValues) => {
     setIsSubmitting(true);
 
@@ -135,6 +147,7 @@ export default function UserInfoForm() {
                 name="postNumber"
                 className={`${css.input} ${css.width}`}
                 placeholder="1"
+                value="1"
               />
               <ErrorMessage
                 name="postNumber"
