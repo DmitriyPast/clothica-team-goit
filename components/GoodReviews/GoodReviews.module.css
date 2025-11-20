@@ -1,0 +1,41 @@
+.review_wrapper {
+  padding: 30px 0;
+}
+
+.feedbacks_title {
+  font-size: 36px;
+  line-height: 1.2;
+}
+
+.add_feedback {
+  width: 156px;
+  height: 40px;
+  font-weight: 500;
+  background-color: #c5e1a5;
+  border-radius: 100px;
+}
+
+.add_feedback:hover,
+.add_feedback:focus {
+  background-color: #9db484;
+  border: 1px solid #4e5a42;
+}
+
+.review_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.leave_feedback_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+  .leave_feedback_wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

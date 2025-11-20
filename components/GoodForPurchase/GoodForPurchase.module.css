@@ -166,18 +166,8 @@
   }
 
   .image {
-    /* width: 336px; */
-    /* max-width: 100%; */
     margin-bottom: 0;
   }
-
-  .all_info {
-    /* width: 336px; */
-  }
-
-  /* .short_descr_wrapper {
-    width: 336px;
-  } */
 }
 
 @media only screen and (min-width: 1440px) {

@@ -15,7 +15,8 @@ export default function GoodInfo({ good, variant }: GoodInfoProps) {
   // Calculate total number of reviews
   const reviewsCount = good.feedbacks?.length || 0;
 
-  const starIconName = likesCount === 1 ? 'star' : likesCount < 3 ? 'star_half' : 'star-filled';
+  const starIconName =
+    likesCount === 1 ? 'star' : likesCount < 3 ? 'star_half' : 'star-filled';
 
   return (
     <>
@@ -45,7 +46,9 @@ export default function GoodInfo({ good, variant }: GoodInfoProps) {
           </span>
         </div>
 
-        <Link href={`/goods/${good._id}`} className={`${styles.detailsLink} btn`}>
+        <Link
+          href={`/goods/${good._id}`}
+          className={`${styles.detailsLink} btn`}>
           Детальніше
         </Link>
       </div>
