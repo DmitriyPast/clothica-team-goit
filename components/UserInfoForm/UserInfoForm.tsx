@@ -147,7 +147,6 @@ export default function UserInfoForm() {
                 name="postNumber"
                 className={`${css.input} ${css.width}`}
                 placeholder="1"
-                value="1"
               />
               <ErrorMessage
                 name="postNumber"

@@ -71,7 +71,7 @@ export default function CreateOrderForm() {
           userSurname: values.userSurname,
           phone: values.contactPhone,
           city: values.shippingAddress,
-          postNumber: String(values.postNumber),
+          postNumber: values.postNumber,
         });
       }
 
@@ -105,7 +105,7 @@ export default function CreateOrderForm() {
         status: 'Pending',
         shippingAddress: {
           city: values.shippingAddress,
-          postNumber: String(values.postNumber),
+          postNumber: values.postNumber,
         },
         contactPhone: values.contactPhone,
         comment: values.comment,
