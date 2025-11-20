@@ -19,6 +19,7 @@
   /* width: 100%;
   height: 100%; */
   /* object-fit: cover; */
+  max-height: 223px;
   border-radius: 16px;
 }
 
@@ -27,4 +28,10 @@
   font-size: 20px;
   margin-top: 24px;
   margin-bottom: 40px;
+}
+
+@media screen and (min-width: 1440px) {
+  .image {
+    max-height: 277px;
+  }
 }
