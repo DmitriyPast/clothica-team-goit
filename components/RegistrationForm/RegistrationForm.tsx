@@ -31,9 +31,9 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (values: RegisterUser) => {
     try {
-      const res = await registerUser(values);
-      if (res) {
-        setUser(res);
+      const {user} = await registerUser(values);
+      if (user) {
+        setUser(user);
         router.push('/');
       } else {
         toast.error('Помилка при реєстрації');
