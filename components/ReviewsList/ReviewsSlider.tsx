@@ -39,7 +39,7 @@ export default function ReviewsSlider({
           // <span key={i} className={css.starFilled}>
           //   ★
           // </span>
-          <svg width={20} height={20} viewBox="0 0 16 16">
+          <svg key={i} width={20} height={20} viewBox="0 0 16 16">
             <use href="/sprite.svg#star-filled"></use>
           </svg>
         );
@@ -48,7 +48,7 @@ export default function ReviewsSlider({
           // <span key={i} className={css.starHalf}>
           //   ★
           // </span>
-          <svg width={20} height={20} viewBox="0 0 16 16">
+          <svg key={i} width={20} height={20} viewBox="0 0 16 16">
             <use href="/sprite.svg#star_half"></use>
           </svg>
         );
@@ -57,7 +57,7 @@ export default function ReviewsSlider({
           // <span key={i} className={css.starEmpty}>
           //   ★
           // </span>
-          <svg width={20} height={20} viewBox="0 0 16 16">
+          <svg key={i} width={20} height={20} viewBox="0 0 16 16">
             <use href="/sprite.svg#star"></use>
           </svg>
         );
