@@ -65,7 +65,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className={css.footerItem}>
-                  <Link href="/products" className={css.footerLink}>
+                  <Link href="/goods" className={css.footerLink}>
                     Товари
                   </Link>
                 </li>
