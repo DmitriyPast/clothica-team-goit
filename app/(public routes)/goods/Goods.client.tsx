@@ -9,7 +9,7 @@ import CategoriesFilter from '@/components/CategoriesFilter/CategoriesFilter';
 import GoodsList from '@/components/GoodsList/GoodsList';
 import MessageNoInfo from '@/components/MessageNoInfo/MessageNoInfo';
 // API functions
-import { fetchGoods } from '@/lib/api/clientApi';
+import { fetchCategories, fetchGoods } from '@/lib/api/clientApi';
 import type { FetchGoodsResponse } from '@/lib/api/clientApi';
 // State management
 import { useFilterStore } from '@/lib/store/filterStore';
@@ -120,10 +120,18 @@ export default function GoodsClient() {
   // Чи можна завантажити більше товарів (чи є ще товари для відображення)
   const canLoadMore = visibleCount < total;
 
+  const { data: categoriesData, error: categoriesError } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => fetchCategories({ page: 1, perPage: 1000 }),
+  });
+
+  const categoryName =
+    categoriesData?.categories?.find(cat => cat._id === filters.category)
+      ?.name || 'Всі товари';
   return (
     <section>
       <div className="container">
-        <h1 className={css.goodsTitle}>Всі товари</h1>
+        <h2 className={css.goodsTitle}>{categoryName}</h2>
 
         <div className={css.goodsPage}>
           {/* Компонент фільтрів (категорія, розміри, стать, ціна) */}

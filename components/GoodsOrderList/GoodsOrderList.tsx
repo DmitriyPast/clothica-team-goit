@@ -37,7 +37,7 @@ export default function GoodsOrderList() {
         <li className={css.block}>
           <p className={css.text}>Проміжний підсумок</p>
           <p className={css.price}>
-            {total.value} {total.currency}
+            {(total.value).toLocaleString()} {total.currency}
           </p>
         </li>
         <li className={css.block}>
@@ -47,7 +47,7 @@ export default function GoodsOrderList() {
         <li className={css.block}>
           <p className={css.strongText}>Всього:</p>
           <strong className={css.price}>
-            {total.value} {total.currency}
+            {(total.value).toLocaleString()} {total.currency}
           </strong>
         </li>
       </ul>

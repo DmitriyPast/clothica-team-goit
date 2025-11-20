@@ -117,8 +117,9 @@
     align-items: center;
   }
   .sizePriceBlock{
-    /* flex-direction: column; */
+    flex-direction: column;
     align-items: flex-end;
+    width: 150px;
   }
   .quantityBlock{
     gap: 8px;
