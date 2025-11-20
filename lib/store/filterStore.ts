@@ -1,4 +1,4 @@
-// // ==============================================================================
+// ==============================================================================
 // ФАЙЛ: lib/store/filterStore.ts
 // ==============================================================================
 
@@ -59,7 +59,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
     set(state => {
       const sizes = state.filters.sizes.includes(size)
         ? state.filters.sizes.filter(s => s !== size)
-        : [size]; // IMPORTANT: backend supports ONE size
+        : [...state.filters.sizes, size];
 
       return { filters: { ...state.filters, sizes }, page: 1 };
     }),
@@ -88,11 +88,11 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
   // API STATE
   // =========================
   setPage: page => set({ page }),
-  setPerPage: perPage => set({ perPage }), //////////////////////////////
+  setPerPage: perPage => set({ perPage }),
   setSort: (sortBy, sortOrder) => set({ sortBy, sortOrder }),
 
   // =========================
-  // API PARAM BUILDER (ВАЖЛИВЕ!)
+  // API PARAM BUILDER
   // =========================
   getApiParams: () => {
     const state = get();
@@ -115,16 +115,16 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
       params.gender = filters.gender;
     }
 
-    // size (backend supports only one size)(welp that sucks)
+    //// 🔧 FIX START — MULTISIZE
     if (filters.sizes.length > 0) {
-      params.size = filters.sizes[0];
+      params.size = filters.sizes; // передаємо масив
     }
+    //// 🔧 FIX END
 
-    // PRICE — convert to NUMBERS 💥
+    // PRICE — convert to NUMBERS
     if (filters.price.min !== null) {
       params.minPrice = Number(filters.price.min);
     }
-
     if (filters.price.max !== null) {
       params.maxPrice = Number(filters.price.max);
     }
@@ -133,7 +133,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
   },
 
   // =========================
-  // URL BUILDER (ВАЖЛИВЕ!)
+  // URL BUILDER
   // =========================
   getApiUrl: () => {
     const params = get().getApiParams();
@@ -143,9 +143,16 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
     const url = new URL('/api/goods', base);
 
     Object.entries(params).forEach(([key, val]) => {
-      if (val !== null && val !== undefined) {
-        url.searchParams.set(key, String(val));
+      if (val === null || val === undefined) return;
+
+      //// 🔧 FIX START — MULTISIZE
+      if (key === 'size' && Array.isArray(val)) {
+        val.forEach(v => url.searchParams.append('size', v));
+        return;
       }
+      //// 🔧 FIX END
+
+      url.searchParams.set(key, String(val));
     });
 
     return url.toString();
