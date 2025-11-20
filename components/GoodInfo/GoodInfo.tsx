@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Good } from '@/types/good';
 import styles from './GoodInfo.module.css';
+import { Feedback } from '@/types/feedback';
 
 type GoodInfoProps = {
   good: Good; // Good object received from the backend
@@ -10,13 +11,20 @@ type GoodInfoProps = {
 
 export default function GoodInfo({ good, variant }: GoodInfoProps) {
   // Calculate number of likes (feedbacks with rating 4+)
-  const likesCount = good.feedbacks?.filter(f => f.rate >= 4).length || 0;
+
+  function averageRate(feedbacks: Feedback[] | undefined): number {
+    if (!feedbacks || feedbacks.length === 0) return 0;
+    const sum = feedbacks.reduce((acc, f) => acc + (f.rate ?? 0), 0);
+    const avg = parseFloat((sum / feedbacks.length).toFixed(2));
+    return avg;
+  }
+
+  const avgRate = averageRate(good.feedbacks);
 
   // Calculate total number of reviews
   const reviewsCount = good.feedbacks?.length || 0;
 
-  const starIconName =
-    likesCount === 1 ? 'star' : likesCount < 3 ? 'star_half' : 'star-filled';
+  const starIconName = avgRate === 0 ? 'star' : 'star-filled';
 
   return (
     <>
@@ -36,7 +44,7 @@ export default function GoodInfo({ good, variant }: GoodInfoProps) {
             <svg width="16" height="16" className={styles.icons}>
               <use href={`/sprite.svg#${starIconName}`} />
             </svg>
-            {likesCount}
+            {avgRate}
           </span>
           <span className={styles.infoBlock_stats_reviews}>
             <svg width="16" height="16" className={styles.icons}>
