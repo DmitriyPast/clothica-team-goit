@@ -21,7 +21,7 @@ export default function GoodInfo({ good }: GoodInfoProps) {
   return (
     <>
       <div className={styles.imageWrapper}>
-        <Image src={good.image} alt={good.name} fill className={styles.image} />
+        <Image src={good.image} alt={good.name} className={styles.image} fill />
       </div>
 
       <div className={styles.infoBlock}>

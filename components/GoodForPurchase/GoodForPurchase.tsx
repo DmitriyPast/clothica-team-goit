@@ -106,6 +106,7 @@ export default function GoodForPurchase(props: GoodProps) {
       {/* IMAGE */}
       <div className={css.image_wrapper}>
         <Image
+          className={css.image}
           src={props.image}
           alt={props.prevDescription || props.name}
           width={640}
@@ -163,7 +164,7 @@ export default function GoodForPurchase(props: GoodProps) {
               <Form className={css.form}>
                 {/* SIZE SELECT */}
                 <div className={css.size_wrapper}>
-                  <label htmlFor={`${fieldId}-size`}>Розмір</label>
+                  {/* <label htmlFor={`${fieldId}-size`}>Розмір</label> */}
                   {/* <Field as="select" name="size" id={`${fieldId}-size`}>
                     {props.size.map(s => (
                       <option key={s} value={s}>
