@@ -34,6 +34,7 @@ export default function OrderPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  
   useEffect(() => {
     (async () => {
       setIsLoading(true);
