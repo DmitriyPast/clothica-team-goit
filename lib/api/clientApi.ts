@@ -42,7 +42,7 @@ export interface FetchGoodsParams {
   page?: number;
   perPage?: number;
   category?: string;
-  size?: Size;
+  size?: Size[];
   gender?: Gender;
   minPrice?: number;
   maxPrice?: number;
@@ -51,11 +51,35 @@ export interface FetchGoodsParams {
 }
 
 //GET goods
+// export async function fetchGoods(
+//   params: FetchGoodsParams
+// ): Promise<FetchGoodsResponse> {
+//   const { data } = await internalApi.get<FetchGoodsResponse>('/goods', {
+//     params,
+//   });
+//   return data;
+// }
 export async function fetchGoods(
   params: FetchGoodsParams
 ): Promise<FetchGoodsResponse> {
   const { data } = await internalApi.get<FetchGoodsResponse>('/goods', {
     params,
+    // ✅ КЛЮЧОВЕ ВИПРАВЛЕННЯ: Ручна серіалізація параметрів
+    // Це перетворить масив ['S', 'M'] у "size=S&size=M" (без квадратних дужок)
+    paramsSerializer: params => {
+      const searchParams = new URLSearchParams();
+      Object.entries(params).forEach(([key, value]) => {
+        if (value === undefined || value === null) return;
+
+        if (Array.isArray(value)) {
+          // Додаємо кожен елемент масиву окремо
+          value.forEach(v => searchParams.append(key, String(v)));
+        } else {
+          searchParams.append(key, String(value));
+        }
+      });
+      return searchParams.toString();
+    },
   });
   return data;
 }
