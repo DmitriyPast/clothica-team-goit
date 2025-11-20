@@ -36,10 +36,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
   // }, []);
 
   // --- Видимі товари ---
-  const visibleGoods = useMemo(
-    () => goods.slice(0, visibleGoodsCount),
-    [goods, visibleGoodsCount]
-  );
+  const visibleGoods = useMemo(() => goods.slice(0, visibleGoodsCount), [goods, visibleGoodsCount]);
 
   // --- Групування товарів під slidesPerView ---
   const groupedGoods = useMemo(() => {
@@ -54,9 +51,7 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
   const updateNavButtons = () => {
     if (!swiperRef.current) return;
     setCanSlidePrev(!swiperRef.current.isBeginning);
-    setCanSlideNext(
-      !swiperRef.current.isEnd || visibleGoodsCount < goods.length
-    );
+    setCanSlideNext(!swiperRef.current.isEnd || visibleGoodsCount < goods.length);
   };
 
   useEffect(() => {
@@ -111,15 +106,12 @@ export default function PopularGoodsSwiper({ goods = [] }: PopularGoodsProps) {
           }}>
           {groupedGoods.map((group, index) => (
             <SwiperSlide key={index}>
-              <GoodsList goods={group} />
+              <GoodsList type="popularGoods" goods={group} />
             </SwiperSlide>
           ))}
         </Swiper>
         <div className={css.mobileArrows}>
-          <button
-            className={`${css.navButton} ${css.prevBtn} arrow ${!canSlidePrev ? css.disabled : ''}`}
-            onClick={handlePrev}
-            disabled={!canSlidePrev}>
+          <button className={`${css.navButton} ${css.prevBtn} arrow ${!canSlidePrev ? css.disabled : ''}`} onClick={handlePrev} disabled={!canSlidePrev}>
             <svg width="24" height="24">
               <use href="/sprite.svg#arrow_back"></use>
             </svg>

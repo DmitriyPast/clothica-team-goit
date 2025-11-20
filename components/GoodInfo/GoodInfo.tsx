@@ -5,22 +5,21 @@ import styles from './GoodInfo.module.css';
 
 type GoodInfoProps = {
   good: Good; // Good object received from the backend
-  cssitems: string;
+  variant: 'popularGoods' | 'goodsPage';
 };
 
-export default function GoodInfo({ good }: GoodInfoProps) {
+export default function GoodInfo({ good, variant }: GoodInfoProps) {
   // Calculate number of likes (feedbacks with rating 4+)
   const likesCount = good.feedbacks?.filter(f => f.rate >= 4).length || 0;
 
   // Calculate total number of reviews
   const reviewsCount = good.feedbacks?.length || 0;
 
-  const starIconName =
-    likesCount === 1 ? 'star' : likesCount < 3 ? 'star_half' : 'star-filled';
+  const starIconName = likesCount === 1 ? 'star' : likesCount < 3 ? 'star_half' : 'star-filled';
 
   return (
     <>
-      <div className={styles.imageWrapper}>
+      <div className={`${styles.imageWrapper} ${styles[variant]}`}>
         <Image src={good.image} alt={good.name} className={styles.image} fill />
       </div>
 
@@ -46,9 +45,7 @@ export default function GoodInfo({ good }: GoodInfoProps) {
           </span>
         </div>
 
-        <Link
-          href={`/goods/${good._id}`}
-          className={`${styles.detailsLink} btn`}>
+        <Link href={`/goods/${good._id}`} className={`${styles.detailsLink} btn`}>
           Детальніше
         </Link>
       </div>
