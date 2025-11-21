@@ -103,7 +103,8 @@ export default function GoodsClient() {
   const loadMore = () => {
     if (isFetching) return; // блокуємо під час завантаження
 
-    const nextVisible = visibleCount + 3; // додаємо 3 товари
+    const nextVisible = visibleCount + 12; // додаємо 3 товари
+    //3 мало - краще 12
 
     // Обмежуємо максимальним значенням total
     const clampedNextVisible = total
