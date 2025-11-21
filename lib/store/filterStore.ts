@@ -45,7 +45,7 @@ export const useFilterStore = create<FilterStore>((set, get) => ({
 
   page: 1,
   perPage: 12,
-  sortBy: 'price.value',
+  sortBy: '',
   sortOrder: 'asc',
 
   // =========================

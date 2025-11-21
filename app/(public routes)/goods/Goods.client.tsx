@@ -58,7 +58,7 @@ export default function GoodsClient() {
 
     return () => mediaQuery.removeEventListener('change', updatePerPage);
   }, [perPage, setPerPage]);
-
+  // console.log('filters:' + getApiParams());
   // React Query: запит товарів з API з кешуванням та оптимістичними оновленнями
   const { data, isLoading, isFetching } = useQuery<FetchGoodsResponse>({
     queryKey: ['goods', filters, page, perPage], // ключ для кешування

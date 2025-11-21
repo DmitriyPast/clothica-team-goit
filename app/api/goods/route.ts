@@ -10,25 +10,41 @@ export async function GET(request: NextRequest) {
     const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
     const perPage = Number(request.nextUrl.searchParams.get('perPage') ?? 8);
     const category = request.nextUrl.searchParams.get('category') ?? '';
-    const size = request.nextUrl.searchParams.get('size') ?? '';
+    const size = request.nextUrl.searchParams.getAll('size') ?? '';
     const gender = request.nextUrl.searchParams.get('gender') ?? '';
     const minPrice = request.nextUrl.searchParams.get('minPrice') ?? '';
     const maxPrice = request.nextUrl.searchParams.get('maxPrice') ?? '';
 
-    const res = await api('/goods', {
-      params: {
-        page,
-        perPage,
-        ...(category !== 'all' && category !== '' && { category }),
-        ...(size && { size }),
-        ...(gender && { gender }),
-        ...(minPrice && { minPrice }),
-        ...(maxPrice && { maxPrice }),
-      },
+    const params = new URLSearchParams();
+    for (let i = 0; i < size.length; i++) {
+      //had to loop in over the array otherwise it sends only one size
+      params.append('size', size[i]);
+    }
+
+    // params.append('size', size[0]);
+    // params.append('size', size[1]);
+    // params.append('size', size[2]);
+    // params.append('size', size[3]);
+    // params.append('size', size[4]);
+    // console.log('params: ' + params);
+    const p = {
+      page,
+      perPage,
+      ...(category !== 'all' && category !== '' && { category }),
+      ...{ ...params },
+      ...(gender && { gender }),
+      ...(minPrice && { minPrice }),
+      ...(maxPrice && { maxPrice }),
+    };
+    // console.log(p);
+
+    const res = await api.get(`/goods?${params}`, {
+      params: p,
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
+    // console.log(res);
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
