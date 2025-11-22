@@ -6,8 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRouter } from 'next/navigation';
-import { registerUser } from '@/lib/api/clientApi';
-import { ApiError } from '@/lib/api/api';
+import { ApiError, registerUser } from '@/lib/api/clientApi';
 import { PHONE_REGEX } from '@/constants/phone_regex';
 import toast from 'react-hot-toast';
 import { RegisterUser } from '@/types/user';
@@ -31,19 +30,25 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (values: RegisterUser) => {
     try {
-      const {user} = await registerUser(values);
+      const { user } = await registerUser(values);
       if (user) {
         setUser(user);
         router.push('/');
-      } else {
-        toast.error('Помилка при реєстрації');
       }
     } catch (error) {
-      toast.error(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          'Не вдалося зареєструватися. Спробуйте пізніше.'
-      );
+      const err = error as ApiError;
+
+      // ❗️Якщо статус 400, то поверне повідомлення таке:
+      if (err.response?.status === 400) {
+        toast.error('Номер телефону вже використовується');
+        return;
+      }
+
+      // Якщо є інша помилка від сервера
+      const serverError =
+        err.response?.data?.error || err.response?.data?.message;
+
+      toast.error(serverError ?? 'Сталася помилка. Спробуйте пізніше.');
     }
   };
 

@@ -22,6 +22,7 @@ const nunito = Nunito_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://clothica-team-goit-p9hv.vercel.app/'),
   title: 'Clothica',
   description: 'Online clothing store',
   keywords: ['clothing', 'fashion', 'store'],
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: 'Clothica',
     description: 'Online clothing store',
-    // url: 'https://[].vercel.app',
+    url: 'https://clothica-team-goit-p9hv.vercel.app/',
     siteName: 'Clothica',
     images: [
       {
