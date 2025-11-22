@@ -136,7 +136,7 @@ export default function GoodsClient() {
 
         <div className={css.goodsPage}>
           {/* Компонент фільтрів (категорія, розміри, стать, ціна) */}
-          <CategoriesFilter />
+          <CategoriesFilter shown={goodsToShow.length} total={total} />
 
           {/* Показуємо індикатор завантаження при першому запиті */}
           {isLoading && <p>Завантаження…</p>}

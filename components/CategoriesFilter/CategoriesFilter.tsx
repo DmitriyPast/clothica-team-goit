@@ -15,9 +15,19 @@ import { Size, Gender } from '@/types/good';
 
 type SectionKey = 'category' | 'size' | 'price' | 'gender';
 
-const CategoriesFilter = () => {
+const CategoriesFilter = (props: { shown: number; total: number }) => {
   // --- Store
-  const { filters, setCategory, toggleSize, setGender, setPrice, clearSizes, clearGender, clearPrice, clearAll } = useFilterStore();
+  const {
+    filters,
+    setCategory,
+    toggleSize,
+    setGender,
+    setPrice,
+    clearSizes,
+    clearGender,
+    clearPrice,
+    clearAll,
+  } = useFilterStore();
 
   // --- API data
   const { data: filtersData, isLoading: isLoadingCategories } = useFilterData();
@@ -36,7 +46,9 @@ const CategoriesFilter = () => {
   // Mobile controls accordions
   const [isMobile, setIsMobile] = useState(false);
   const [isMainAccordionOpen, setIsMainAccordionOpen] = useState(false);
-  const [openedSection, setOpenedSection] = useState<SectionKey | null>('category');
+  const [openedSection, setOpenedSection] = useState<SectionKey | null>(
+    'category'
+  );
   const mainAccordionRef = useRef<HTMLDivElement>(null);
   const categoryAccordionRef = useRef<HTMLDivElement>(null);
   const sizeAccordionRef = useRef<HTMLDivElement>(null);
@@ -69,7 +81,8 @@ const CategoriesFilter = () => {
     setOpenedSection(null);
   }, [isMobile]);
 
-  const isSectionOpen = (section: SectionKey) => !isMobile || openedSection === section;
+  const isSectionOpen = (section: SectionKey) =>
+    !isMobile || openedSection === section;
 
   const toggleSection = (section: SectionKey) => {
     if (!isMobile) return;
@@ -80,7 +93,11 @@ const CategoriesFilter = () => {
     const classes = [styles.accordion];
     if (isMobile) {
       classes.push(styles.accordionMobile);
-      classes.push(isSectionOpen(section) ? styles.accordionVisible : styles.accordionHidden);
+      classes.push(
+        isSectionOpen(section)
+          ? styles.accordionVisible
+          : styles.accordionHidden
+      );
     }
     return classes.join(' ');
   };
@@ -88,7 +105,9 @@ const CategoriesFilter = () => {
   const getAccordionStyle = (section: SectionKey) =>
     isMobile
       ? {
-          maxHeight: isSectionOpen(section) ? `${panelHeights[section]}px` : '0px',
+          maxHeight: isSectionOpen(section)
+            ? `${panelHeights[section]}px`
+            : '0px',
         }
       : undefined;
 
@@ -121,17 +140,27 @@ const CategoriesFilter = () => {
   const categoryOptions = useMemo(() => {
     const arr = [{ id: 'all', name: 'Усі' }];
     if (filtersData?.categories) {
-      filtersData.categories.forEach((cat: any) => arr.push({ id: cat._id, name: cat.name }));
+      filtersData.categories.forEach((cat: any) =>
+        arr.push({ id: cat._id, name: cat.name })
+      );
     }
     return arr;
   }, [filtersData]);
 
-  const hasCategoryFilter = Boolean(filters.category && filters.category !== 'all');
+  const hasCategoryFilter = Boolean(
+    filters.category && filters.category !== 'all'
+  );
   const hasSizeFilter = filters.sizes.length > 0;
   const hasGenderFilter = Boolean(filters.gender && filters.gender !== 'all');
-  const hasPriceFilter = (filters.price.min ?? minLimit) > minLimit || (filters.price.max ?? maxLimit) < maxLimit;
+  const hasPriceFilter =
+    (filters.price.min ?? minLimit) > minLimit ||
+    (filters.price.max ?? maxLimit) < maxLimit;
 
-  const renderInlineClear = (section: SectionKey, isActive: boolean, onClear: () => void) => {
+  const renderInlineClear = (
+    section: SectionKey,
+    isActive: boolean,
+    onClear: () => void
+  ) => {
     if (!isActive) {
       return null;
     }
@@ -159,13 +188,16 @@ const CategoriesFilter = () => {
         <h3 className={styles.headerTitle}>Фільтри</h3>
 
         {/* Clear all — always visible */}
-        <button type="button" className={styles.clearAllButton} onClick={clearAll}>
+        <button
+          type="button"
+          className={styles.clearAllButton}
+          onClick={clearAll}>
           Очистити всі
         </button>
       </div>
       {/* Counters */}
       <p className={styles.caption}>
-        Показано {shownGoodsX} з {totalGoodsY}
+        Показано {props.shown} з {props.total}
       </p>
 
       {/* Main mobile accordion wrapper */}
@@ -178,7 +210,8 @@ const CategoriesFilter = () => {
             aria-expanded={isMainAccordionOpen}
             onClick={() => setIsMainAccordionOpen(!isMainAccordionOpen)}>
             <h4 className={styles.mainAccordionTitle}>Фільтри</h4>
-            <span className={`${styles.mainChevron} ${isMainAccordionOpen ? styles.mainChevronOpen : styles.mainChevronClosed}`}>
+            <span
+              className={`${styles.mainChevron} ${isMainAccordionOpen ? styles.mainChevronOpen : styles.mainChevronClosed}`}>
               <svg width="20" height="20">
                 <use href="/sprite.svg#keyboard_arrow_down" />
               </svg>
@@ -192,7 +225,9 @@ const CategoriesFilter = () => {
             style={
               isMobile
                 ? {
-                    maxHeight: isMainAccordionOpen ? `${Math.min(mainAccordionHeight, 444)}px` : '0px',
+                    maxHeight: isMainAccordionOpen
+                      ? `${Math.min(mainAccordionHeight, 444)}px`
+                      : '0px',
                   }
                 : undefined
             }>
@@ -210,14 +245,17 @@ const CategoriesFilter = () => {
                   <h4 className={styles.sectionTitle}>Категорії</h4>
 
                   {/* Chevron only mobile */}
-                  <span className={`${styles.chevron} ${isSectionOpen('category') ? styles.chevronOpen : styles.chevronClosed}`}>
+                  <span
+                    className={`${styles.chevron} ${isSectionOpen('category') ? styles.chevronOpen : styles.chevronClosed}`}>
                     <svg width="20" height="20">
                       <use href="/sprite.svg#keyboard_arrow_down" />
                     </svg>
                   </span>
                 </button>
 
-                {renderInlineClear('category', hasCategoryFilter, () => setCategory('all'))}
+                {renderInlineClear('category', hasCategoryFilter, () =>
+                  setCategory('all')
+                )}
               </div>
 
               <div
@@ -258,7 +296,8 @@ const CategoriesFilter = () => {
                   onClick={() => toggleSection('size')}>
                   <h4 className={styles.sectionTitle}>Розмір</h4>
 
-                  <span className={`${styles.chevron} ${isSectionOpen('size') ? styles.chevronOpen : styles.chevronClosed}`}>
+                  <span
+                    className={`${styles.chevron} ${isSectionOpen('size') ? styles.chevronOpen : styles.chevronClosed}`}>
                     <svg width="20" height="20">
                       <use href="/sprite.svg#keyboard_arrow_down" />
                     </svg>
@@ -304,7 +343,8 @@ const CategoriesFilter = () => {
                   onClick={() => toggleSection('price')}>
                   <h4 className={styles.sectionTitle}>Ціна</h4>
 
-                  <span className={`${styles.chevron} ${isSectionOpen('price') ? styles.chevronOpen : styles.chevronClosed}`}>
+                  <span
+                    className={`${styles.chevron} ${isSectionOpen('price') ? styles.chevronOpen : styles.chevronClosed}`}>
                     <svg width="20" height="20">
                       <use href="/sprite.svg#keyboard_arrow_down" />
                     </svg>
@@ -417,7 +457,8 @@ const CategoriesFilter = () => {
                   onClick={() => toggleSection('gender')}>
                   <h4 className={styles.sectionTitle}>Стать</h4>
 
-                  <span className={`${styles.chevron} ${isSectionOpen('gender') ? styles.chevronOpen : styles.chevronClosed}`}>
+                  <span
+                    className={`${styles.chevron} ${isSectionOpen('gender') ? styles.chevronOpen : styles.chevronClosed}`}>
                     <svg width="20" height="20">
                       <use href="/sprite.svg#keyboard_arrow_down" />
                     </svg>
@@ -438,8 +479,20 @@ const CategoriesFilter = () => {
                     const active = filters.gender === g;
                     return (
                       <li key={g} className={styles.optionRow}>
-                        <button type="button" className={`${styles.radio} ${active ? styles.radioChecked : ''}`} onClick={() => setGender(g as Gender)} />
-                        <span className={styles.optionLabel}>{g === 'women' ? 'Жіночий' : g === 'men' ? 'Чоловічий' : g === 'unisex' ? 'Унісекс' : 'Усі'}</span>
+                        <button
+                          type="button"
+                          className={`${styles.radio} ${active ? styles.radioChecked : ''}`}
+                          onClick={() => setGender(g as Gender)}
+                        />
+                        <span className={styles.optionLabel}>
+                          {g === 'women'
+                            ? 'Жіночий'
+                            : g === 'men'
+                              ? 'Чоловічий'
+                              : g === 'unisex'
+                                ? 'Унісекс'
+                                : 'Усі'}
+                        </span>
                       </li>
                     );
                   })}
