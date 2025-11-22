@@ -9,7 +9,7 @@ import { Order } from '@/types/order';
 import { createOrder, updateMe } from '@/lib/api/clientApi';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useAuthStore } from '@/lib/store/authStore';
-import showToast, { ToastType } from "@/lib/utils/messageService";
+import showToast, { ToastType } from '@/lib/utils/messageService';
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -36,7 +36,6 @@ export default function CreateOrderForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
- 
 
   const initialValues = {
     username: user?.username || '',
@@ -66,13 +65,13 @@ export default function CreateOrderForm() {
     try {
       // Якщо юзер залогінений — оновлюємо його дані в бекенді
       if (user?._id) {
-        await updateMe({
-          userName: values.username,
-          userSurname: values.userSurname,
-          phone: values.contactPhone,
-          city: values.shippingAddress,
-          postNumber: values.postNumber,
-        });
+          await updateMe({
+            userName: values.username,
+            userSurname: values.userSurname,
+            phone: values.contactPhone,
+            city: values.shippingAddress,
+            postNumber: values.postNumber,
+          });
       }
 
       // Zustand — оновимо локальний стейт
@@ -113,15 +112,15 @@ export default function CreateOrderForm() {
 
       await createOrder(payload);
 
-       showToast(ToastType.success, 'Замовлення успішно оформлено!');
-    router.push('/goods');
-    clearCart();
-  } catch (err) {
-    setError('Помилка збереження');
-    showToast(ToastType.error, 'Не вдалося оформити замовлення');
-    setIsSubmitting(false);
-  }
-};
+      showToast(ToastType.success, 'Замовлення успішно оформлено!');
+      router.push('/goods');
+      clearCart();
+    } catch (err) {
+      setError('Помилка збереження');
+      showToast(ToastType.error, 'Не вдалося оформити замовлення');
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Formik

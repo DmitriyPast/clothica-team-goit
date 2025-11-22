@@ -213,13 +213,9 @@ export type RegisterResponse = {
 };
 
 export async function registerUser(data: RegisterUser): Promise<RegisterResponse> {
-  try {
-    const {data: responseData} = await internalApi.post<RegisterResponse>('/auth/register', data);
-    return responseData;
-  } catch (error) {
-    throw new Error('Registration failed');
+      const {data: responseData} = await internalApi.post<RegisterResponse>('/auth/register', data);
+  return responseData;
   }
-}
 
 // Login user
 export type LoginResponse = {
