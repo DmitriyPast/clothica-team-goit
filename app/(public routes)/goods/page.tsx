@@ -13,10 +13,9 @@ export default async function GoodsPage() {
   // Налаштування дефолтних параметрів, які мають збігатися з useState у GoodsClient
   const initialParams = {
     page: 1,
-    perPage: 8, // Дефолтне значення для сервера (мобільна версія)
+    perPage: 12, // Дефолтне значення для сервера (мобільна версія)
     category: 'all',
-    // size: [0], // ✅ ВАЖЛИВО: Додаємо порожній масив, щоб ключ збігався з клієнтом
-    // !(ПОМИЛКА)
+    size: [], // ✅ ВАЖЛИВО: Додаємо порожній масив, щоб ключ збігався з клієнтом
   };
 
   await queryClient.prefetchQuery({

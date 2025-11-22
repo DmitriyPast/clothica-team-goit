@@ -58,7 +58,7 @@ export default function GoodsClient() {
 
     return () => mediaQuery.removeEventListener('change', updatePerPage);
   }, [perPage, setPerPage]);
-
+  // console.log('filters:' + getApiParams());
   // React Query: запит товарів з API з кешуванням та оптимістичними оновленнями
   const { data, isLoading, isFetching } = useQuery<FetchGoodsResponse>({
     queryKey: ['goods', filters, page, perPage], // ключ для кешування
@@ -103,7 +103,8 @@ export default function GoodsClient() {
   const loadMore = () => {
     if (isFetching) return; // блокуємо під час завантаження
 
-    const nextVisible = visibleCount + 3; // додаємо 3 товари
+    const nextVisible = visibleCount + 12; // додаємо 3 товари
+    //3 мало - краще 12
 
     // Обмежуємо максимальним значенням total
     const clampedNextVisible = total
@@ -135,7 +136,7 @@ export default function GoodsClient() {
 
         <div className={css.goodsPage}>
           {/* Компонент фільтрів (категорія, розміри, стать, ціна) */}
-          <CategoriesFilter />
+          <CategoriesFilter shown={goodsToShow.length} total={total} />
 
           {/* Показуємо індикатор завантаження при першому запиті */}
           {isLoading && <p>Завантаження…</p>}
